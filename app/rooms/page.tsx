@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 export default function RoomsPage() {
   return (
     <div>
+      {/* Page header */}
       <div className="bg-ink text-white" style={{ padding: "64px 40px 48px" }}>
         <div className="max-w-[1100px] mx-auto">
           <div className="text-[11px] font-bold tracking-[2.5px] uppercase text-saffron mb-3">
@@ -33,6 +34,7 @@ export default function RoomsPage() {
         </div>
       </div>
 
+      {/* Rooms */}
       <div className="bg-cream" style={{ padding: "80px 40px" }}>
         <div className="max-w-[1100px] mx-auto flex flex-col gap-20">
           {ROOMS.map((room, i) => {
@@ -45,6 +47,7 @@ export default function RoomsPage() {
                   className="grid gap-12 items-center"
                   style={{ gridTemplateColumns: "1fr 1fr" }}
                 >
+                  {/* Image */}
                   <div
                     className={`relative rounded-2xl overflow-hidden ${isEven ? "order-1" : "order-2"}`}
                     style={{ aspectRatio: "4/3" }}
@@ -67,6 +70,7 @@ export default function RoomsPage() {
                     )}
                   </div>
 
+                  {/* Content */}
                   <div className={isEven ? "order-2" : "order-1"}>
                     <div className="font-display text-[32px] font-bold mb-4 leading-tight">
                       {room.name}
@@ -74,6 +78,7 @@ export default function RoomsPage() {
                     <p className="text-muted text-[15px] leading-[1.8] mb-6">
                       {room.description}
                     </p>
+
                     <div className="flex flex-wrap gap-2 mb-8">
                       {room.amenities.map((a) => (
                         <span
@@ -84,6 +89,7 @@ export default function RoomsPage() {
                         </span>
                       ))}
                     </div>
+
                     <div
                       className="flex items-center justify-between pt-6"
                       style={{ borderTop: "1px solid var(--marble)" }}
@@ -112,12 +118,14 @@ export default function RoomsPage() {
         </div>
       </div>
 
+      {/* CTA banner */}
       <div className="bg-ink text-white text-center" style={{ padding: "60px 40px" }}>
         <h2 className="font-display text-[28px] font-bold mb-4">
           Not sure which room is right for you?
         </h2>
         <p className="text-white/60 mb-8 max-w-[480px] mx-auto">
-          WhatsApp Aneesh directly and he&apos;ll recommend the best option for your group size and budget.
+          WhatsApp Aneesh directly and he&apos;ll recommend the best option for your group size and
+          budget.
         </p>
         <Link
           href="/contact"
@@ -126,6 +134,22 @@ export default function RoomsPage() {
           💬 Ask Aneesh
         </Link>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          #deluxe-ac, #standard-ac, #dormitory {
+            grid-template-columns: 1fr !important;
+          }
+          #deluxe-ac > div,
+          #standard-ac > div,
+          #dormitory > div {
+            order: unset !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .rooms-page-header { padding: 48px 20px 40px !important; }
+        }
+      `}</style>
     </div>
   );
 }

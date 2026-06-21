@@ -22,6 +22,7 @@ const EXTRA_FACILITIES = [
 export default function FacilitiesPage() {
   return (
     <div>
+      {/* Header */}
       <div className="bg-ink text-white" style={{ padding: "64px 40px 48px" }}>
         <div className="max-w-[1100px] mx-auto">
           <div className="text-[11px] font-bold tracking-[2.5px] uppercase text-saffron mb-3">
@@ -36,16 +37,21 @@ export default function FacilitiesPage() {
           </h1>
           <p className="text-white/60 text-[15px] max-w-[560px] leading-[1.7]">
             No hidden fees, no surprises. Every stay at VMP Villa comes with these facilities as
-            standard.
+            standard. Because a good host makes you feel welcome, not nickel-and-dimed.
           </p>
         </div>
       </div>
 
+      {/* Core facilities */}
       <div className="bg-cream" style={{ padding: "80px 40px" }}>
         <div className="max-w-[1100px] mx-auto">
           <h2 className="font-display text-[28px] font-bold mb-2">Core Facilities</h2>
           <p className="text-muted mb-10">Included in every room, every night.</p>
-          <div className="grid gap-5" style={{ gridTemplateColumns: "repeat(4, 1fr)" }}>
+
+          <div
+            className="grid gap-5"
+            style={{ gridTemplateColumns: "repeat(4, 1fr)" }}
+          >
             {FACILITIES.map((f, i) => (
               <ScrollReveal key={f.name} delay={i * 60}>
                 <div className="bg-white rounded-2xl p-6 border border-marble text-center transition-shadow duration-200 hover:shadow-md">
@@ -59,10 +65,12 @@ export default function FacilitiesPage() {
         </div>
       </div>
 
+      {/* Extra facilities */}
       <div className="bg-marble" style={{ padding: "80px 40px" }}>
         <div className="max-w-[1100px] mx-auto">
           <h2 className="font-display text-[28px] font-bold mb-2">Also Available</h2>
           <p className="text-muted mb-10">On request or as part of the stay.</p>
+
           <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(4, 1fr)" }}>
             {EXTRA_FACILITIES.map((f, i) => (
               <ScrollReveal key={f.name} delay={i * 50}>
@@ -84,16 +92,31 @@ export default function FacilitiesPage() {
         </div>
       </div>
 
+      {/* Eco section */}
       <div className="bg-leaf text-white" style={{ padding: "64px 40px" }}>
         <div className="max-w-[760px] mx-auto text-center">
           <div className="text-5xl mb-6">🌿</div>
           <h2 className="font-display text-[32px] font-bold mb-4">Our Eco Promise</h2>
           <p className="text-white/70 text-[15px] leading-[1.8] mb-8">
-            VMP Villa is committed to responsible hospitality. Every decision is made with the environment in mind.
+            VMP Villa is committed to responsible hospitality. Every decision — from the toiletries
+            we stock to the energy we use — is made with the environment in mind.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
-            {["♻️ Zero single-use plastics","🌧️ Rainwater harvesting","☀️ Solar-powered lighting","🌱 Organic kitchen garden","🍃 Eco-friendly toiletries","🚴 Cycle rentals available"].map((tag) => (
-              <span key={tag} className="text-sm font-medium px-4 py-2 rounded-full" style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.2)" }}>{tag}</span>
+            {[
+              "♻️ Zero single-use plastics",
+              "🌧️ Rainwater harvesting",
+              "☀️ Solar-powered lighting",
+              "🌱 Organic kitchen garden",
+              "🍃 Eco-friendly toiletries",
+              "🚴 Cycle rentals available",
+            ].map((tag) => (
+              <span
+                key={tag}
+                className="text-sm font-medium px-4 py-2 rounded-full"
+                style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.2)" }}
+              >
+                {tag}
+              </span>
             ))}
           </div>
         </div>
