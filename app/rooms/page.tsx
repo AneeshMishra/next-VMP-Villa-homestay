@@ -1,0 +1,131 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import ScrollReveal from "@/components/ScrollReveal";
+import { ROOMS } from "@/lib/constants";
+import { buildWhatsAppUrl, bookingMessage } from "@/lib/whatsapp";
+
+export const metadata: Metadata = {
+  title: "Rooms",
+  description:
+    "Choose from Deluxe AC, Standard AC, or Dormitory rooms at VMP Villa. All rooms include free WiFi and Aneesh & Bhavna's signature hospitality.",
+};
+
+export default function RoomsPage() {
+  return (
+    <div>
+      <div className="bg-ink text-white" style={{ padding: "64px 40px 48px" }}>
+        <div className="max-w-[1100px] mx-auto">
+          <div className="text-[11px] font-bold tracking-[2.5px] uppercase text-saffron mb-3">
+            Our Rooms
+          </div>
+          <h1
+            className="font-display font-black text-white mb-4 leading-tight"
+            style={{ fontSize: "clamp(36px, 6vw, 60px)" }}
+          >
+            Choose Your{" "}
+            <em className="not-italic text-saffron">Perfect Room</em>
+          </h1>
+          <p className="text-white/60 text-[15px] max-w-[560px] leading-[1.7]">
+            Three room types for every traveller. All include free WiFi, filtered water, and
+            Aneesh &amp; Bhavna&apos;s signature hospitality. Book direct — no OTA commission.
+          </p>
+        </div>
+      </div>
+
+      <div className="bg-cream" style={{ padding: "80px 40px" }}>
+        <div className="max-w-[1100px] mx-auto flex flex-col gap-20">
+          {ROOMS.map((room, i) => {
+            const waUrl = buildWhatsAppUrl(bookingMessage("", "", "2 Guests", room.name));
+            const isEven = i % 2 === 0;
+            return (
+              <ScrollReveal key={room.id}>
+                <div
+                  id={room.id}
+                  className="grid gap-12 items-center"
+                  style={{ gridTemplateColumns: "1fr 1fr" }}
+                >
+                  <div
+                    className={`relative rounded-2xl overflow-hidden ${isEven ? "order-1" : "order-2"}`}
+                    style={{ aspectRatio: "4/3" }}
+                  >
+                    <Image
+                      src={room.image}
+                      alt={room.imageAlt}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      priority={i === 0}
+                    />
+                    {room.badge && (
+                      <div
+                        className="absolute top-4 left-4 text-white text-[10px] font-bold tracking-wide uppercase py-1 px-3 rounded"
+                        style={{ background: room.badgeColor ?? undefined }}
+                      >
+                        {room.badge}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className={isEven ? "order-2" : "order-1"}>
+                    <div className="font-display text-[32px] font-bold mb-4 leading-tight">
+                      {room.name}
+                    </div>
+                    <p className="text-muted text-[15px] leading-[1.8] mb-6">
+                      {room.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2 mb-8">
+                      {room.amenities.map((a) => (
+                        <span
+                          key={a}
+                          className="bg-white border border-marble rounded-full text-sm font-medium text-muted px-3 py-1.5"
+                        >
+                          {a}
+                        </span>
+                      ))}
+                    </div>
+                    <div
+                      className="flex items-center justify-between pt-6"
+                      style={{ borderTop: "1px solid var(--marble)" }}
+                    >
+                      <div>
+                        <div className="text-[11px] text-stone mb-1">Starting from</div>
+                        <span className="font-display text-[40px] font-bold text-ink leading-none">
+                          {room.price}
+                        </span>
+                        <span className="text-muted text-sm ml-1">{room.priceUnit}</span>
+                      </div>
+                      <a
+                        href={waUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 bg-saffron hover:bg-saffron-d text-white font-semibold px-8 py-4 rounded-lg transition-all duration-150 hover:-translate-y-px"
+                      >
+                        Book This Room →
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="bg-ink text-white text-center" style={{ padding: "60px 40px" }}>
+        <h2 className="font-display text-[28px] font-bold mb-4">
+          Not sure which room is right for you?
+        </h2>
+        <p className="text-white/60 mb-8 max-w-[480px] mx-auto">
+          WhatsApp Aneesh directly and he&apos;ll recommend the best option for your group size and budget.
+        </p>
+        <Link
+          href="/contact"
+          className="inline-flex items-center gap-2 bg-saffron hover:bg-saffron-d text-white font-semibold px-10 py-4 rounded-lg transition-all duration-150"
+        >
+          💬 Ask Aneesh
+        </Link>
+      </div>
+    </div>
+  );
+}

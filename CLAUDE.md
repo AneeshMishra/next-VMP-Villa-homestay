@@ -2,136 +2,121 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Commands
+
+```bash
+npm run dev      # Start dev server at localhost:3000
+npm run build    # Production build (verifies TypeScript + static export)
+npm run lint     # Run ESLint
+```
+
 ## Project Status
 
-This repository is in the **pre-development / design phase**. There is no Next.js application yet — the repo currently contains:
+Phase 1 is **built and working**. The Next.js 16 app is fully scaffolded with all Phase 1 pages and components. Run `npm run dev` to start.
 
-- `vmpvilla-website-blueprint.html` — full product blueprint: current-site analysis, planned pages, feature priority list, tech stack decisions, and 3-phase roadmap
-- `vmpvilla-website-phase1.html` — a complete, standalone HTML prototype of the Phase 1 website (the actual production UI design)
+Archive files (HTML prototypes) are kept for reference:
+- `vmpvilla-website-blueprint.html` — product blueprint, tech stack decisions, 3-phase roadmap
+- `vmpvilla-website-phase1.html` — original UI prototype (source of truth for design)
 
-Open either file directly in a browser to view it — no build step required. The Next.js project has not been scaffolded yet.
+## Tech Stack (Active)
 
-## Planned Tech Stack
-
-| Layer | Choice | Notes |
-|---|---|---|
-| Framework | Next.js 14 (App Router) | Deploy to Vercel |
-| Styling | Tailwind CSS | Mobile-first |
-| Database | Supabase | Bookings, availability |
-| CMS | Sanity | Blog / Agra Guide content |
-| Payments | Razorpay | UPI, cards, net banking — Indian market |
-| Push notifications | Firebase Cloud Messaging | Browser push opt-in |
-| Email automation | Brevo (formerly Sendinblue) | Free tier: 300/day |
-| WhatsApp API | AiSensy or Interakt | Broadcast + chatbot |
-| SMS | Textlocal / MSG91 | Booking confirmations, OTPs |
-| Analytics | Google Analytics 4 + Microsoft Clarity | Clarity for heatmaps |
-| DNS | Hostinger | Domain: vmpvilla.in |
-
-## Design System (from Phase 1 prototype)
-
-**Fonts** (Google Fonts):
-- Headings: `Playfair Display` (serif, weights 400/700/900 — including italic for emphasis)
-- Body: `DM Sans` (weights 300/400/500/600)
-
-**CSS Custom Properties** (replicate exactly in Tailwind config or globals):
-```css
---ink:       #1A1714   /* near-black — primary text, dark backgrounds */
---saffron:   #E8762B   /* brand primary accent — CTAs, highlights */
---saffron-d: #C4601E   /* saffron hover/active state */
---cream:     #FAF6F0   /* page background */
---marble:    #EDE8E1   /* subtle section backgrounds, dividers */
---stone:     #BFB5AA   /* borders, muted labels */
---muted:     #7A6E65   /* secondary text */
---leaf:      #3A6B4A   /* eco/green accent */
---leaf-l:    #EBF5EE   /* light green section background */
---white:     #FFFFFF
---nav-h:     72px
-```
-
-**Key UI patterns from prototype** (preserve in Next.js implementation):
-- Nav: fixed, transparent over hero, becomes `rgba(26,23,20,0.96)` with `backdrop-filter:blur(12px)` on scroll
-- Mobile menu: full-screen overlay at z-index 99 with centered links at 22px
-- Hero: `min-height: 100svh`, background image + gradient overlay, content anchored to bottom-left
-- Booking bar: floats up `-40px` over the section below it; has "DIRECT BOOKING — NO COMMISSION" label via `::before` pseudo-element; pre-fills today+1 and today+3 as default dates
-- Room cards: `aspect-ratio: 4/3` image, hover lifts `translateY(-4px)` with shadow
-- Gallery grid: `grid-template-columns: 2fr 1fr 1fr` with first image spanning 2 rows
-- Push notification prompt: appears bottom-left after 8-second delay; uses `localStorage.getItem('pushDismissed')` to suppress repeat
-- Scroll animations: `IntersectionObserver` fades in `.room-card`, `.review-card`, `.eco-stat`, `.fac-item`, `.dist-item`
-- FAQ accordion: only one item open at a time; `max-height` CSS transition for smooth expand
-- Floating WhatsApp button: fixed bottom-right, hides text label on `max-width: 600px` (icon-only circle)
-
-**Review source badge colours:**
-```
-Booking.com  → background #003580, white text   (.src-booking)
-TripAdvisor  → background #34E0A1, black text   (.src-tripadvisor)
-Google       → background #4285F4, white text   (.src-google)
-MakeMyTrip   → background #D52B2B, white text   (.src-mmt)
-```
-
-## Business Context
-
-**VMP Villa Home Stay** — family-run eco-homestay in Agra, Uttar Pradesh, India. Operated by Aneesh & Bhavna. Established 2015.
-
-| Detail | Value |
+| Layer | Choice |
 |---|---|
-| Address | Tajganj, Agra, UP 282001 |
-| Distance to Taj Mahal | 4.2 km (12 min) |
-| Distance to Agra Fort | 2.8 km (8 min) |
-| Distance to Agra Cantt. station | 3.1 km (10 min) |
-| Distance to Agra Airport | 7.0 km (20 min) |
-| Instagram | @vmp_homestay_agra |
-| Email | hello@vmpvilla.in |
-| Guest score | 9.4 across 200+ reviews (Booking.com, TripAdvisor, Google, MakeMyTrip) |
+| Framework | Next.js 16 (App Router, static export) |
+| Styling | Tailwind CSS 4 (`@theme` in `globals.css`, no config file) |
+| Language | TypeScript |
+| Fonts | `next/font/google` — Playfair Display + DM Sans |
+| Images | `next/image` with Unsplash remote pattern |
 
-**Room types and pricing:**
-- Deluxe AC Room — ₹2,500/night (queen bed, en-suite bath, garden view)
-- Standard AC Room — ₹1,800/night (twin/double, shared bath)
-- Dormitory Bed — ₹1,500/bed (bunk, shared bath, personal locker)
+## Planned (Phase 2+)
 
-**Eco credentials:** Rainwater harvesting, solar lighting, organic kitchen garden, 100% plastic-free rooms.
-
-**Booking funnel:** All CTAs resolve to a WhatsApp message (`wa.me/91XXXXXXXXXX`) with pre-filled text — there is no booking engine yet (Phase 2). Do not change this pattern until Supabase + Razorpay are wired.
-
-## Pages to Build (12 total)
-
-| Page | Purpose |
+| Layer | Choice |
 |---|---|
-| Home | Hero + booking widget + reviews strip |
-| Rooms | Deluxe AC / Standard AC / Dormitory — gallery + rates |
-| Book Now | Live availability calendar + payment (Phase 2) |
-| Facilities | WiFi, breakfast, garden, parking, fireplace, terrace |
-| Location | Google Maps embed, distances, transport tips |
-| Our Story | Eco ethos, Aneesh & Bhavna's background |
-| Reviews | Aggregated from Booking.com, TripAdvisor, MMT, Google |
-| Offers | Seasonal deals, countdown timers |
-| Agra Guide | SEO blog via Sanity CMS (Phase 3) |
-| FAQ | Check-in/out, pets, kids, cancellations, food, transfers |
-| Contact | WhatsApp, phone, email, enquiry form |
-| Guest Portal | My booking, receipts, special requests (Phase 2) |
+| Database | Supabase (bookings, availability) |
+| Payments | Razorpay (UPI, cards, net banking) |
+| Push notifications | Firebase Cloud Messaging |
+| Email automation | Brevo |
+| WhatsApp API | AiSensy / Interakt |
+| Hosting | Vercel + Hostinger DNS (vmpvilla.in) |
+| Analytics | Google Analytics 4 + Microsoft Clarity |
 
-## Delivery Phases
+## File Structure
 
-**Phase 1 — Foundation (4–6 weeks):** Mobile-first Next.js + Tailwind site. All static pages. Photo gallery. WhatsApp float button. Google Maps embed. Firebase push opt-in. SEO meta + sitemap.
+```
+app/
+  layout.tsx          # Root layout: Nav, Footer, WhatsApp float, PushBanner
+  globals.css         # Tailwind @theme tokens + CSS custom props + global utilities
+  page.tsx            # Home page (composes all sections)
+  rooms/page.tsx
+  facilities/page.tsx
+  location/page.tsx
+  contact/page.tsx
+  faq/page.tsx
+  sitemap.ts
 
-**Phase 2 — Booking Engine (4–6 weeks):** Supabase availability calendar. Razorpay deposit/full-pay. Booking confirmation emails (Brevo) + SMS (MSG91). Pre-arrival and post-checkout email sequences. Seasonal offers page with countdown. Hindi/English language toggle. Review aggregation.
+components/
+  Nav.tsx             # Fixed nav, scroll-aware, mobile hamburger (client)
+  Footer.tsx          # 4-column footer (server)
+  WhatsAppFloat.tsx   # Fixed bottom-right WhatsApp button (client)
+  PushBanner.tsx      # Push notification prompt, 8s delay (client)
+  BookingBar.tsx      # Check-in/out/guests/room → WhatsApp URL (client)
+  ScrollReveal.tsx    # IntersectionObserver fade-in wrapper (client)
+  sections/           # One file per homepage section
+    Hero.tsx
+    RoomsSection.tsx
+    FacilitiesSection.tsx
+    EcoStory.tsx
+    Gallery.tsx
+    LocationSection.tsx
+    ReviewsSection.tsx
+    FaqSection.tsx      # (client - accordion state)
+    ContactSection.tsx  # (client - enquiry form)
 
-**Phase 3 — Growth (months 4–6):** PWA (installable). AI chatbot for FAQ (Gemini or Claude). Add-on / experience builder (airport pickup, meals, tours). Loyalty programme for repeat guests. Owner admin dashboard. Sanity-powered blog. 360° virtual room tours. Eco impact counter.
-
-## WhatsApp Integration Pattern
-
-Booking bar and enquiry form both construct a pre-filled WhatsApp URL:
-
-```js
-const msg = `Hi! I'd like to check availability...\n\nCheck-in: ${checkin}\nCheck-out: ${checkout}`;
-window.open('https://wa.me/91XXXXXXXXXX?text=' + encodeURIComponent(msg), '_blank');
+lib/
+  constants.ts        # ALL business data: rooms, distances, reviews, FAQ, eco stats
+  whatsapp.ts         # URL builder + message formatters
 ```
 
-Replace the placeholder number with the real WhatsApp Business number before launch.
+## Design System (Tailwind CSS 4)
 
-## Localisation Notes
+All tokens are defined in `app/globals.css` under `@theme` and in `:root` for CSS usage.
 
-- Primary currency: Indian Rupee (₹)
-- Date format: display as DD/MM/YYYY for Indian users; `<input type="date">` stores as ISO
-- Language toggle (Phase 2): Hindi ↔ English; use `next-i18next` or `next-intl`
-- Payment methods priority: UPI first, then debit/credit cards, then net banking (Razorpay handles all)
-- WhatsApp is the primary customer communication channel — prioritise it over email in all CTAs
+**Tailwind class names** (use these in JSX):
+- Colors: `bg-ink`, `text-saffron`, `bg-cream`, `text-muted`, `border-marble`, `bg-leaf`, `bg-leaf-l`, `text-stone`, etc.
+- Custom utilities: `font-display` (Playfair Display), `animate-pulse-dot`, `animate-slide-up`
+- CSS-only classes: `gallery-grid`, `gallery-img-1..5`, `faq-answer`, `nav-scrolled`, `booking-bar-wrap`
+
+**Color tokens**:
+```
+--ink       #1a1714   primary text, dark backgrounds
+--saffron   #e8762b   brand accent, CTAs
+--saffron-d #c4601e   hover state
+--cream     #faf6f0   page background
+--marble    #ede8e1   section backgrounds, dividers
+--stone     #bfb5aa   borders, labels
+--muted     #7a6e65   secondary text
+--leaf      #3a6b4a   eco/green accent
+--leaf-l    #ebf5ee   light green backgrounds
+```
+
+## Booking Flow (Phase 1)
+
+All CTAs build a WhatsApp URL via `lib/whatsapp.ts` and open it in a new tab — **no backend involved**. Do not add a backend booking flow until Supabase is wired (Phase 2).
+
+```ts
+// Update WHATSAPP_NUMBER in lib/constants.ts before launch
+export const WHATSAPP_NUMBER = "919876543210"; // placeholder
+```
+
+## Business Data
+
+All content lives in `lib/constants.ts`: ROOMS, DISTANCES, FACILITIES, REVIEWS, FAQ_ITEMS, ECO_STATS. Update there; components read from it.
+
+**Room pricing**: Deluxe AC ₹2,500/night · Standard AC ₹1,800/night · Dormitory ₹1,500/bed  
+**Address**: Tajganj, Agra, UP 282001 — 4.2 km from Taj Mahal  
+**Contact**: hello@vmpvilla.in · @vmp_homestay_agra
+
+## Phase Roadmap
+
+**Phase 2 (next)**: Supabase availability calendar, Razorpay payments, Brevo email automation, SMS via MSG91, seasonal offers with countdown timers, Hindi/English toggle.  
+**Phase 3**: PWA, AI chatbot, experience/add-on builder, loyalty programme, owner admin dashboard, Sanity blog.
