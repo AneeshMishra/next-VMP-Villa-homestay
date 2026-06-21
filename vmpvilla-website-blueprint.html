@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VMP Villa – Website Blueprint 2025</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --saffron:   #E8762B;
+    --sandstone: #C4955A;
+    --cream:     #FAF6F0;
+    --marble:    #F0EBE3;
+    --ink:       #1C1710;
+    --muted:     #6B6358;
+    --leaf:      #3A6B4A;
+    --sky:       #2B7BB9;
+    --alert:     #D64045;
+    --tag-bg:    #EEE8DF;
+    --section-gap: 56px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    color: #fff;
+    padding: 48px 40px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.4;
+  }
+  .header-inner { position: relative; max-width: 960px; margin: 0 auto; }
+  .badge {
+    display: inline-block;
+    background: var(--saffron);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 900;
+    line-height: 1.1;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+  header h1 span { color: var(--saffron); }
+  header p {
+    color: rgba(255,255,255,0.65);
+    font-size: 15px;
+    max-width: 600px;
+    margin-bottom: 24px;
+  }
+  .meta-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+  .pill {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.75);
+    font-size: 12px;
+    padding: 5px 14px;
+    border-radius: 20px;
+  }
+
+  /* ── LAYOUT ── */
+  main { max-width: 960px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  /* ── SECTION ── */
+  section { margin-bottom: var(--section-gap); }
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 6px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .section-desc {
+    color: var(--muted);
+    font-size: 14px;
+    max-width: 680px;
+    margin-bottom: 28px;
+  }
+  hr.section-rule {
+    border: none;
+    border-top: 1px solid var(--marble);
+    margin-bottom: 28px;
+  }
+
+  /* ── ANALYSIS GRID ── */
+  .analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .analysis-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px 22px;
+    border-left: 4px solid var(--sandstone);
+  }
+  .analysis-card.danger  { border-color: var(--alert); }
+  .analysis-card.success { border-color: var(--leaf); }
+  .analysis-card.info    { border-color: var(--sky); }
+  .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .card-icon { font-size: 18px; }
+  .card-title { font-weight: 600; font-size: 14px; color: var(--ink); }
+  .card-body li {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 5px;
+    padding-left: 14px;
+    position: relative;
+  }
+  .card-body li::before { content: '·'; position: absolute; left: 0; color: var(--sandstone); font-weight: 700; }
+  .card-body { list-style: none; }
+
+  /* ── FEATURE CARDS ── */
+  .feature-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+  .feature-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid var(--marble);
+    transition: box-shadow .2s, transform .2s;
+  }
+  .feature-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .feature-icon { font-size: 28px; margin-bottom: 12px; }
+  .feature-title { font-weight: 600; font-size: 15px; margin-bottom: 6px; color: var(--ink); }
+  .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .priority-tag {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+  .p1 { background: #FEE2E2; color: #991B1B; }
+  .p2 { background: #FEF3C7; color: #92400E; }
+  .p3 { background: #D1FAE5; color: #065F46; }
+
+  /* ── PHASE ROADMAP ── */
+  .phase-list { display: flex; flex-direction: column; gap: 0; }
+  .phase {
+    display: flex;
+    gap: 20px;
+    padding-bottom: 32px;
+    position: relative;
+  }
+  .phase:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 18px;
+    top: 38px;
+    bottom: 0;
+    width: 2px;
+    background: var(--marble);
+  }
+  .phase-dot {
+    flex-shrink: 0;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px;
+    color: #fff;
+    z-index: 1;
+  }
+  .dot-1 { background: var(--alert); }
+  .dot-2 { background: var(--saffron); }
+  .dot-3 { background: var(--leaf); }
+  .phase-content { flex: 1; }
+  .phase-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+  .phase-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; margin: 4px 0 10px; }
+  .phase-items { list-style: none; }
+  .phase-items li {
+    font-size: 13px;
+    color: var(--muted);
+    padding: 4px 0 4px 18px;
+    position: relative;
+    border-bottom: 1px solid var(--marble);
+  }
+  .phase-items li::before { content: '→'; position: absolute; left: 0; color: var(--saffron); font-size: 11px; top: 5px; }
+  .phase-duration {
+    display: inline-block;
+    background: var(--tag-bg);
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  /* ── TECH STACK ── */
+  .stack-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .stack-card {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .stack-category { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--sandstone); margin-bottom: 6px; }
+  .stack-name { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+  .stack-why { font-size: 12px; color: rgba(255,255,255,0.5); }
+
+  /* ── NOTIFICATION METHODS ── */
+  .notify-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+  .notify-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    border-top: 3px solid var(--saffron);
+  }
+  .notify-title { font-weight: 600; font-size: 14px; margin: 8px 0 6px; }
+  .notify-desc { font-size: 12px; color: var(--muted); }
+  .notify-icon { font-size: 22px; }
+
+  /* ── PAGE STRUCTURE ── */
+  .pages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  .page-card {
+    background: var(--marble);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .page-name { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+  .page-note { font-size: 11px; color: var(--muted); }
+
+  /* ── CTA FOOTER ── */
+  .cta-footer {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 14px;
+    padding: 36px 32px;
+    text-align: center;
+    margin-top: 16px;
+  }
+  .cta-footer h3 { font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 8px; }
+  .cta-footer p { color: rgba(255,255,255,0.6); font-size: 13px; margin-bottom: 20px; }
+  .cta-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .cta-tag {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.8);
+    font-size: 12px;
+    padding: 6px 16px;
+    border-radius: 20px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    header { padding: 32px 20px 28px; }
+    main { padding: 32px 16px 60px; }
+    .analysis-grid { grid-template-columns: 1fr; }
+    .phase { gap: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="badge">Website Blueprint · 2025–26</div>
+    <h1>VMP Villa Home Stay<br><span>New Website Blueprint</span></h1>
+    <p>A full analysis of your current online presence and a feature-by-feature plan to build a fast, mobile-first website from scratch — so guests find, book, and remember you.</p>
+    <div class="meta-pills">
+      <span class="pill">📍 Agra, Uttar Pradesh</span>
+      <span class="pill">🏡 Homestay · 3 Room Types</span>
+      <span class="pill">⭐ Highly Rated on Booking.com & TripAdvisor</span>
+      <span class="pill">💡 Green & Eco-Conscious</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- SECTION 1: CURRENT SITE ANALYSIS -->
+  <section>
+    <div class="section-label">Step 1 — Analysis</div>
+    <h2 class="section-title">What the Current Site Gets Right & What's Missing</h2>
+    <p class="section-desc">Based on your existing vmpvilla.in and cross-referencing your listings on Booking.com, TripAdvisor, MakeMyTrip, and Expedia.</p>
+    <hr class="section-rule" />
+    <div class="analysis-grid">
+      <div class="analysis-card success">
+        <div class="card-header"><span class="card-icon">✅</span><span class="card-title">What's Already Good</span></div>
+        <ul class="card-body">
+          <li>Rooms and pricing listed (₹1,500/night starting)</li>
+          <li>Guest testimonials shown</li>
+          <li>Facilities section exists</li>
+          <li>Social media Instagram account (@vmp_homestay_agra)</li>
+          <li>Eco/green branding highlighted</li>
+          <li>Nearby attractions mentioned</li>
+        </ul>
+      </div>
+      <div class="analysis-card danger">
+        <div class="card-header"><span class="card-icon">❌</span><span class="card-title">Critical Gaps</span></div>
+        <ul class="card-body">
+          <li>No real-time availability / calendar</li>
+          <li>No direct online booking engine</li>
+          <li>Not mobile-optimised (third-party built)</li>
+          <li>No WhatsApp quick-contact button</li>
+          <li>No push / email notification system</li>
+          <li>No Google Maps embed with directions</li>
+        </ul>
+      </div>
+      <div class="analysis-card danger">
+        <div class="card-header"><span class="card-icon">⚠️</span><span class="card-title">UX Pain Points</span></div>
+        <ul class="card-body">
+          <li>No image gallery / photo tour</li>
+          <li>No live chat or chatbot</li>
+          <li>No seasonal offers / discount banners</li>
+          <li>No FAQ section (reduces support queries)</li>
+          <li>No multi-language support (Hindi / English)</li>
+          <li>Slow load speed (third-party CMS overhead)</li>
+        </ul>
+      </div>
+      <div class="analysis-card info">
+        <div class="card-header"><span class="card-icon">💡</span><span class="card-title">Missed Opportunities</span></div>
+        <ul class="card-body">
+          <li>No loyalty / repeat-guest program</li>
+          <li>No blog (Agra travel tips = free SEO)</li>
+          <li>No event-based packages (Taj by Night, etc.)</li>
+          <li>No referral / "bring a friend" discount</li>
+          <li>No early check-in / late check-out upsell</li>
+          <li>Guest review aggregation from OTAs missing</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: PAGES TO BUILD -->
+  <section>
+    <div class="section-label">Step 2 — Site Structure</div>
+    <h2 class="section-title">Pages to Build</h2>
+    <p class="section-desc">Every page has a single job. Mobile-first, loads in under 2 seconds on 4G.</p>
+    <hr class="section-rule" />
+    <div class="pages-grid">
+      <div class="page-card"><div class="page-name">🏠 Home</div><div class="page-note">Hero + quick booking widget + reviews strip</div></div>
+      <div class="page-card"><div class="page-name">🛏️ Rooms</div><div class="page-note">Deluxe AC, Standard AC, Dormitory — each with gallery + rates</div></div>
+      <div class="page-card"><div class="page-name">📅 Book Now</div><div class="page-note">Real-time availability calendar + instant confirm</div></div>
+      <div class="page-card"><div class="page-name">✨ Facilities</div><div class="page-note">WiFi, breakfast, garden, parking, fireplace, terrace</div></div>
+      <div class="page-card"><div class="page-name">📍 Location</div><div class="page-note">Google Maps, distance to Taj / Fort, transport tips</div></div>
+      <div class="page-card"><div class="page-name">🌿 Our Story</div><div class="page-note">Eco-conscious ethos, Aneesh & Bhavna ji's story</div></div>
+      <div class="page-card"><div class="page-name">⭐ Reviews</div><div class="page-note">Aggregated from Booking.com, TripAdvisor, MMT</div></div>
+      <div class="page-card"><div class="page-name">🎁 Offers</div><div class="page-note">Seasonal deals, long-stay discounts, early-bird rates</div></div>
+      <div class="page-card"><div class="page-name">📰 Agra Guide</div><div class="page-note">Blog — Taj Mahal tips, food, travel guides (SEO)</div></div>
+      <div class="page-card"><div class="page-name">❓ FAQ</div><div class="page-note">Check-in times, pets, kids, cancellations, food</div></div>
+      <div class="page-card"><div class="page-name">📞 Contact</div><div class="page-note">WhatsApp, phone, email, enquiry form</div></div>
+      <div class="page-card"><div class="page-name">🔐 Guest Portal</div><div class="page-note">My booking, receipts, special requests, chat</div></div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: NEW FEATURES -->
+  <section>
+    <div class="section-label">Step 3 — New Features</div>
+    <h2 class="section-title">Features to Add (Prioritised)</h2>
+    <p class="section-desc">🔴 Must-have for launch &nbsp;|&nbsp; 🟡 Add within 3 months &nbsp;|&nbsp; 🟢 Phase 3 / growth features</p>
+    <hr class="section-rule" />
+    <div class="feature-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon">📅</div>
+        <div class="feature-title">Live Availability Calendar</div>
+        <div class="feature-desc">Real-time room availability synced with Booking.com & MMT via channel manager. Guests see what's free and book instantly without calling.</div>
+        <span class="priority-tag p1">🔴 Must Have</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">💳</div>
+        <div class="feature-title">Direct Online Booking & Payment</div>
+        <div class="feature-desc">Razorpay or PayU integration. Accept UPI, debit/credit cards, net banking. Guests pay deposit online, no OTA commission eaten.</div>
+        <span class="priority-tag p1">🔴 Must Have</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">💬</div>
+        <div class="feature-title">WhatsApp Quick Connect</div>
+        <div class="feature-desc">Floating WhatsApp button on every page. One tap opens a pre-filled message. Links to your business WhatsApp for instant guest communication.</div>
+        <span class="priority-tag p1">🔴 Must Have</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📸</div>
+        <div class="feature-title">Immersive Photo & Video Gallery</div>
+        <div class="feature-desc">Swipeable, full-screen gallery with room categories, garden shots, terrace, breakfast. Instagram feed auto-pull from @vmp_homestay_agra.</div>
+        <span class="priority-tag p1">🔴 Must Have</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🗺️</div>
+        <div class="feature-title">Interactive Location Map</div>
+        <div class="feature-desc">Google Maps embed showing VMP Villa + Taj Mahal, Agra Fort, station with driving distances. "Get Directions" button opens Google Maps on mobile.</div>
+        <span class="priority-tag p1">🔴 Must Have</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔔</div>
+        <div class="feature-title">Push Notifications (Web + App)</div>
+        <div class="feature-desc">Browser push notifications via Firebase. Notify guests of booking confirmation, check-in reminders, exclusive offers, and last-minute deals.</div>
+        <span class="priority-tag p1">🔴 Must Have</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📧</div>
+        <div class="feature-title">Automated Email Journey</div>
+        <div class="feature-desc">Booking confirmed → pre-arrival tips (D-3) → check-in reminder (D-1) → welcome email → post-checkout review request. Via Brevo or Mailchimp.</div>
+        <span class="priority-tag p1">🔴 Must Have</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⭐</div>
+        <div class="feature-title">Review Aggregation Wall</div>
+        <div class="feature-desc">Pull reviews from TripAdvisor, Booking.com, Google, and MMT into one live wall. Auto-updates. Shows average rating prominently in hero section.</div>
+        <span class="priority-tag p2">🟡 Phase 2</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <div class="feature-title">AI Chatbot (24/7 Enquiries)</div>
+        <div class="feature-desc">Small chat widget powered by Gemini or GPT that answers FAQs (check-in time, pet policy, food, directions) and captures lead phone numbers.</div>
+        <span class="priority-tag p2">🟡 Phase 2</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎁</div>
+        <div class="feature-title">Seasonal Offers & Discount Engine</div>
+        <div class="feature-desc">Admin panel to set offers — Diwali special, Summer family package, early-bird 10% off. Countdown timer on offer page drives urgency.</div>
+        <span class="priority-tag p2">🟡 Phase 2</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <div class="feature-title">Hindi / English Toggle</div>
+        <div class="feature-desc">Full bilingual support. Many domestic travellers (Delhi, Pune, Bangalore) prefer Hindi. Simple toggle in nav switches the entire site language.</div>
+        <span class="priority-tag p2">🟡 Phase 2</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <div class="feature-title">SEO-Optimised Agra Blog</div>
+        <div class="feature-desc">"Best time to visit Taj Mahal", "Family trip to Agra guide", "VMP Villa vs hotels". Free organic traffic from Google, builds trust with first-time visitors.</div>
+        <span class="priority-tag p2">🟡 Phase 2</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <div class="feature-title">Experience / Package Builder</div>
+        <div class="feature-desc">Let guests add add-ons at booking: airport pickup, Taj Mahal tour guide, home-cooked dinner, early check-in, cycle rental. Upsell revenue without OTA commissions.</div>
+        <span class="priority-tag p2">🟡 Phase 2</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🏆</div>
+        <div class="feature-title">Loyalty / Repeat Guest Program</div>
+        <div class="feature-desc">"VMP Family" — return guests get 10% off, free breakfast upgrade, or free late checkout. Tracked via phone number or email at booking.</div>
+        <span class="priority-tag p3">🟢 Phase 3</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <div class="feature-title">PWA — Install as App</div>
+        <div class="feature-desc">Progressive Web App so guests can "Add to Home Screen" on Android/iOS. Gets you app-like experience without building a native app. Enables offline pages too.</div>
+        <span class="priority-tag p3">🟢 Phase 3</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Owner Dashboard & Analytics</div>
+        <div class="feature-desc">Simple admin panel: upcoming bookings, revenue by room, occupancy rate, most-viewed pages, enquiry funnel. Replace your dependence on third-party vendors.</div>
+        <span class="priority-tag p3">🟢 Phase 3</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🌿</div>
+        <div class="feature-title">Eco Impact Counter</div>
+        <div class="feature-desc">Showcase your green story — "Rainwater harvested this month: 2,400L · Organic meals served: 340 · Solar energy used: 180 kWh". Differentiates from generic hotels.</div>
+        <span class="priority-tag p3">🟢 Phase 3</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎥</div>
+        <div class="feature-title">Virtual Tour (360° Rooms)</div>
+        <div class="feature-desc">Embedded 360° photo viewer for each room type. Shoot with a phone using Google Street View app. Massive trust-builder for remote bookers.</div>
+        <span class="priority-tag p3">🟢 Phase 3</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 4: NOTIFICATION STRATEGY -->
+  <section>
+    <div class="section-label">Step 4 — Notifications</div>
+    <h2 class="section-title">How to Keep Customers Notified</h2>
+    <p class="section-desc">Multi-channel approach so guests never miss a deal, reminder, or update.</p>
+    <hr class="section-rule" />
+    <div class="notify-grid">
+      <div class="notify-card">
+        <div class="notify-icon">🔔</div>
+        <div class="notify-title">Browser Push Notifications</div>
+        <div class="notify-desc">Via Firebase Cloud Messaging (free). Guest opts in on first visit. Send: booking confirmations, flash deals ("This weekend — 20% off!"), seasonal alerts.</div>
+      </div>
+      <div class="notify-card">
+        <div class="notify-icon">📧</div>
+        <div class="notify-title">Email Automation</div>
+        <div class="notify-desc">Brevo (free up to 300/day). Triggered emails: booking confirm, pre-arrival checklist, "You're arriving tomorrow", post-stay review request, loyalty offer.</div>
+      </div>
+      <div class="notify-card">
+        <div class="notify-icon">📱</div>
+        <div class="notify-title">WhatsApp Broadcast</div>
+        <div class="notify-desc">WhatsApp Business API (via AiSensy or Interakt). Send seasonal offers, festival greetings, last-minute deals to opted-in past guests. ₹0.58/message.</div>
+      </div>
+      <div class="notify-card">
+        <div class="notify-icon">💬</div>
+        <div class="notify-title">SMS Alerts</div>
+        <div class="notify-desc">Via Textlocal or MSG91. Booking confirmations, OTP for login, check-in day reminder. SMS reaches guests with no data/WhatsApp.</div>
+      </div>
+      <div class="notify-card">
+        <div class="notify-icon">📲</div>
+        <div class="notify-title">PWA App Notifications</div>
+        <div class="notify-desc">Once guest installs your PWA, you can push notifications to their homescreen just like a native app — zero app store needed.</div>
+      </div>
+      <div class="notify-card">
+        <div class="notify-icon">📸</div>
+        <div class="notify-title">Instagram & Google Posts</div>
+        <div class="notify-desc">Schedule posts via Meta Business Suite. Google Business Profile posts appear in Maps search results — free organic reach for offers.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: TECH STACK -->
+  <section>
+    <div class="section-label">Step 5 — Tech Stack</div>
+    <h2 class="section-title">Recommended Build Stack</h2>
+    <p class="section-desc">Keep it lean, maintainable — no dependency on third-party vendors for basic changes.</p>
+    <hr class="section-rule" />
+    <div class="stack-grid">
+      <div class="stack-card">
+        <div class="stack-category">Frontend</div>
+        <div class="stack-name">Next.js 14 (React)</div>
+        <div class="stack-why">Fast, SEO-ready, mobile-first. Free deploy on Vercel.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-category">Styling</div>
+        <div class="stack-name">Tailwind CSS</div>
+        <div class="stack-why">Rapid, consistent design. Perfect for mobile-first.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-category">Backend / CMS</div>
+        <div class="stack-name">Supabase + Sanity CMS</div>
+        <div class="stack-why">Booking data in Supabase. Blog/content in Sanity — you control updates.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-category">Payments</div>
+        <div class="stack-name">Razorpay</div>
+        <div class="stack-why">UPI, cards, net banking. Easy Indian integration.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-category">Notifications</div>
+        <div class="stack-name">Firebase + Brevo</div>
+        <div class="stack-why">Push notifications (Firebase) + email automation (Brevo, free tier).</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-category">WhatsApp</div>
+        class="stack-name">AiSensy / Interakt</div>
+        <div class="stack-why">WhatsApp Business API with broadcast, chatbot, and CRM.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-category">Hosting</div>
+        <div class="stack-name">Vercel + Hostinger DNS</div>
+        <div class="stack-why">Deploy on Vercel (fast CDN), keep your domain on Hostinger.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-category">Analytics</div>
+        <div class="stack-name">Google Analytics 4 + Clarity</div>
+        <div class="stack-why">Track bookings, source traffic. Clarity gives heatmaps free.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: ROADMAP -->
+  <section>
+    <div class="section-label">Step 6 — Roadmap</div>
+    <h2 class="section-title">Delivery Roadmap</h2>
+    <p class="section-desc">A realistic 3-phase plan you can execute in-house or with a freelance developer.</p>
+    <hr class="section-rule" />
+    <div class="phase-list">
+
+      <div class="phase">
+        <div class="phase-dot dot-1">1</div>
+        <div class="phase-content">
+          <div class="phase-label">Phase 1 — Foundation</div>
+          <div class="phase-title">Launch-Ready Core Site</div>
+          <span class="phase-duration">⏱ 4–6 Weeks</span>
+          <ul class="phase-items">
+            <li>Mobile-first responsive design (Next.js + Tailwind)</li>
+            <li>Home, Rooms, Facilities, Location, Contact, FAQ pages</li>
+            <li>Photo gallery with Instagram feed integration</li>
+            <li>WhatsApp floating button on all pages</li>
+            <li>Google Maps embed with Taj Mahal / Fort distances</li>
+            <li>Basic booking enquiry form (sends email + WhatsApp)</li>
+            <li>SEO meta tags, sitemap, Google Search Console setup</li>
+            <li>Firebase push notification opt-in</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-dot dot-2">2</div>
+        <div class="phase-content">
+          <div class="phase-label">Phase 2 — Booking Engine</div>
+          <div class="phase-title">Direct Bookings & Guest Communication</div>
+          <span class="phase-duration">⏱ 4–6 Weeks after Phase 1</span>
+          <ul class="phase-items">
+            <li>Live availability calendar (Supabase backend)</li>
+            <li>Razorpay payment integration (deposit + full pay)</li>
+            <li>Booking confirmation emails + SMS (Brevo + MSG91)</li>
+            <li>Pre-arrival email sequence (D-3, D-1 reminders)</li>
+            <li>Post-checkout review request email</li>
+            <li>Seasonal offers page with countdown timers</li>
+            <li>Hindi / English language toggle</li>
+            <li>Review aggregation wall (TripAdvisor + Booking.com)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-dot dot-3">3</div>
+        <div class="phase-content">
+          <div class="phase-label">Phase 3 — Growth & Delight</div>
+          <div class="phase-title">Loyalty, AI & Advanced Features</div>
+          <span class="phase-duration">⏱ Months 4–6</span>
+          <ul class="phase-items">
+            <li>PWA — install as app on phone homescreen</li>
+            <li>AI chatbot for 24/7 FAQ answering</li>
+            <li>Experience / add-on builder (airport pickup, meals, tours)</li>
+            <li>Loyalty programme — return guest discounts</li>
+            <li>Owner admin dashboard (bookings, revenue, analytics)</li>
+            <li>Agra travel blog for SEO (Sanity CMS)</li>
+            <li>360° virtual room tours</li>
+            <li>Eco impact counter (rainwater, organic meals)</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-footer">
+    <h3>You Own the Story — Own the Website Too</h3>
+    <p>Building from scratch means no vendor lock-in, no monthly fees for basic edits, and a site that grows with VMP Villa. Every rupee earned through direct booking stays with you — no OTA commission cuts.</p>
+    <div class="cta-tags">
+      <span class="cta-tag">💰 Save 15–20% OTA commission on direct bookings</span>
+      <span class="cta-tag">📱 Mobile-first = more bookings from phone users</span>
+      <span class="cta-tag">🔔 Push + WhatsApp = repeat guest retention</span>
+      <span class="cta-tag">🌿 Eco story = premium guest perception</span>
+    </div>
+  </div>
+
+</main>
+
+</body>
+</html>

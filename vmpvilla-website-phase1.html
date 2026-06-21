@@ -1,0 +1,2027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VMP Villa Home Stay — Agra | Where Agra Feels Like Home</title>
+<meta name="description" content="A peaceful eco-conscious homestay in Agra, just 4.2 km from the Taj Mahal. Book directly and save. 3 room types, home-cooked meals, and heartfelt hospitality." />
+<meta name="keywords" content="VMP Villa, homestay Agra, stay near Taj Mahal, eco homestay Agra, budget stay Agra, bed and breakfast Agra" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+/* ══════════════════════════════════════
+   TOKENS
+══════════════════════════════════════ */
+:root {
+  --ink:        #1A1714;
+  --saffron:    #E8762B;
+  --saffron-d:  #C4601E;
+  --cream:      #FAF6F0;
+  --marble:     #EDE8E1;
+  --stone:      #BFB5AA;
+  --muted:      #7A6E65;
+  --leaf:       #3A6B4A;
+  --leaf-l:     #EBF5EE;
+  --white:      #FFFFFF;
+  --r: 12px;
+  --r-sm: 8px;
+  --nav-h: 72px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+
+/* ══════════════════════════════════════
+   NAV
+══════════════════════════════════════ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  transition: background .3s, box-shadow .3s;
+}
+.nav.scrolled {
+  background: rgba(26,23,20,0.96);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.3px;
+  flex-shrink: 0;
+}
+.nav-logo span { color: var(--saffron); }
+.nav-links {
+  display: flex;
+  gap: 32px;
+  margin-left: auto;
+  margin-right: 32px;
+}
+.nav-links a {
+  color: rgba(255,255,255,0.72);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: color .2s;
+}
+.nav-links a:hover { color: #fff; }
+.nav-cta {
+  background: var(--saffron);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 22px;
+  border-radius: 6px;
+  transition: background .2s, transform .15s;
+  white-space: nowrap;
+}
+.nav-cta:hover { background: var(--saffron-d); transform: translateY(-1px); }
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 8px;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: .3s;
+}
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--ink);
+  z-index: 99;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  color: rgba(255,255,255,0.85);
+  font-size: 22px;
+  font-weight: 500;
+  transition: color .2s;
+}
+.mobile-menu a:hover { color: var(--saffron); }
+.mobile-close {
+  position: absolute;
+  top: 24px; right: 28px;
+  color: rgba(255,255,255,0.6);
+  font-size: 28px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+.hero {
+  min-height: 100svh;
+  background: var(--ink);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(26,23,20,0.2) 0%, rgba(26,23,20,0.1) 40%, rgba(26,23,20,0.75) 70%, rgba(26,23,20,0.95) 100%),
+    url('https://images.unsplash.com/photo-1548013146-72479768bada?w=1600&q=80') center/cover no-repeat;
+}
+/* Decorative pattern overlay */
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 80% 20%, rgba(232,118,43,0.12) 0%, transparent 50%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 40px 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+  color: rgba(255,255,255,0.9);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+.hero-eyebrow .dot {
+  width: 6px; height: 6px;
+  background: var(--saffron);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.3); }
+}
+
+.hero-h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 6vw, 76px);
+  font-weight: 900;
+  line-height: 1.05;
+  color: #fff;
+  margin-bottom: 20px;
+  max-width: 780px;
+}
+.hero-h1 em {
+  font-style: italic;
+  color: var(--saffron);
+}
+
+.hero-sub {
+  color: rgba(255,255,255,0.65);
+  font-size: clamp(14px, 1.5vw, 16px);
+  max-width: 480px;
+  margin-bottom: 36px;
+  line-height: 1.7;
+}
+
+/* Signature: Proximity strip */
+.proximity-strip {
+  display: flex;
+  gap: 0;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  overflow: hidden;
+  max-width: 520px;
+  margin-bottom: 36px;
+}
+.prox-item {
+  flex: 1;
+  padding: 14px 16px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+.prox-item:last-child { border-right: none; }
+.prox-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--saffron);
+  line-height: 1;
+  margin-bottom: 3px;
+}
+.prox-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+}
+
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--saffron);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 15px 32px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background .2s, transform .15s, box-shadow .2s;
+  cursor: pointer;
+  border: none;
+}
+.btn-primary:hover {
+  background: var(--saffron-d);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(232,118,43,0.35);
+}
+.btn-outline {
+  background: transparent;
+  color: rgba(255,255,255,0.85);
+  font-size: 15px;
+  font-weight: 500;
+  padding: 14px 28px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.25);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: border-color .2s, color .2s, background .2s;
+  cursor: pointer;
+}
+.btn-outline:hover {
+  border-color: rgba(255,255,255,0.6);
+  color: #fff;
+  background: rgba(255,255,255,0.06);
+}
+
+/* Hero floating rating badge */
+.hero-rating {
+  position: absolute;
+  top: 50%;
+  right: 40px;
+  transform: translateY(-50%);
+  z-index: 2;
+  background: rgba(26,23,20,0.85);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px);
+  border-radius: 14px;
+  padding: 20px 24px;
+  text-align: center;
+  min-width: 120px;
+}
+.rating-stars {
+  font-size: 20px;
+  letter-spacing: 1px;
+  color: var(--saffron);
+  margin-bottom: 4px;
+}
+.rating-score {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.rating-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.5px;
+}
+.rating-source {
+  font-size: 10px;
+  color: var(--saffron);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ══════════════════════════════════════
+   QUICK BOOKING WIDGET
+══════════════════════════════════════ */
+.booking-bar {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.06);
+  padding: 24px 28px;
+  margin: -40px 40px 0;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  gap: 0;
+  align-items: flex-end;
+  max-width: 1020px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.booking-bar::before {
+  content: 'DIRECT BOOKING — NO COMMISSION';
+  position: absolute;
+  top: -10px;
+  left: 28px;
+  background: var(--leaf);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 3px 12px;
+  border-radius: 4px;
+}
+.bb-field {
+  flex: 1;
+  padding: 0 20px;
+  border-right: 1px solid var(--marble);
+}
+.bb-field:first-child { padding-left: 0; }
+.bb-field:last-of-type { border-right: none; }
+.bb-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.bb-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  background: transparent;
+  padding: 4px 0;
+  cursor: pointer;
+}
+.bb-input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0; cursor: pointer; }
+.bb-select {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+}
+.bb-btn {
+  background: var(--saffron);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 16px 32px;
+  cursor: pointer;
+  transition: background .2s, transform .15s;
+  white-space: nowrap;
+  margin-left: 20px;
+  flex-shrink: 0;
+}
+.bb-btn:hover { background: var(--saffron-d); transform: translateY(-1px); }
+
+/* ══════════════════════════════════════
+   SHARED LAYOUT
+══════════════════════════════════════ */
+.section {
+  padding: 80px 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-full { padding: 0; max-width: none; }
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--saffron);
+  margin-bottom: 10px;
+}
+.heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  line-height: 1.12;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+.heading em { font-style: italic; color: var(--saffron); }
+.subtext {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 560px;
+  margin-bottom: 48px;
+}
+
+/* ══════════════════════════════════════
+   ROOMS SECTION
+══════════════════════════════════════ */
+.rooms-wrap { background: var(--marble); padding: 80px 0; }
+.rooms-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.room-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: transform .25s, box-shadow .25s;
+}
+.room-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.1);
+}
+.room-img-wrap {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: var(--marble);
+}
+.room-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+.room-card:hover .room-img-wrap img { transform: scale(1.05); }
+.room-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: var(--saffron);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+.room-body { padding: 24px; }
+.room-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.room-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+.room-amenities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+.amenity-pill {
+  background: var(--cream);
+  border: 1px solid var(--marble);
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  padding: 4px 10px;
+}
+.room-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid var(--marble);
+}
+.room-price .from { font-size: 11px; color: var(--stone); }
+.room-price .amount {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.room-price .per { font-size: 12px; color: var(--muted); }
+.btn-book {
+  background: var(--ink);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: background .2s, transform .15s;
+}
+.btn-book:hover { background: var(--saffron); transform: translateY(-1px); }
+
+/* ══════════════════════════════════════
+   FACILITIES SECTION
+══════════════════════════════════════ */
+.facilities-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 600px;
+}
+.facilities-img {
+  position: relative;
+  background: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=80') center/cover;
+}
+.facilities-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(26,23,20,0.3) 0%, transparent 60%);
+}
+.facilities-content {
+  background: var(--ink);
+  padding: 72px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.facilities-content .eyebrow { color: var(--saffron); }
+.facilities-content .heading { color: #fff; }
+.facilities-content .subtext { color: rgba(255,255,255,0.55); max-width: 400px; margin-bottom: 36px; }
+.fac-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.fac-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.fac-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.fac-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.3;
+  margin-bottom: 2px;
+}
+.fac-note { font-size: 12px; color: rgba(255,255,255,0.4); }
+
+/* ══════════════════════════════════════
+   ECO / STORY SECTION
+══════════════════════════════════════ */
+.eco-wrap { background: var(--leaf-l); padding: 80px 40px; }
+.eco-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.eco-stats { display: flex; flex-direction: column; gap: 20px; }
+.eco-stat {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 24px;
+  border-left: 4px solid var(--leaf);
+}
+.eco-stat-icon { font-size: 28px; flex-shrink: 0; }
+.eco-stat-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--leaf);
+  line-height: 1;
+  margin-bottom: 2px;
+}
+.eco-stat-label { font-size: 12px; color: var(--muted); }
+
+/* ══════════════════════════════════════
+   GALLERY SECTION
+══════════════════════════════════════ */
+.gallery-wrap { padding: 80px 40px; }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 12px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.gallery-img {
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--marble);
+}
+.gallery-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+.gallery-img:hover img { transform: scale(1.05); }
+.gallery-img-1 { grid-row: 1 / 3; min-height: 420px; }
+.gallery-img-2,
+.gallery-img-3,
+.gallery-img-4,
+.gallery-img-5 { min-height: 200px; }
+.gallery-more {
+  position: relative;
+  cursor: pointer;
+}
+.gallery-more .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(26,23,20,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 12px;
+}
+.gallery-more-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+}
+.gallery-more-sub { font-size: 12px; color: rgba(255,255,255,0.65); }
+
+/* ══════════════════════════════════════
+   LOCATION SECTION
+══════════════════════════════════════ */
+.location-wrap {
+  background: var(--ink);
+  padding: 80px 40px;
+}
+.location-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 60px;
+  align-items: center;
+}
+.location-wrap .eyebrow { color: var(--saffron); }
+.location-wrap .heading { color: #fff; }
+.location-wrap .subtext { color: rgba(255,255,255,0.55); margin-bottom: 32px; }
+.distance-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+.dist-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  border-left: 3px solid var(--saffron);
+}
+.dist-icon { font-size: 20px; flex-shrink: 0; }
+.dist-name { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.85); flex: 1; }
+.dist-val { font-size: 13px; font-weight: 600; color: var(--saffron); }
+.map-embed {
+  border-radius: 14px;
+  overflow: hidden;
+  height: 400px;
+  background: var(--marble);
+  position: relative;
+}
+.map-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+/* Map placeholder for demo */
+.map-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #2a2420;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  color: rgba(255,255,255,0.6);
+  font-size: 14px;
+  position: relative;
+}
+.map-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 40% 60%, rgba(58,107,74,0.3) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+}
+.map-pin { font-size: 42px; position: relative; z-index: 1; }
+.map-text { position: relative; z-index: 1; text-align: center; }
+.map-text strong { color: rgba(255,255,255,0.9); display: block; font-size: 15px; margin-bottom: 4px; }
+.map-directions-btn {
+  position: relative;
+  z-index: 1;
+  background: var(--saffron);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background .2s;
+}
+.map-directions-btn:hover { background: var(--saffron-d); }
+
+/* ══════════════════════════════════════
+   REVIEWS SECTION
+══════════════════════════════════════ */
+.reviews-wrap { padding: 80px 40px; }
+.reviews-inner { max-width: 1100px; margin: 0 auto; }
+.reviews-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 48px;
+}
+.reviews-header .subtext { margin-bottom: 0; }
+.overall-score {
+  text-align: right;
+  flex-shrink: 0;
+}
+.score-big {
+  font-family: 'Playfair Display', serif;
+  font-size: 56px;
+  font-weight: 900;
+  color: var(--ink);
+  line-height: 1;
+}
+.score-stars { font-size: 22px; color: var(--saffron); letter-spacing: 2px; }
+.score-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.review-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 24px;
+  border: 1px solid var(--marble);
+  transition: box-shadow .2s;
+}
+.review-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.07); }
+.review-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.reviewer-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--saffron);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  color: #fff;
+  flex-shrink: 0;
+}
+.reviewer-name { font-weight: 600; font-size: 14px; color: var(--ink); }
+.reviewer-meta { font-size: 11px; color: var(--stone); }
+.review-stars { font-size: 12px; color: var(--saffron); letter-spacing: 1px; margin-left: auto; }
+.review-text { font-size: 13px; line-height: 1.7; color: var(--muted); font-style: italic; }
+.review-source {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.src-booking { background: #003580; color: #fff; }
+.src-tripadvisor { background: #34E0A1; color: #000; }
+.src-google { background: #4285F4; color: #fff; }
+.src-mmt { background: #D52B2B; color: #fff; }
+
+/* ══════════════════════════════════════
+   CONTACT / ENQUIRY
+══════════════════════════════════════ */
+.contact-wrap { background: var(--marble); padding: 80px 40px; }
+.contact-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.contact-channels { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+.channel {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px 20px;
+  transition: box-shadow .2s;
+  cursor: pointer;
+}
+.channel:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+.channel-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.ch-whatsapp { background: #25D366; }
+.ch-phone { background: var(--saffron); }
+.ch-email { background: var(--sky, #2B7BB9); }
+.ch-insta { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+
+.channel-info { flex: 1; }
+.channel-name { font-weight: 600; font-size: 14px; color: var(--ink); }
+.channel-val { font-size: 13px; color: var(--muted); }
+.channel-arrow { color: var(--stone); font-size: 18px; }
+
+/* Enquiry Form */
+.enquiry-form { display: flex; flex-direction: column; gap: 16px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.field-group { display: flex; flex-direction: column; gap: 6px; }
+.field-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.field-input, .field-select, .field-textarea {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--marble);
+  border-radius: 8px;
+  padding: 12px 14px;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+  width: 100%;
+}
+.field-input:focus, .field-select:focus, .field-textarea:focus {
+  border-color: var(--saffron);
+  box-shadow: 0 0 0 3px rgba(232,118,43,0.1);
+}
+.field-textarea { resize: vertical; min-height: 100px; }
+.form-note { font-size: 11px; color: var(--stone); }
+
+/* ══════════════════════════════════════
+   FAQ
+══════════════════════════════════════ */
+.faq-wrap { padding: 80px 40px; }
+.faq-inner { max-width: 760px; margin: 0 auto; }
+.faq-list { display: flex; flex-direction: column; gap: 0; margin-top: 40px; }
+.faq-item {
+  border-bottom: 1px solid var(--marble);
+}
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink);
+  gap: 16px;
+  transition: color .2s;
+}
+.faq-question:hover { color: var(--saffron); }
+.faq-chevron {
+  font-size: 18px;
+  color: var(--stone);
+  transition: transform .3s;
+  flex-shrink: 0;
+}
+.faq-item.open .faq-chevron { transform: rotate(180deg); color: var(--saffron); }
+.faq-answer {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.8;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .35s ease, padding .35s;
+  padding: 0;
+}
+.faq-item.open .faq-answer {
+  max-height: 300px;
+  padding-bottom: 20px;
+}
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+footer {
+  background: var(--ink);
+  color: rgba(255,255,255,0.55);
+  padding: 60px 40px 32px;
+}
+.footer-inner { max-width: 1100px; margin: 0 auto; }
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 48px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.footer-brand { }
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 12px;
+}
+.footer-logo span { color: var(--saffron); }
+.footer-tagline { font-size: 13px; line-height: 1.7; margin-bottom: 20px; }
+.footer-eco {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(58,107,74,0.2);
+  border: 1px solid rgba(58,107,74,0.3);
+  border-radius: 20px;
+  color: #6FCF97;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+}
+.footer-col-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 16px;
+}
+.footer-links { display: flex; flex-direction: column; gap: 10px; }
+.footer-links a {
+  color: rgba(255,255,255,0.45);
+  font-size: 13px;
+  transition: color .2s;
+}
+.footer-links a:hover { color: #fff; }
+.footer-contact-item {
+  display: flex;
+  gap: 10px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.footer-contact-item .icon { flex-shrink: 0; opacity: 0.6; }
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+.footer-bottom-links { display: flex; gap: 20px; }
+.footer-bottom-links a { color: rgba(255,255,255,0.3); transition: color .2s; }
+.footer-bottom-links a:hover { color: rgba(255,255,255,0.7); }
+
+/* ══════════════════════════════════════
+   WHATSAPP FLOAT
+══════════════════════════════════════ */
+.wa-float {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #25D366;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 14px 20px;
+  border-radius: 50px;
+  box-shadow: 0 6px 24px rgba(37,211,102,0.35);
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+  text-decoration: none;
+}
+.wa-float:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 32px rgba(37,211,102,0.45);
+}
+.wa-float-icon { font-size: 22px; line-height: 1; }
+.wa-float-text { white-space: nowrap; }
+@media (max-width: 600px) {
+  .wa-float-text { display: none; }
+  .wa-float { padding: 16px; border-radius: 50%; }
+}
+
+/* ══════════════════════════════════════
+   PUSH NOTIFICATION PROMPT
+══════════════════════════════════════ */
+.push-banner {
+  position: fixed;
+  bottom: 32px;
+  left: 32px;
+  z-index: 998;
+  background: var(--ink);
+  color: #fff;
+  border-radius: 14px;
+  padding: 18px 20px;
+  max-width: 300px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  display: none;
+  animation: slideUp .4s ease;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.push-banner.show { display: block; }
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.push-banner-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.push-bell { font-size: 22px; }
+.push-title { font-weight: 700; font-size: 14px; }
+.push-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-bottom: 14px; line-height: 1.5; }
+.push-btns { display: flex; gap: 8px; }
+.push-allow {
+  background: var(--saffron);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: background .2s;
+  flex: 1;
+}
+.push-allow:hover { background: var(--saffron-d); }
+.push-dismiss {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.65);
+  border: none;
+  border-radius: 7px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  padding: 9px 14px;
+  cursor: pointer;
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .hero-rating { display: none; }
+  .booking-bar {
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px 20px;
+    margin: -32px 16px 0;
+  }
+  .bb-field { border-right: none; border-bottom: 1px solid var(--marble); padding: 0 0 14px; }
+  .bb-field:last-of-type { border-bottom: none; padding-bottom: 0; }
+  .bb-btn { margin-left: 0; width: 100%; }
+  .rooms-grid { grid-template-columns: 1fr; }
+  .facilities-wrap { grid-template-columns: 1fr; }
+  .facilities-img { min-height: 300px; }
+  .eco-inner { grid-template-columns: 1fr; gap: 40px; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .gallery-img-1 { grid-row: auto; min-height: 200px; }
+  .location-inner { grid-template-columns: 1fr; gap: 40px; }
+  .reviews-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .overall-score { text-align: left; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+}
+
+@media (max-width: 600px) {
+  .section, .rooms-inner, .gallery-wrap, .reviews-wrap, .faq-wrap, .eco-wrap, .contact-wrap, .location-wrap { padding: 60px 20px; }
+  .hero-content { padding: 0 20px 48px; }
+  .nav { padding: 0 20px; }
+  .proximity-strip { flex-wrap: wrap; }
+  .form-row { grid-template-columns: 1fr; }
+  .fac-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; }
+  .footer-inner { padding: 0; }
+  footer { padding: 48px 20px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAVIGATION ══ -->
+<nav class="nav" id="mainNav">
+  <a href="#" class="nav-logo">VMP<span>Villa</span></a>
+  <div class="nav-links">
+    <a href="#rooms">Rooms</a>
+    <a href="#facilities">Facilities</a>
+    <a href="#location">Location</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#booking" class="nav-cta">Book Direct — Save More</a>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#rooms" onclick="toggleMenu()">Rooms</a>
+  <a href="#facilities" onclick="toggleMenu()">Facilities</a>
+  <a href="#location" onclick="toggleMenu()">Location</a>
+  <a href="#reviews" onclick="toggleMenu()">Reviews</a>
+  <a href="#faq" onclick="toggleMenu()">FAQ</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+  <a href="#booking" onclick="toggleMenu()" style="color:var(--saffron);font-weight:700">Book Now →</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+
+  <!-- Floating rating badge -->
+  <div class="hero-rating">
+    <div class="rating-stars">★★★★★</div>
+    <div class="rating-score">9.4</div>
+    <div class="rating-label">Guest Score</div>
+    <div class="rating-source">Booking.com · TripAdvisor</div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="dot"></span>
+      Agra's Favourite Homestay · Since 2015
+    </div>
+    <h1 class="hero-h1">Where the <em>Taj Mahal</em><br>becomes your neighbour</h1>
+    <p class="hero-sub">A family-run eco-homestay in the heart of Agra. Real home-cooked food, a host who cares, and a terrace that turns golden at sunrise.</p>
+
+    <!-- Signature Proximity Strip -->
+    <div class="proximity-strip">
+      <div class="prox-item">
+        <div class="prox-val">4.2 km</div>
+        <div class="prox-label">Taj Mahal</div>
+      </div>
+      <div class="prox-item">
+        <div class="prox-val">2.8 km</div>
+        <div class="prox-label">Agra Fort</div>
+      </div>
+      <div class="prox-item">
+        <div class="prox-val">3.1 km</div>
+        <div class="prox-label">Agra Cantt.</div>
+      </div>
+      <div class="prox-item">
+        <div class="prox-val">₹1,500</div>
+        <div class="prox-label">Starting / night</div>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a href="#booking" class="btn-primary">📅 Check Availability</a>
+      <a href="#rooms" class="btn-outline">🛏️ See Rooms</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BOOKING BAR ══ -->
+<div id="booking" style="background:var(--cream);padding-top:0">
+  <div class="booking-bar">
+    <div class="bb-field">
+      <div class="bb-label">📅 Check-in</div>
+      <input type="date" class="bb-input" id="checkin" />
+    </div>
+    <div class="bb-field">
+      <div class="bb-label">📅 Check-out</div>
+      <input type="date" class="bb-input" id="checkout" />
+    </div>
+    <div class="bb-field">
+      <div class="bb-label">👥 Guests</div>
+      <select class="bb-select">
+        <option>1 Guest</option>
+        <option>2 Guests</option>
+        <option>3 Guests</option>
+        <option>4+ Guests</option>
+      </select>
+    </div>
+    <div class="bb-field">
+      <div class="bb-label">🛏️ Room Type</div>
+      <select class="bb-select">
+        <option>Any Room</option>
+        <option>Deluxe AC Room</option>
+        <option>Standard AC Room</option>
+        <option>Dormitory Bed</option>
+      </select>
+    </div>
+    <button class="bb-btn" onclick="handleBooking()">Check Availability →</button>
+  </div>
+</div>
+
+<!-- ══ ROOMS ══ -->
+<div class="rooms-wrap" id="rooms">
+  <div class="rooms-inner">
+    <div class="eyebrow">Step Inside</div>
+    <h2 class="heading">Choose Your <em>Perfect Room</em></h2>
+    <p class="subtext">Three room types for every type of traveller — couples, families, solo adventurers. All include free WiFi, filtered water, and Aneesh & Bhavna's signature hospitality.</p>
+
+    <div class="rooms-grid">
+      <!-- Room 1 -->
+      <div class="room-card">
+        <div class="room-img-wrap">
+          <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80" alt="Deluxe AC Room at VMP Villa" loading="lazy" />
+          <div class="room-badge">Most Popular</div>
+        </div>
+        <div class="room-body">
+          <div class="room-name">Deluxe AC Room</div>
+          <div class="room-desc">Spacious and well-appointed with a queen bed, private en-suite bathroom, and warm earthy décor inspired by Mughal heritage.</div>
+          <div class="room-amenities">
+            <span class="amenity-pill">❄️ Air Conditioning</span>
+            <span class="amenity-pill">🚿 En-suite Bath</span>
+            <span class="amenity-pill">📶 Free WiFi</span>
+            <span class="amenity-pill">🌅 Garden View</span>
+            <span class="amenity-pill">🔒 Safe & Locker</span>
+          </div>
+          <div class="room-footer">
+            <div class="room-price">
+              <div class="from">From</div>
+              <span class="amount">₹2,500</span>
+              <span class="per"> / night</span>
+            </div>
+            <button class="btn-book" onclick="scrollToBooking()">Book Now</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Room 2 -->
+      <div class="room-card">
+        <div class="room-img-wrap">
+          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80" alt="Standard AC Room at VMP Villa" loading="lazy" />
+          <div class="room-badge" style="background:var(--leaf)">Great Value</div>
+        </div>
+        <div class="room-body">
+          <div class="room-name">Standard AC Room</div>
+          <div class="room-desc">Comfortable and clean with twin or double bed configuration. Perfect for budget-conscious travellers who don't want to compromise on comfort.</div>
+          <div class="room-amenities">
+            <span class="amenity-pill">❄️ Air Conditioning</span>
+            <span class="amenity-pill">🚿 Shared Bath</span>
+            <span class="amenity-pill">📶 Free WiFi</span>
+            <span class="amenity-pill">📺 TV</span>
+            <span class="amenity-pill">🧹 Daily Housekeeping</span>
+          </div>
+          <div class="room-footer">
+            <div class="room-price">
+              <div class="from">From</div>
+              <span class="amount">₹1,800</span>
+              <span class="per"> / night</span>
+            </div>
+            <button class="btn-book" onclick="scrollToBooking()">Book Now</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Room 3 -->
+      <div class="room-card">
+        <div class="room-img-wrap">
+          <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=600&q=80" alt="Dormitory at VMP Villa" loading="lazy" />
+        </div>
+        <div class="room-body">
+          <div class="room-name">Dormitory Bed</div>
+          <div class="room-desc">Social sleeping for solo backpackers and budget explorers. Meet fellow Taj enthusiasts, share stories on the rooftop terrace.</div>
+          <div class="room-amenities">
+            <span class="amenity-pill">🛏️ Bunk Beds</span>
+            <span class="amenity-pill">🔒 Personal Locker</span>
+            <span class="amenity-pill">📶 Free WiFi</span>
+            <span class="amenity-pill">🚿 Shared Bath</span>
+            <span class="amenity-pill">👥 Mixed Dorm</span>
+          </div>
+          <div class="room-footer">
+            <div class="room-price">
+              <div class="from">From</div>
+              <span class="amount">₹1,500</span>
+              <span class="per"> / bed</span>
+            </div>
+            <button class="btn-book" onclick="scrollToBooking()">Book Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FACILITIES ══ -->
+<div id="facilities">
+  <div class="facilities-wrap">
+    <div class="facilities-img">
+      <div class="facilities-img-overlay"></div>
+    </div>
+    <div class="facilities-content">
+      <div class="eyebrow">What's Included</div>
+      <h2 class="heading" style="color:#fff">Everything you<br><em>need to feel at home</em></h2>
+      <p class="subtext">No hidden fees, no surprises. Every stay includes the facilities below. Because a good host makes you feel welcome, not nickel-and-dimed.</p>
+      <div class="fac-grid">
+        <div class="fac-item">
+          <div class="fac-icon">📶</div>
+          <div>
+            <div class="fac-name">High-Speed WiFi</div>
+            <div class="fac-note">Free throughout</div>
+          </div>
+        </div>
+        <div class="fac-item">
+          <div class="fac-icon">🍳</div>
+          <div>
+            <div class="fac-name">Home-Cooked Breakfast</div>
+            <div class="fac-note">Fresh & wholesome</div>
+          </div>
+        </div>
+        <div class="fac-item">
+          <div class="fac-icon">🅿️</div>
+          <div>
+            <div class="fac-name">Free Parking</div>
+            <div class="fac-note">For car & bike</div>
+          </div>
+        </div>
+        <div class="fac-item">
+          <div class="fac-icon">🌿</div>
+          <div>
+            <div class="fac-name">Garden & Terrace</div>
+            <div class="fac-note">Sunrise views</div>
+          </div>
+        </div>
+        <div class="fac-item">
+          <div class="fac-icon">🔥</div>
+          <div>
+            <div class="fac-name">Fireplace (Winter)</div>
+            <div class="fac-note">Oct – Feb season</div>
+          </div>
+        </div>
+        <div class="fac-item">
+          <div class="fac-icon">🧺</div>
+          <div>
+            <div class="fac-name">Laundry Service</div>
+            <div class="fac-note">Same-day on request</div>
+          </div>
+        </div>
+        <div class="fac-item">
+          <div class="fac-icon">🚗</div>
+          <div>
+            <div class="fac-name">Airport Transfers</div>
+            <div class="fac-note">On request</div>
+          </div>
+        </div>
+        <div class="fac-item">
+          <div class="fac-icon">🗺️</div>
+          <div>
+            <div class="fac-name">Local Tour Help</div>
+            <div class="fac-note">Free recommendations</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ECO / OUR STORY ══ -->
+<div class="eco-wrap" id="story">
+  <div class="eco-inner">
+    <div>
+      <div class="eyebrow" style="color:var(--leaf)">Our Story</div>
+      <h2 class="heading">A home built on<br><em style="color:var(--leaf)">roots & responsibility</em></h2>
+      <p class="subtext" style="margin-bottom:24px">Aneesh and Bhavna started VMP Villa with a simple idea — give every guest the same warmth their own family would receive. Ten years on, that mission also includes taking care of the planet they'll pass on to their children.</p>
+      <p style="color:var(--muted);font-size:14px;line-height:1.8">From rainwater harvesting to solar lighting, organic kitchen gardens to plastic-free rooms — every choice at VMP Villa is made with intention. Green travel shouldn't mean compromising on comfort.</p>
+    </div>
+    <div class="eco-stats">
+      <div class="eco-stat">
+        <div class="eco-stat-icon">🌧️</div>
+        <div>
+          <div class="eco-stat-val">2,400 L</div>
+          <div class="eco-stat-label">Rainwater harvested this month</div>
+        </div>
+      </div>
+      <div class="eco-stat">
+        <div class="eco-stat-icon">🌱</div>
+        <div>
+          <div class="eco-stat-val">340</div>
+          <div class="eco-stat-label">Organic meals served this season</div>
+        </div>
+      </div>
+      <div class="eco-stat">
+        <div class="eco-stat-icon">☀️</div>
+        <div>
+          <div class="eco-stat-val">180 kWh</div>
+          <div class="eco-stat-label">Solar energy generated this month</div>
+        </div>
+      </div>
+      <div class="eco-stat">
+        <div class="eco-stat-icon">♻️</div>
+        <div>
+          <div class="eco-stat-val">100%</div>
+          <div class="eco-stat-label">Single-use plastic-free rooms</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ GALLERY ══ -->
+<div class="gallery-wrap" id="gallery">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="eyebrow">Photo Tour</div>
+    <h2 class="heading">See VMP Villa <em>for yourself</em></h2>
+    <p class="subtext">Scroll through rooms, gardens, food, and Agra. Follow us @vmp_homestay_agra for daily stories.</p>
+  </div>
+  <div class="gallery-grid" style="max-width:1100px;margin:0 auto">
+    <div class="gallery-img gallery-img-1">
+      <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&q=80" alt="VMP Villa garden view" loading="lazy" />
+    </div>
+    <div class="gallery-img gallery-img-2">
+      <img src="https://images.unsplash.com/photo-1571508601891-ca5e7a713859?w=500&q=80" alt="Breakfast at VMP Villa" loading="lazy" />
+    </div>
+    <div class="gallery-img gallery-img-3">
+      <img src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=500&q=80" alt="Agra Taj Mahal nearby" loading="lazy" />
+    </div>
+    <div class="gallery-img gallery-img-4">
+      <img src="https://images.unsplash.com/photo-1590073844006-33379778ae09?w=500&q=80" alt="VMP Villa terrace" loading="lazy" />
+    </div>
+    <div class="gallery-img gallery-img-5 gallery-more">
+      <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=500&q=80" alt="VMP Villa room interior" loading="lazy" />
+      <div class="overlay">
+        <div class="gallery-more-text">+18 More</div>
+        <div class="gallery-more-sub">View Full Gallery</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ LOCATION ══ -->
+<div class="location-wrap" id="location">
+  <div class="location-inner">
+    <div>
+      <div class="eyebrow">Find Us</div>
+      <h2 class="heading">Right in the <em>Heart of Agra</em></h2>
+      <p class="subtext">Tucked in a quiet residential lane in Tajganj — walkable to the Taj's south gate, yet away from the tourist noise.</p>
+      <div class="distance-list">
+        <div class="dist-item">
+          <span class="dist-icon">🕌</span>
+          <span class="dist-name">Taj Mahal (South Gate)</span>
+          <span class="dist-val">4.2 km · 12 min</span>
+        </div>
+        <div class="dist-item">
+          <span class="dist-icon">🏰</span>
+          <span class="dist-name">Agra Fort</span>
+          <span class="dist-val">2.8 km · 8 min</span>
+        </div>
+        <div class="dist-item">
+          <span class="dist-icon">🚂</span>
+          <span class="dist-name">Agra Cantt. Railway Station</span>
+          <span class="dist-val">3.1 km · 10 min</span>
+        </div>
+        <div class="dist-item">
+          <span class="dist-icon">✈️</span>
+          <span class="dist-name">Agra Airport (AGR)</span>
+          <span class="dist-val">7.0 km · 20 min</span>
+        </div>
+        <div class="dist-item">
+          <span class="dist-icon">🍽️</span>
+          <span class="dist-name">Sadar Bazaar (Food Street)</span>
+          <span class="dist-val">1.5 km · 5 min</span>
+        </div>
+      </div>
+      <a href="https://maps.google.com/?q=VMP+Villa+Agra" target="_blank" class="btn-primary" style="display:inline-flex">
+        📍 Open in Google Maps
+      </a>
+    </div>
+    <div class="map-embed">
+      <div class="map-placeholder">
+        <div class="map-pin">📍</div>
+        <div class="map-text">
+          <strong>VMP Villa Home Stay</strong>
+          Tajganj, Agra, UP 282001
+        </div>
+        <button class="map-directions-btn" onclick="window.open('https://maps.google.com/?q=VMP+Villa+Agra','_blank')">
+          Get Directions →
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REVIEWS ══ -->
+<div class="reviews-wrap" id="reviews">
+  <div class="reviews-inner">
+    <div class="reviews-header">
+      <div>
+        <div class="eyebrow">Guest Love</div>
+        <h2 class="heading" style="margin-bottom:8px">What travellers <em>say about us</em></h2>
+        <p class="subtext">Collected from Booking.com, TripAdvisor, Google, and MakeMyTrip — unfiltered and real.</p>
+      </div>
+      <div class="overall-score">
+        <div class="score-big">9.4</div>
+        <div class="score-stars">★★★★★</div>
+        <div class="score-label">Across 200+ reviews</div>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-top">
+          <div class="reviewer-avatar" style="background:#E8762B">R</div>
+          <div>
+            <div class="reviewer-name">Ramesh K.</div>
+            <div class="reviewer-meta">Bangalore · Family Trip</div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <p class="review-text">"Aneesh bhai picked us up from the station and immediately made us feel like family. The rooftop breakfast with a view of old Agra is something my kids still talk about. Absolutely worth every rupee."</p>
+        <span class="review-source src-booking">Booking.com</span>
+      </div>
+      <div class="review-card">
+        <div class="review-top">
+          <div class="reviewer-avatar" style="background:#3A6B4A">S</div>
+          <div>
+            <div class="reviewer-name">Sophie M.</div>
+            <div class="reviewer-meta">London, UK · Solo Travel</div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <p class="review-text">"I've stayed in 40+ countries and VMP Villa was one of the warmest welcomes I've ever had. The eco-philosophy is genuine — not just marketing. Bhavna's cooking alone is worth the trip to Agra."</p>
+        <span class="review-source src-tripadvisor">TripAdvisor</span>
+      </div>
+      <div class="review-card">
+        <div class="review-top">
+          <div class="reviewer-avatar" style="background:#2B7BB9">P</div>
+          <div>
+            <div class="reviewer-name">Priya & Arjun</div>
+            <div class="reviewer-meta">Delhi · Couple's Weekend</div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <p class="review-text">"Surprise anniversary trip, and VMP Villa made it perfect. They had rose petals on the bed without us asking. The garden is stunning. Location is perfect — we walked to the Taj at sunrise."</p>
+        <span class="review-source src-google">Google</span>
+      </div>
+      <div class="review-card">
+        <div class="review-top">
+          <div class="reviewer-avatar" style="background:#C4601E">T</div>
+          <div>
+            <div class="reviewer-name">Tariq A.</div>
+            <div class="reviewer-meta">Hyderabad · Business + Leisure</div>
+          </div>
+          <div class="review-stars">★★★★☆</div>
+        </div>
+        <p class="review-text">"Clean, well-maintained rooms, reliable WiFi (important for remote work!), and genuinely the best dal makhani I've ever eaten. Will definitely be my go-to Agra base from now on."</p>
+        <span class="review-source src-mmt">MakeMyTrip</span>
+      </div>
+      <div class="review-card">
+        <div class="review-top">
+          <div class="reviewer-avatar" style="background:#6B4A9B">H</div>
+          <div>
+            <div class="reviewer-name">Hannah W.</div>
+            <div class="reviewer-meta">Melbourne, AU · Backpacker</div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <p class="review-text">"Stayed in the dorm and loved the community vibe. Met other travellers who became travel companions for a week. The hosts organised a sunrise Taj tour with a local guide — unbeatable value."</p>
+        <span class="review-source src-booking">Booking.com</span>
+      </div>
+      <div class="review-card">
+        <div class="review-top">
+          <div class="reviewer-avatar" style="background:#B9402B">V</div>
+          <div>
+            <div class="reviewer-name">Vikram S.</div>
+            <div class="reviewer-meta">Pune · Solo Explorer</div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <p class="review-text">"Third time visiting Agra, third time staying at VMP Villa. Aneesh remembered my name, my room preference, even that I take my chai without sugar. That's the magic of a true homestay."</p>
+        <span class="review-source src-tripadvisor">TripAdvisor</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CONTACT / ENQUIRY ══ -->
+<div class="contact-wrap" id="contact">
+  <div class="contact-inner">
+    <div>
+      <div class="eyebrow">Get in Touch</div>
+      <h2 class="heading">Talk to <em>Aneesh & Bhavna</em> directly</h2>
+      <p class="subtext">We reply within 30 minutes on WhatsApp. No bots, no call centres — just us.</p>
+      <div class="contact-channels">
+        <a href="https://wa.me/919876543210?text=Hi%2C%20I%27d%20like%20to%20book%20a%20room%20at%20VMP%20Villa" target="_blank" class="channel">
+          <div class="channel-icon ch-whatsapp">💬</div>
+          <div class="channel-info">
+            <div class="channel-name">WhatsApp (Fastest)</div>
+            <div class="channel-val">+91 98765 43210 · Usually replies in &lt; 30 min</div>
+          </div>
+          <span class="channel-arrow">→</span>
+        </a>
+        <a href="tel:+919876543210" class="channel">
+          <div class="channel-icon ch-phone">📞</div>
+          <div class="channel-info">
+            <div class="channel-name">Call Us</div>
+            <div class="channel-val">+91 98765 43210 · 7 AM – 10 PM daily</div>
+          </div>
+          <span class="channel-arrow">→</span>
+        </a>
+        <a href="mailto:hello@vmpvilla.in" class="channel">
+          <div class="channel-icon ch-email" style="background:#2B7BB9">✉️</div>
+          <div class="channel-info">
+            <div class="channel-name">Email</div>
+            <div class="channel-val">hello@vmpvilla.in · We reply within 4 hours</div>
+          </div>
+          <span class="channel-arrow">→</span>
+        </a>
+        <a href="https://instagram.com/vmp_homestay_agra" target="_blank" class="channel">
+          <div class="channel-icon ch-insta">📸</div>
+          <div class="channel-info">
+            <div class="channel-name">Instagram DM</div>
+            <div class="channel-val">@vmp_homestay_agra · DM us for real-time photos</div>
+          </div>
+          <span class="channel-arrow">→</span>
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="eyebrow">Send an Enquiry</div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin:8px 0 24px">Quick Booking Request</h3>
+      <div class="enquiry-form">
+        <div class="form-row">
+          <div class="field-group">
+            <label class="field-label">Your Name</label>
+            <input type="text" class="field-input" placeholder="Full name" />
+          </div>
+          <div class="field-group">
+            <label class="field-label">Phone / WhatsApp</label>
+            <input type="tel" class="field-input" placeholder="+91 XXXXX XXXXX" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field-group">
+            <label class="field-label">Check-in Date</label>
+            <input type="date" class="field-input" />
+          </div>
+          <div class="field-group">
+            <label class="field-label">Check-out Date</label>
+            <input type="date" class="field-input" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field-group">
+            <label class="field-label">Room Type</label>
+            <select class="field-select">
+              <option>Any / Let me suggest</option>
+              <option>Deluxe AC Room</option>
+              <option>Standard AC Room</option>
+              <option>Dormitory Bed</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label">No. of Guests</label>
+            <select class="field-select">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4+</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Special Requests</label>
+          <textarea class="field-textarea" placeholder="Airport pickup, early check-in, dietary preferences, anniversary setup..."></textarea>
+        </div>
+        <p class="form-note">🔒 Your information is only shared with Aneesh & Bhavna. No spam, ever.</p>
+        <button class="btn-primary" style="width:100%;justify-content:center" onclick="submitEnquiry()">
+          Send Enquiry via WhatsApp →
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FAQ ══ -->
+<div class="faq-wrap" id="faq">
+  <div class="faq-inner">
+    <div class="eyebrow">Questions Answered</div>
+    <h2 class="heading">Frequently Asked <em>Questions</em></h2>
+    <p class="subtext">Everything you want to know before booking. Still have a question? WhatsApp us — we reply fast.</p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          What are the check-in and check-out times?
+          <span class="faq-chevron">▾</span>
+        </div>
+        <div class="faq-answer">Check-in is from 12:00 PM (noon) onwards. Check-out is by 11:00 AM. Early check-in and late check-out can be arranged depending on availability — just WhatsApp us in advance and we'll do our best to accommodate you.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Is breakfast included in the room rate?
+          <span class="faq-chevron">▾</span>
+        </div>
+        <div class="faq-answer">Breakfast is available as an add-on for ₹200 per person per day. Bhavna ji's home-cooked breakfast includes fresh parathas, seasonal sabji, chai, and fruits. It's highly recommended! Lunch and dinner can also be arranged on request.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Do you allow children and families?
+          <span class="faq-chevron">▾</span>
+        </div>
+        <div class="faq-answer">Absolutely! VMP Villa is very family-friendly. Children under 5 years stay free when sharing a parent's room. We have a safe garden for kids to play in, and can arrange for a cot or extra mattress on request. We love having families — the more the merrier!</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Are pets allowed?
+          <span class="faq-chevron">▾</span>
+        </div>
+        <div class="faq-answer">We love animals! Small, well-behaved pets are welcome with prior notice. Please WhatsApp us before booking so we can arrange a suitable room. There is a nominal ₹300/night pet cleaning fee. Please note pets must not be left unattended in rooms.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          What is the cancellation policy?
+          <span class="faq-chevron">▾</span>
+        </div>
+        <div class="faq-answer">Free cancellation up to 48 hours before check-in for a full refund. Cancellations within 48 hours are subject to one night's charge. No-shows are charged the full booking amount. We understand plans change — please contact us and we'll always try to find a fair solution.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          How far is the Taj Mahal and can you arrange a tour?
+          <span class="faq-chevron">▾</span>
+        </div>
+        <div class="faq-answer">The Taj Mahal is approximately 4.2 km from VMP Villa — about a 12-minute auto-rickshaw or e-rickshaw ride. We can arrange an early morning sunrise tour with a trusted local guide (₹800–1,200 per group). Just ask us at check-in or via WhatsApp the night before.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Is airport/station pickup available?
+          <span class="faq-chevron">▾</span>
+        </div>
+        <div class="faq-answer">Yes! We offer transfers from Agra Cantt. Railway Station (₹250), Agra Fort Station (₹300), and Agra Airport (₹400). Please share your arrival details at least 2 hours in advance via WhatsApp. Drop-off to stations and airport is also available at the same rates.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">VMP<span>Villa</span></div>
+        <p class="footer-tagline">A family-run eco-homestay in Agra where every guest is treated as family. 4.2 km from the Taj Mahal. A lifetime from the ordinary.</p>
+        <div class="footer-eco">🌿 Eco-Certified Homestay</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Quick Links</div>
+        <div class="footer-links">
+          <a href="#rooms">Our Rooms</a>
+          <a href="#facilities">Facilities</a>
+          <a href="#location">Location & Map</a>
+          <a href="#reviews">Guest Reviews</a>
+          <a href="#faq">FAQ</a>
+          <a href="#gallery">Photo Gallery</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Room Types</div>
+        <div class="footer-links">
+          <a href="#rooms">Deluxe AC Room</a>
+          <a href="#rooms">Standard AC Room</a>
+          <a href="#rooms">Dormitory Bed</a>
+          <a href="#booking">Check Availability</a>
+          <a href="#contact">Special Requests</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-contact-item">
+          <span class="icon">📍</span>
+          <span>Tajganj, Agra, Uttar Pradesh 282001</span>
+        </div>
+        <div class="footer-contact-item">
+          <span class="icon">📞</span>
+          <a href="tel:+919876543210" style="color:rgba(255,255,255,0.45);transition:color .2s">+91 98765 43210</a>
+        </div>
+        <div class="footer-contact-item">
+          <span class="icon">✉️</span>
+          <a href="mailto:hello@vmpvilla.in" style="color:rgba(255,255,255,0.45);transition:color .2s">hello@vmpvilla.in</a>
+        </div>
+        <div class="footer-contact-item">
+          <span class="icon">📸</span>
+          <a href="https://instagram.com/vmp_homestay_agra" target="_blank" style="color:rgba(255,255,255,0.45);transition:color .2s">@vmp_homestay_agra</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 VMP Villa Home Stay, Agra. All rights reserved.</span>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms & Conditions</a>
+        <a href="#">Cancellation Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ WHATSAPP FLOAT ══ -->
+<a href="https://wa.me/919876543210?text=Hi!%20I%20saw%20your%20website%20and%20would%20like%20to%20know%20more%20about%20VMP%20Villa." target="_blank" class="wa-float">
+  <span class="wa-float-icon">💬</span>
+  <span class="wa-float-text">Chat with us</span>
+</a>
+
+<!-- ══ PUSH NOTIFICATION PROMPT ══ -->
+<div class="push-banner" id="pushBanner">
+  <div class="push-banner-top">
+    <span class="push-bell">🔔</span>
+    <span class="push-title">Stay in the loop</span>
+  </div>
+  <p class="push-sub">Get notified about seasonal deals, last-minute availability, and Agra travel tips from Aneesh & Bhavna.</p>
+  <div class="push-btns">
+    <button class="push-allow" onclick="allowNotifications()">Yes, notify me</button>
+    <button class="push-dismiss" onclick="dismissPush()">Not now</button>
+  </div>
+</div>
+
+<!-- ══ SCRIPTS ══ -->
+<script>
+  // Nav scroll behaviour
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+  // Start scrolled=true by default since we have hero bg
+  nav.classList.add('scrolled');
+
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // Scroll to booking
+  function scrollToBooking() {
+    document.getElementById('booking').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // FAQ toggle
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+
+  // Booking handler
+  function handleBooking() {
+    const checkin = document.getElementById('checkin').value;
+    const checkout = document.getElementById('checkout').value;
+    if (!checkin || !checkout) {
+      alert('Please select your check-in and check-out dates.');
+      return;
+    }
+    const msg = `Hi! I'd like to check availability at VMP Villa.\n\nCheck-in: ${checkin}\nCheck-out: ${checkout}\n\nPlease confirm if a room is available.`;
+    window.open('https://wa.me/919876543210?text=' + encodeURIComponent(msg), '_blank');
+  }
+
+  // Enquiry form → WhatsApp
+  function submitEnquiry() {
+    const name = document.querySelector('.enquiry-form input[type="text"]').value || 'Guest';
+    const phone = document.querySelector('.enquiry-form input[type="tel"]').value || '';
+    const special = document.querySelector('.field-textarea').value || '';
+    const msg = `Hello! I'm ${name} and I'd like to make a booking enquiry at VMP Villa.\n\nPhone: ${phone}\n${special ? 'Special requests: ' + special : ''}`;
+    window.open('https://wa.me/919876543210?text=' + encodeURIComponent(msg), '_blank');
+  }
+
+  // Set default dates (today + 2 days)
+  const today = new Date();
+  const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
+  const dayAfter = new Date(today); dayAfter.setDate(today.getDate() + 3);
+  const fmt = d => d.toISOString().split('T')[0];
+  document.getElementById('checkin').value = fmt(tomorrow);
+  document.getElementById('checkout').value = fmt(dayAfter);
+
+  // Push notification prompt — show after 8 seconds
+  setTimeout(() => {
+    if (!localStorage.getItem('pushDismissed')) {
+      document.getElementById('pushBanner').classList.add('show');
+    }
+  }, 8000);
+
+  function allowNotifications() {
+    if ('Notification' in window) {
+      Notification.requestPermission().then(p => {
+        document.getElementById('pushBanner').classList.remove('show');
+        localStorage.setItem('pushDismissed', '1');
+        if (p === 'granted') {
+          new Notification('VMP Villa 🏡', {
+            body: 'You\'re all set! We\'ll notify you about deals and travel tips.',
+            icon: '🏡'
+          });
+        }
+      });
+    } else {
+      dismissPush();
+    }
+  }
+
+  function dismissPush() {
+    document.getElementById('pushBanner').classList.remove('show');
+    localStorage.setItem('pushDismissed', '1');
+  }
+
+  // Smooth reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.room-card, .review-card, .eco-stat, .fac-item, .dist-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
