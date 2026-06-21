@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+/* ── DESIGN TOKENS ── */
+@theme {
+  --color-ink: #1a1714;
+  --color-saffron: #e8762b;
+  --color-saffron-d: #c4601e;
+  --color-cream: #faf6f0;
+  --color-marble: #ede8e1;
+  --color-stone: #bfb5aa;
+  --color-muted: #7a6e65;
+  --color-leaf: #3a6b4a;
+  --color-leaf-l: #ebf5ee;
+}
+
+/* ── CSS CUSTOM PROPERTIES (for gradients, backdrop-filter etc.) ── */
+:root {
+  --ink: #1a1714;
+  --saffron: #e8762b;
+  --saffron-d: #c4601e;
+  --cream: #faf6f0;
+  --marble: #ede8e1;
+  --stone: #bfb5aa;
+  --muted: #7a6e65;
+  --leaf: #3a6b4a;
+  --leaf-l: #ebf5ee;
+  --nav-h: 72px;
+}
+
+/* ── BASE ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body, "DM Sans", sans-serif);
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ── FONT UTILITIES ── */
+.font-display {
+  font-family: var(--font-display, "Playfair Display", serif);
+}
+
+/* ── PULSE ANIMATION (hero dot) ── */
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.3);
+  }
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2s infinite;
+}
+
+/* ── SLIDE UP (push banner) ── */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease forwards;
+}
+
+/* ── BOOKING BAR "DIRECT BOOKING" badge via ::before ── */
+.booking-bar-wrap {
+  position: relative;
+}
+
+.booking-bar-wrap::before {
+  content: "DIRECT BOOKING — NO COMMISSION";
+  position: absolute;
+  top: -12px;
+  left: 28px;
+  background: var(--leaf);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 3px 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* ── GALLERY GRID ── */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 12px;
+}
+
+.gallery-img-1 {
+  grid-row: 1 / 3;
+  min-height: 420px;
+}
+
+.gallery-img-2,
+.gallery-img-3,
+.gallery-img-4,
+.gallery-img-5 {
+  min-height: 200px;
+}
+
+@media (max-width: 900px) {
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .gallery-img-1 {
+    grid-row: auto;
+    min-height: 200px;
+  }
+}
+
+/* ── FAQ MAX-HEIGHT TRANSITION ── */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding-bottom 0.35s ease;
+  padding-bottom: 0;
+}
+
+.faq-answer.open {
+  max-height: 300px;
+  padding-bottom: 20px;
+}
+
+/* ── NAV SCROLLED STATE ── */
+.nav-scrolled {
+  background: rgba(26, 23, 20, 0.96) !important;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+}
