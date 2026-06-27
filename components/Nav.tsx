@@ -60,7 +60,7 @@ export default function Nav() {
           ))}
         </div>
 
-        <Link href="/#booking" className="hidden md:block bg-saffron hover:bg-saffron-d text-white text-sm font-semibold px-5 py-2.5 rounded-md transition-all duration-150 hover:-translate-y-px shrink-0">
+        <Link href="/book" className="hidden md:block bg-saffron hover:bg-saffron-d text-white text-sm font-semibold px-5 py-2.5 rounded-md transition-all duration-150 hover:-translate-y-px shrink-0">
           Book Direct — Save More
         </Link>
 
@@ -78,7 +78,7 @@ export default function Nav() {
             {l.label}
           </Link>
         ))}
-        <Link href="/#booking" className="text-saffron text-2xl font-bold" onClick={() => setMenuOpen(false)}>Book Now →</Link>
+        <Link href="/book" className="text-saffron text-2xl font-bold" onClick={() => setMenuOpen(false)}>Book Now →</Link>
       </div>
     </>
   );
