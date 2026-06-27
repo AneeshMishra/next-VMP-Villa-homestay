@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import BookingForm from "@/components/BookingForm";
 
@@ -54,7 +55,16 @@ export default function BookPage() {
 
       {/* Booking Form */}
       <div className="bg-cream">
-        <BookingForm />
+        <Suspense fallback={
+          <div className="flex items-center justify-center py-24">
+            <div className="text-center text-muted">
+              <div className="text-3xl mb-3 animate-pulse">⏳</div>
+              <p className="text-sm">Loading booking form…</p>
+            </div>
+          </div>
+        }>
+          <BookingForm />
+        </Suspense>
       </div>
     </div>
   );

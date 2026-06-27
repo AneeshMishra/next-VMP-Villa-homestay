@@ -27,7 +27,7 @@ export type BookingEmailData = {
   guests: number;
   amount: number;
   specialRequests?: string | null;
-  razorpayPaymentId: string;
+  razorpayPaymentId: string | null;
 };
 
 function fmtDate(d: string) {

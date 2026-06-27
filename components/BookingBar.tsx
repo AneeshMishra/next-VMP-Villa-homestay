@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { buildWhatsAppUrl, bookingMessage } from "@/lib/whatsapp";
+import { useRouter } from "next/navigation";
+
+const ROOM_ID_MAP: Record<string, string> = {
+  "Deluxe AC Room": "deluxe-ac",
+  "Standard AC Room": "standard-ac",
+  "Dormitory Bed": "dormitory",
+};
 
 function getDefaultDates() {
   const today = new Date();
@@ -14,6 +20,7 @@ function getDefaultDates() {
 }
 
 export default function BookingBar() {
+  const router = useRouter();
   const defaults = getDefaultDates();
   const [checkin, setCheckin] = useState(defaults.checkin);
   const [checkout, setCheckout] = useState(defaults.checkout);
@@ -25,8 +32,13 @@ export default function BookingBar() {
       alert("Please select your check-in and check-out dates.");
       return;
     }
-    const msg = bookingMessage(checkin, checkout, guests, roomType);
-    window.open(buildWhatsAppUrl(msg), "_blank");
+    const params = new URLSearchParams();
+    params.set("checkin", checkin);
+    params.set("checkout", checkout);
+    params.set("guests", guests.replace(/\D/g, "") || "2");
+    const roomId = ROOM_ID_MAP[roomType];
+    if (roomId) params.set("room", roomId);
+    router.push(`/book?${params.toString()}`);
   }
 
   const fieldCls = "w-full border-none outline-none text-[15px] font-medium text-ink bg-transparent py-1 cursor-pointer font-body max-md:text-center";

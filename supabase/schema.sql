@@ -23,9 +23,12 @@ CREATE TABLE IF NOT EXISTS bookings (
 );
 
 -- Index for quick lookups by status or guest email
-CREATE INDEX IF NOT EXISTS bookings_status_idx     ON bookings (status);
-CREATE INDEX IF NOT EXISTS bookings_check_in_idx   ON bookings (check_in);
+CREATE INDEX IF NOT EXISTS bookings_status_idx      ON bookings (status);
+CREATE INDEX IF NOT EXISTS bookings_check_in_idx    ON bookings (check_in);
 CREATE INDEX IF NOT EXISTS bookings_guest_email_idx ON bookings (guest_email);
+
+-- Index for availability checks (room + date overlap queries)
+CREATE INDEX IF NOT EXISTS bookings_avail_idx ON bookings (room_id, check_in, check_out, status);
 
 -- Row Level Security: all writes go through the service role key (server-side only)
 ALTER TABLE bookings ENABLE ROW LEVEL SECURITY;
