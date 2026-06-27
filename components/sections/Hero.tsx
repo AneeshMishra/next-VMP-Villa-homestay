@@ -90,7 +90,7 @@ export default function Hero() {
 
           {/* Proximity strip */}
           <div
-            className="flex max-w-[520px] mb-9 rounded-[10px] overflow-hidden"
+            className="flex w-full max-w-[520px] mb-9 rounded-[10px] overflow-hidden"
             style={{
               background: "rgba(255,255,255,0.07)",
               border: "1px solid rgba(255,255,255,0.1)",
@@ -101,11 +101,11 @@ export default function Hero() {
               { val: "4.2 km", label: "Taj Mahal" },
               { val: "2.8 km", label: "Agra Fort" },
               { val: "3.1 km", label: "Agra Cantt." },
-              { val: "₹1,500", label: "Starting/night" },
+              { val: "₹1,500", label: "From/night" },
             ].map((item, i, arr) => (
               <div
                 key={item.label}
-                className="flex-1 text-center py-3.5 px-4"
+                className="flex-1 min-w-0 text-center py-3.5 px-2"
                 style={{
                   borderRight: i < arr.length - 1 ? "1px solid rgba(255,255,255,0.08)" : "none",
                 }}

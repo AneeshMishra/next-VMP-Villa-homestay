@@ -41,6 +41,7 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden; /* required on iOS Safari alongside body */
   }
 
   body {
