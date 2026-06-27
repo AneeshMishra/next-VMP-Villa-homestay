@@ -29,8 +29,8 @@ export default function BookingBar() {
     window.open(buildWhatsAppUrl(msg), "_blank");
   }
 
-  const fieldCls = "w-full border-none outline-none text-[15px] font-medium text-ink bg-transparent py-1 cursor-pointer font-body";
-  const labelCls = "text-[10px] font-bold tracking-widest text-stone uppercase mb-1.5 flex items-center gap-1.5";
+  const fieldCls = "w-full border-none outline-none text-[15px] font-medium text-ink bg-transparent py-1 cursor-pointer font-body max-md:text-center";
+  const labelCls = "text-[10px] font-bold tracking-widest text-stone uppercase mb-1.5 flex items-center gap-1.5 max-md:justify-center";
 
   return (
     <div
@@ -48,7 +48,7 @@ export default function BookingBar() {
         }}
       >
         {/* Check-in */}
-        <div className="flex-1 px-5 border-r border-marble min-w-[140px] max-md:border-r-0 max-md:border-b max-md:border-marble max-md:pb-3.5 max-md:px-0">
+        <div className="flex-1 px-5 border-r border-marble min-w-[140px] max-md:border-r-0 max-md:border-b max-md:border-marble max-md:pb-3.5 max-md:px-0 max-md:text-center">
           <div className={labelCls}>📅 Check-in</div>
           <input
             type="date"
@@ -60,7 +60,7 @@ export default function BookingBar() {
         </div>
 
         {/* Check-out */}
-        <div className="flex-1 px-5 border-r border-marble min-w-[140px] max-md:border-r-0 max-md:border-b max-md:border-marble max-md:pb-3.5 max-md:px-0">
+        <div className="flex-1 px-5 border-r border-marble min-w-[140px] max-md:border-r-0 max-md:border-b max-md:border-marble max-md:pb-3.5 max-md:px-0 max-md:text-center">
           <div className={labelCls}>📅 Check-out</div>
           <input
             type="date"
@@ -72,7 +72,7 @@ export default function BookingBar() {
         </div>
 
         {/* Guests */}
-        <div className="flex-1 px-5 border-r border-marble min-w-[120px] max-md:border-r-0 max-md:border-b max-md:border-marble max-md:pb-3.5 max-md:px-0">
+        <div className="flex-1 px-5 border-r border-marble min-w-[120px] max-md:border-r-0 max-md:border-b max-md:border-marble max-md:pb-3.5 max-md:px-0 max-md:text-center">
           <div className={labelCls}>👥 Guests</div>
           <select className={fieldCls} value={guests} onChange={(e) => setGuests(e.target.value)}>
             <option>1 Guest</option>
@@ -83,7 +83,7 @@ export default function BookingBar() {
         </div>
 
         {/* Room Type */}
-        <div className="flex-1 px-5 min-w-[150px] max-md:px-0 max-md:pb-3.5">
+        <div className="flex-1 px-5 min-w-[150px] max-md:px-0 max-md:pb-3.5 max-md:text-center">
           <div className={labelCls}>🛏️ Room Type</div>
           <select className={fieldCls} value={roomType} onChange={(e) => setRoomType(e.target.value)}>
             <option>Any Room</option>
