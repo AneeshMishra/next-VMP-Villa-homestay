@@ -28,39 +28,43 @@
 }
 
 /* ── BASE ── */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* Must be inside @layer base so Tailwind utility classes (in @layer utilities)
+   take precedence — unlayered CSS beats layered utilities in the CSS cascade. */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-html {
-  scroll-behavior: smooth;
-}
+  html {
+    scroll-behavior: smooth;
+  }
 
-body {
-  font-family: var(--font-body, "DM Sans", sans-serif);
-  background: var(--cream);
-  color: var(--ink);
-  line-height: 1.6;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
+  body {
+    font-family: var(--font-body, "DM Sans", sans-serif);
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
 
-img {
-  display: block;
-  max-width: 100%;
-}
+  img {
+    display: block;
+    max-width: 100%;
+  }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 
-ul {
-  list-style: none;
+  ul {
+    list-style: none;
+  }
 }
 
 /* ── FONT UTILITIES ── */
@@ -101,7 +105,7 @@ ul {
   animation: slideUp 0.4s ease forwards;
 }
 
-/* ── BOOKING BAR "DIRECT BOOKING" badge via ::before ── */
+/* ── BOOKING BAR “DIRECT BOOKING” badge via ::before ── */
 .booking-bar-wrap {
   position: relative;
 }

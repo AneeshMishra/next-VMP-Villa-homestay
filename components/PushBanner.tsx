@@ -32,7 +32,7 @@ export default function PushBanner() {
 
   return (
     <div
-      className="fixed bottom-8 left-8 z-[998] text-white rounded-2xl p-5 max-w-[300px] animate-slide-up"
+      className="fixed bottom-8 left-8 z-[150] text-white rounded-2xl p-5 max-w-[300px] animate-slide-up"
       style={{
         background: "var(--ink)",
         boxShadow: "0 8px 32px rgba(0,0,0,0.25)",
