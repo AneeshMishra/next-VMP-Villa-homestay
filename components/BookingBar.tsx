@@ -107,8 +107,14 @@ export default function BookingBar() {
           .booking-bar-wrap {
             flex-direction: column;
             gap: 0;
-            margin: -32px 16px 0 !important;
+            width: calc(100vw - 32px) !important;
+            max-width: none !important;
+            margin-top: -32px !important;
+            margin-left: 16px !important;
+            margin-right: 16px !important;
+            margin-bottom: 0 !important;
             padding: 24px 20px !important;
+            box-sizing: border-box;
           }
         }
       `}</style>
