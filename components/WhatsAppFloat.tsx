@@ -8,7 +8,7 @@ export default function WhatsAppFloat() {
       href={WA_CHAT_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-8 right-8 z-[999] flex items-center gap-2.5 text-white text-sm font-semibold rounded-full transition-all duration-200 hover:-translate-y-1"
+      className="fixed bottom-8 right-8 z-[150] flex items-center gap-2.5 text-white text-sm font-semibold rounded-full transition-all duration-200 hover:-translate-y-1"
       style={{
         background: "#25D366",
         padding: "14px 20px",
