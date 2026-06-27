@@ -121,7 +121,7 @@ export default function Hero() {
           </div>
 
           {/* CTAs */}
-          <div className="flex gap-3.5 flex-wrap">
+          <div className="flex gap-3.5 flex-wrap max-md:justify-center">
             <Link
               href="#booking"
               className="hero-cta-primary inline-flex items-center gap-2 bg-saffron hover:bg-saffron-d text-white text-[15px] font-semibold px-8 py-4 rounded-lg transition-all duration-150 hover:-translate-y-0.5"
