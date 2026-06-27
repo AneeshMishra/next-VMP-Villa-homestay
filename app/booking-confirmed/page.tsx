@@ -31,6 +31,7 @@ function fmtDate(d: string) {
 function BookingDetails() {
   const params = useSearchParams();
   const id = params.get("id");
+  const isRequest = params.get("mode") === "request";
   const [booking, setBooking] = useState<BookingData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -83,28 +84,32 @@ function BookingDetails() {
   }
 
   const amount = booking.amount_paise / 100;
+  const payAtProperty = isRequest || booking.status === "pending";
 
   return (
     <>
       {/* Hero banner */}
       <div className="bg-ink text-white" style={{ padding: "64px 40px 48px" }}>
         <div className="max-w-[700px] mx-auto text-center">
-          <div className="text-6xl mb-4">🎉</div>
+          <div className="text-6xl mb-4">{payAtProperty ? "🏡" : "🎉"}</div>
           <div className="text-[11px] font-bold tracking-[2.5px] uppercase text-saffron mb-3">
-            Booking Confirmed
+            {payAtProperty ? "Booking Request Received" : "Booking Confirmed"}
           </div>
           <h1
             className="font-display font-black text-white mb-3 leading-tight"
             style={{ fontSize: "clamp(28px, 5vw, 48px)" }}
           >
-            See you in Agra,&nbsp;
+            {payAtProperty ? "Request received," : "See you in Agra,"}&nbsp;
             <em className="not-italic text-saffron">
               {booking.guest_name.split(" ")[0]}!
             </em>
           </h1>
           <p className="text-white/60 text-[15px] leading-[1.7]">
-            Your room is reserved. A confirmation email has been sent to{" "}
-            <strong className="text-white/80">{booking.guest_email}</strong>.
+            {payAtProperty
+              ? "Aneesh will confirm your booking within 2 hours via WhatsApp or email."
+              : "Your room is reserved. A confirmation email has been sent to"}{" "}
+            {!payAtProperty && <strong className="text-white/80">{booking.guest_email}</strong>}
+            {payAtProperty && <>(sent to <strong className="text-white/80">{booking.guest_email}</strong>)</>}
           </p>
           <div
             className="inline-block mt-4 px-4 py-2 rounded-full text-xs font-bold"
@@ -140,11 +145,18 @@ function BookingDetails() {
                 </div>
               ))}
               <div className="flex justify-between gap-2 pt-3 mt-1 border-t border-marble">
-                <span className="font-bold text-ink text-base">Total Paid</span>
+                <span className="font-bold text-ink text-base">
+                  {payAtProperty ? "Amount Due at Property" : "Total Paid"}
+                </span>
                 <span className="font-black text-saffron text-xl">
                   ₹{amount.toLocaleString("en-IN")}
                 </span>
               </div>
+              {payAtProperty && (
+                <p className="text-xs text-muted mt-2">
+                  Pay by cash, UPI, or card when you arrive. No advance payment required.
+                </p>
+              )}
             </div>
           </div>
 

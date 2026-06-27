@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useCallback, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Script from "next/script";
 import { ROOMS } from "@/lib/constants";
 import { ROOM_PRICES, MAX_GUESTS } from "@/lib/booking-config";
 
-// Razorpay type shim
 declare global {
   interface Window {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -15,6 +14,7 @@ declare global {
 }
 
 type Field = "name" | "email" | "phone";
+type AvailStatus = "idle" | "checking" | "available" | "unavailable";
 
 const ROOM_OPTIONS = ROOMS.map((r) => ({
   id: r.id,
@@ -45,6 +45,7 @@ function nightsBetween(a: string, b: string) {
 
 export default function BookingForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [roomId, setRoomId] = useState("deluxe-ac");
   const [checkIn, setCheckIn] = useState("");
@@ -58,6 +59,24 @@ export default function BookingForm() {
   const [error, setError] = useState("");
   const [scriptReady, setScriptReady] = useState(false);
   const [touched, setTouched] = useState<Partial<Record<Field, boolean>>>({});
+  const [availStatus, setAvailStatus] = useState<AvailStatus>("idle");
+
+  // Pre-fill from URL params (passed from BookingBar)
+  useEffect(() => {
+    const room = searchParams.get("room");
+    const ci = searchParams.get("checkin");
+    const co = searchParams.get("checkout");
+    const g = searchParams.get("guests");
+    if (room && ROOM_PRICES[room as keyof typeof ROOM_PRICES]) setRoomId(room);
+    if (ci) setCheckIn(ci);
+    if (co) setCheckOut(co);
+    if (g) {
+      const gNum = parseInt(g, 10);
+      const maxG = MAX_GUESTS[(room ?? "deluxe-ac") as keyof typeof MAX_GUESTS] ?? 3;
+      if (gNum > 0) setGuests(Math.min(gNum, maxG));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const selectedRoom = ROOM_OPTIONS.find((r) => r.id === roomId)!;
   const nights = nightsBetween(checkIn, checkOut);
@@ -65,6 +84,24 @@ export default function BookingForm() {
 
   const minCheckIn = todayStr();
   const minCheckOut = checkIn ? addDays(checkIn, 1) : addDays(todayStr(), 1);
+
+  // Availability check when dates/room change
+  useEffect(() => {
+    if (!roomId || !checkIn || !checkOut || nights === 0) {
+      setAvailStatus("idle");
+      return;
+    }
+    setAvailStatus("checking");
+    const ctrl = new AbortController();
+    fetch(
+      `/api/availability?room=${roomId}&checkin=${checkIn}&checkout=${checkOut}`,
+      { signal: ctrl.signal }
+    )
+      .then((r) => r.json())
+      .then((data) => setAvailStatus(data.available ? "available" : "unavailable"))
+      .catch(() => setAvailStatus("idle"));
+    return () => ctrl.abort();
+  }, [roomId, checkIn, checkOut, nights]);
 
   const handleCheckInChange = useCallback(
     (v: string) => {
@@ -93,11 +130,12 @@ export default function BookingForm() {
     checkIn &&
     checkOut &&
     nights > 0 &&
+    availStatus !== "unavailable" &&
     name.trim().length >= 2 &&
     emailValid &&
     phoneValid;
 
-  async function handlePay() {
+  async function handlePayOnline() {
     if (!formValid || isLoading) return;
     if (!scriptReady) {
       setError("Payment script not loaded yet — please try again in a moment.");
@@ -155,7 +193,7 @@ export default function BookingForm() {
               const d = await confirmRes.json();
               setError(
                 d.error ??
-                  "Payment received but confirmation failed. Please WhatsApp Aneesh immediately with your payment ID."
+                  "Payment received but confirmation failed. Please WhatsApp Aneesh with your payment ID."
               );
               setIsLoading(false);
             }
@@ -183,6 +221,45 @@ export default function BookingForm() {
       setIsLoading(false);
     }
   }
+
+  async function handlePayAtProperty() {
+    if (!formValid || isLoading) return;
+    setIsLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/bookings/request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          roomId,
+          checkIn,
+          checkOut,
+          nights,
+          guests,
+          name: name.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
+          special: special.trim(),
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Failed to submit booking request");
+      router.push(`/booking-confirmed?id=${data.bookingId}&mode=request`);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      setIsLoading(false);
+    }
+  }
+
+  const availBadge =
+    availStatus === "checking" ? (
+      <span className="text-xs text-muted animate-pulse">Checking availability…</span>
+    ) : availStatus === "available" ? (
+      <span className="text-xs font-semibold text-leaf">✓ Available for your dates</span>
+    ) : availStatus === "unavailable" ? (
+      <span className="text-xs font-semibold text-red-500">✗ Not available — please choose different dates</span>
+    ) : null;
 
   return (
     <>
@@ -264,6 +341,9 @@ export default function BookingForm() {
                 />
               </div>
             </div>
+
+            {availBadge && <div className="mt-2">{availBadge}</div>}
+
             <div className="mt-4">
               <label className="block text-xs font-semibold text-stone uppercase tracking-wider mb-1.5">
                 Number of Guests
@@ -351,7 +431,7 @@ export default function BookingForm() {
           </section>
         </div>
 
-        {/* ── Right: price summary + pay button ─────────── */}
+        {/* ── Right: price summary + pay buttons ─────────── */}
         <div className="booking-summary-sticky">
           <div className="bg-white rounded-2xl border border-marble p-6 shadow-sm">
             <h3 className="font-display text-lg font-bold text-ink mb-5">Booking Summary</h3>
@@ -399,8 +479,15 @@ export default function BookingForm() {
               </div>
             )}
 
+            {availStatus === "unavailable" && (
+              <div className="mb-4 p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm">
+                This room is not available for your selected dates. Please choose different dates.
+              </div>
+            )}
+
+            {/* Primary: Pay Online via Razorpay */}
             <button
-              onClick={handlePay}
+              onClick={handlePayOnline}
               disabled={!formValid || isLoading}
               className={`w-full py-4 rounded-xl font-bold text-white text-base transition-all ${
                 formValid && !isLoading
@@ -411,14 +498,37 @@ export default function BookingForm() {
               {isLoading
                 ? "Processing…"
                 : nights > 0
-                ? `Pay ₹${totalAmount.toLocaleString("en-IN")} →`
+                ? `Pay ₹${totalAmount.toLocaleString("en-IN")} Online →`
                 : "Select dates to continue"}
             </button>
 
-            <div className="mt-4 flex items-center gap-2 justify-center text-xs text-muted">
+            <div className="mt-2 flex items-center gap-2 justify-center text-xs text-muted">
               <span>🔒</span>
-              <span>Secured by Razorpay · UPI · Cards · Net Banking</span>
+              <span>Razorpay · UPI · Cards · Net Banking</span>
             </div>
+
+            {/* Divider */}
+            <div className="flex items-center gap-3 my-4">
+              <div className="flex-1 border-t border-marble" />
+              <span className="text-xs text-muted">or</span>
+              <div className="flex-1 border-t border-marble" />
+            </div>
+
+            {/* Secondary: Pay at Property */}
+            <button
+              onClick={handlePayAtProperty}
+              disabled={!formValid || isLoading}
+              className={`w-full py-3.5 rounded-xl font-semibold text-base border-2 transition-all ${
+                formValid && !isLoading
+                  ? "border-ink text-ink hover:bg-ink hover:text-white cursor-pointer"
+                  : "border-marble text-stone cursor-not-allowed"
+              }`}
+            >
+              Reserve · Pay at Property
+            </button>
+            <p className="text-xs text-muted text-center mt-2">
+              No payment now — Aneesh will confirm within 2 hrs
+            </p>
 
             <div className="mt-5 pt-4 border-t border-marble text-xs text-muted space-y-1">
               <div>✅ Instant booking confirmation</div>
