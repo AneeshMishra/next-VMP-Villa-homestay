@@ -118,6 +118,7 @@ export default function BookingBar() {
         @media (max-width: 900px) {
           .booking-bar-wrap {
             flex-direction: column;
+            align-items: stretch;
             gap: 0;
             width: calc(100vw - 32px) !important;
             max-width: none !important;
@@ -127,6 +128,19 @@ export default function BookingBar() {
             margin-bottom: 0 !important;
             padding: 24px 20px !important;
             box-sizing: border-box;
+          }
+          .booking-bar-wrap > div {
+            text-align: center;
+            width: 100%;
+          }
+          .booking-bar-wrap > div > div {
+            justify-content: center;
+          }
+          .booking-bar-wrap input,
+          .booking-bar-wrap select {
+            text-align: center;
+            text-align-last: center;
+            width: 100%;
           }
         }
       `}</style>
