@@ -73,6 +73,9 @@ export default function Nav() {
 
       <div className={`fixed inset-0 bg-ink z-[500] flex flex-col items-center justify-center gap-8 text-white transition-opacity duration-300 ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
         <button className="absolute top-6 right-7 text-white/60 text-3xl cursor-pointer bg-transparent border-none" onClick={() => setMenuOpen(false)} aria-label="Close menu">✕</button>
+        <Link href="/" className="text-white text-2xl font-medium hover:text-saffron transition-colors" onClick={() => setMenuOpen(false)}>
+          Home
+        </Link>
         {NAV_LINKS.map((l) => (
           <Link key={l.href} href={l.href} className="text-white text-2xl font-medium hover:text-saffron transition-colors" onClick={() => setMenuOpen(false)}>
             {l.label}
