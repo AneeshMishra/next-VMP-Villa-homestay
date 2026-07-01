@@ -1,11 +1,107 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import Script from "next/script";
+
+const BASE = "https://www.vmpvilla.in";
 
 export const metadata: Metadata = {
-  title: "Travel Blog — VMP Villa Home Stay, Agra",
+  title: "Travel Blog — Agra Travel Guides & Tips",
   description:
-    "Insider guides to Agra's best attractions, hidden gems, food, and travel tips from your hosts at VMP Villa Home Stay — 4.2 km from the Taj Mahal.",
+    "Insider travel guides to Agra's best attractions, food, and hidden gems — written by local hosts Aneesh & Bhavna at VMP Villa Home Stay, 4.2 km from the Taj Mahal.",
+  keywords: [
+    "Agra travel blog",
+    "Agra travel guide",
+    "things to do in Agra",
+    "Agra tourist places",
+    "Taj Mahal travel tips",
+    "Agra local guide",
+    "Agra food guide",
+    "best homestay Agra blog",
+    "VMP Villa blog",
+    "Agra India tourism",
+  ],
+  openGraph: {
+    type: "website",
+    url: `${BASE}/blog`,
+    title: "Travel Blog — Agra Travel Guides & Tips | VMP Villa",
+    description:
+      "Insider guides to Agra's top attractions, hidden gems, and local tips from your VMP Villa hosts — 4.2 km from the Taj Mahal.",
+    siteName: "VMP Villa Home Stay",
+    locale: "en_IN",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=1200&q=80",
+        width: 1200,
+        height: 630,
+        alt: "Taj Mahal at sunrise — Agra travel blog by VMP Villa",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@vmp_homestay_agra",
+    title: "VMP Villa Travel Blog — Agra Insider Guides",
+    description: "Local travel guides from hosts who actually live in Agra. Taj Mahal tips, hidden gems, itineraries.",
+    images: ["https://images.unsplash.com/photo-1564507592333-c60657eea523?w=1200&q=80"],
+  },
+  alternates: { canonical: `${BASE}/blog` },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
+};
+
+const blogListJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Blog",
+      "@id": `${BASE}/blog`,
+      "name": "VMP Villa Travel Blog",
+      "description": "Insider travel guides to Agra's best attractions, food, and hidden gems.",
+      "url": `${BASE}/blog`,
+      "publisher": {
+        "@type": "Organization",
+        "name": "VMP Villa Home Stay",
+        "url": BASE,
+        "logo": { "@type": "ImageObject", "url": `${BASE}/logo.png` },
+      },
+      "inLanguage": "en-IN",
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": BASE },
+        { "@type": "ListItem", "position": 2, "name": "Blog", "item": `${BASE}/blog` },
+      ],
+    },
+    {
+      "@type": "Organization",
+      "name": "VMP Villa Home Stay",
+      "url": BASE,
+      "logo": `${BASE}/logo.png`,
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Support",
+        "email": "hello@vmpvilla.in",
+        "availableLanguage": ["English", "Hindi"],
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Tajganj",
+        "addressLocality": "Agra",
+        "addressRegion": "Uttar Pradesh",
+        "postalCode": "282001",
+        "addressCountry": "IN",
+      },
+      "sameAs": [
+        "https://www.instagram.com/vmp_homestay_agra",
+        "https://www.booking.com",
+      ],
+    },
+  ],
 };
 
 const POSTS = [
@@ -13,10 +109,11 @@ const POSTS = [
     slug: "top-5-places-to-visit-in-agra",
     title: "Top 5 Places to Visit in Agra Beyond the Taj Mahal",
     excerpt:
-      "Agra is far more than the Taj. From the mighty Agra Fort to the ghost city of Fatehpur Sikri, here are five unmissable experiences that most tourists miss.",
+      "Agra is far more than the Taj. From the mighty Agra Fort to the ghost city of Fatehpur Sikri, here are five unmissable experiences — with entry fees, timings, and insider tips.",
     cover: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80",
-    coverAlt: "Taj Mahal at sunrise reflected in the Yamuna river",
+    coverAlt: "Taj Mahal at sunrise reflected in the central pool, Agra India",
     date: "July 1, 2026",
+    dateISO: "2026-07-01",
     readTime: "6 min read",
     category: "Travel Guide",
     categoryColor: "#e8762b",
@@ -25,90 +122,124 @@ const POSTS = [
 
 export default function BlogPage() {
   return (
-    <div>
-      {/* Header */}
-      <div className="bg-ink text-white" style={{ padding: "64px 40px 56px" }}>
-        <div className="max-w-[1100px] mx-auto">
-          <div className="text-[11px] font-bold tracking-[2.5px] uppercase text-saffron mb-3">
-            Stories & Guides
-          </div>
-          <h1
-            className="font-display font-black text-white mb-4 leading-tight"
-            style={{ fontSize: "clamp(32px, 5vw, 52px)" }}
-          >
-            The VMP Villa <em className="not-italic text-saffron">Travel Blog</em>
-          </h1>
-          <p className="text-white/60 text-[15px] max-w-[540px] leading-[1.7]">
-            Insider guides, hidden gems, food tips, and local secrets from Aneesh &amp; Bhavna —
-            your hosts in the heart of Agra.
-          </p>
-        </div>
-      </div>
+    <>
+      <Script
+        id="ld-blog-list"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogListJsonLd) }}
+      />
 
-      {/* Posts grid */}
-      <div className="bg-cream" style={{ padding: "60px 40px 80px" }}>
-        <div className="max-w-[1100px] mx-auto">
-          <div className="grid gap-8" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))" }}>
-            {POSTS.map((post) => (
-              <Link key={post.slug} href={`/blog/${post.slug}`} className="group block">
-                <article className="bg-white rounded-2xl overflow-hidden border border-black/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(0,0,0,0.1)] h-full flex flex-col">
-                  <div className="relative overflow-hidden" style={{ aspectRatio: "16/9" }}>
-                    <Image
-                      src={post.cover}
-                      alt={post.coverAlt}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                    <div
-                      className="absolute top-3 left-3 text-white text-[10px] font-bold tracking-wide uppercase py-1 px-2.5 rounded"
-                      style={{ background: post.categoryColor }}
-                    >
-                      {post.category}
-                    </div>
-                  </div>
-                  <div className="p-6 flex flex-col flex-1">
-                    <div className="text-xs text-stone mb-2">
-                      {post.date} · {post.readTime}
-                    </div>
-                    <h2 className="font-display text-lg font-bold text-ink mb-2 group-hover:text-saffron transition-colors leading-snug">
-                      {post.title}
-                    </h2>
-                    <p className="text-sm text-muted leading-relaxed flex-1">{post.excerpt}</p>
-                    <div className="mt-4 text-saffron text-sm font-semibold">
-                      Read more →
-                    </div>
-                  </div>
-                </article>
-              </Link>
-            ))}
+      <div>
+        {/* Breadcrumb */}
+        <nav className="bg-white border-b border-marble" style={{ padding: "10px 40px" }} aria-label="Breadcrumb">
+          <div className="max-w-[1100px] mx-auto">
+            <ol className="flex items-center gap-2 text-xs text-stone">
+              <li><Link href="/" className="hover:text-saffron transition-colors">Home</Link></li>
+              <li className="opacity-40">›</li>
+              <li className="text-muted">Blog</li>
+            </ol>
           </div>
+        </nav>
 
-          {/* CTA */}
-          <div className="mt-16 text-center bg-white rounded-2xl border border-marble p-10">
-            <div className="text-3xl mb-3">🏡</div>
-            <h2 className="font-display text-xl font-bold text-ink mb-2">
-              Staying in Agra? We&apos;d love to host you.
-            </h2>
-            <p className="text-muted text-sm mb-5 max-w-[400px] mx-auto">
-              Book direct with us and save 15–20% vs OTAs. Free WiFi, home-cooked breakfast, and insider tips included.
-            </p>
-            <Link
-              href="/book"
-              className="inline-block bg-saffron hover:bg-saffron-d text-white font-semibold px-8 py-3 rounded-lg text-sm transition-colors"
+        {/* Header */}
+        <div className="bg-ink text-white" style={{ padding: "56px 40px 48px" }}>
+          <div className="max-w-[1100px] mx-auto">
+            <div className="text-[11px] font-bold tracking-[2.5px] uppercase text-saffron mb-3">
+              Stories &amp; Guides
+            </div>
+            <h1
+              className="font-display font-black text-white mb-4 leading-tight"
+              style={{ fontSize: "clamp(30px, 5vw, 50px)" }}
             >
-              Book Your Stay →
-            </Link>
+              The VMP Villa <em className="not-italic text-saffron">Travel Blog</em>
+            </h1>
+            <p className="text-white/60 text-[15px] max-w-[540px] leading-[1.7]">
+              Insider guides, hidden gems, food tips, and local secrets from Aneesh &amp; Bhavna —
+              your hosts in the heart of Agra, 4.2 km from the Taj Mahal.
+            </p>
           </div>
         </div>
-      </div>
 
-      <style>{`
-        @media (max-width: 600px) {
-          div[style*="padding: 64px 40px"] { padding: 48px 20px 40px !important; }
-          div[style*="padding: 60px 40px"] { padding: 40px 20px 60px !important; }
-        }
-      `}</style>
-    </div>
+        {/* Posts grid */}
+        <div className="bg-cream" style={{ padding: "56px 40px 80px" }}>
+          <div className="max-w-[1100px] mx-auto">
+            <div className="grid gap-8" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))" }}>
+              {POSTS.map((post) => (
+                <Link key={post.slug} href={`/blog/${post.slug}`} className="group block">
+                  <article
+                    className="bg-white rounded-2xl overflow-hidden border border-black/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(0,0,0,0.1)] h-full flex flex-col"
+                    itemScope
+                    itemType="https://schema.org/BlogPosting"
+                  >
+                    <div className="relative overflow-hidden" style={{ aspectRatio: "16/9" }}>
+                      <Image
+                        src={post.cover}
+                        alt={post.coverAlt}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        itemProp="image"
+                      />
+                      <div
+                        className="absolute top-3 left-3 text-white text-[10px] font-bold tracking-wide uppercase py-1 px-2.5 rounded"
+                        style={{ background: post.categoryColor }}
+                      >
+                        {post.category}
+                      </div>
+                    </div>
+                    <div className="p-6 flex flex-col flex-1">
+                      <div className="text-xs text-stone mb-2">
+                        <time dateTime={post.dateISO} itemProp="datePublished">{post.date}</time>
+                        {" · "}{post.readTime}
+                      </div>
+                      <h2
+                        className="font-display text-lg font-bold text-ink mb-2 group-hover:text-saffron transition-colors leading-snug"
+                        itemProp="headline"
+                      >
+                        {post.title}
+                      </h2>
+                      <p className="text-sm text-muted leading-relaxed flex-1" itemProp="description">
+                        {post.excerpt}
+                      </p>
+                      <div className="mt-4 text-saffron text-sm font-semibold">
+                        Read more →
+                      </div>
+                    </div>
+                    <meta itemProp="url" content={`${BASE}/blog/${post.slug}`} />
+                    <meta itemProp="author" content="Aneesh & Bhavna Mishra" />
+                  </article>
+                </Link>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <div className="mt-16 text-center bg-white rounded-2xl border border-marble p-10">
+              <div className="text-3xl mb-3">🏡</div>
+              <h2 className="font-display text-xl font-bold text-ink mb-2">
+                Staying in Agra? We&apos;d love to host you.
+              </h2>
+              <p className="text-muted text-sm mb-5 max-w-[420px] mx-auto">
+                Book direct with VMP Villa and save 15–20% vs OTAs. Free WiFi, home-cooked breakfast,
+                and free insider tips on all Agra attractions included.
+              </p>
+              <Link
+                href="/book"
+                className="inline-block bg-saffron hover:bg-saffron-d text-white font-semibold px-8 py-3 rounded-lg text-sm transition-colors"
+              >
+                Book Your Stay →
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <style>{`
+          @media (max-width: 600px) {
+            div[style*="padding: 56px 40px 48px"] { padding: 40px 20px 36px !important; }
+            div[style*="padding: 56px 40px 80px"] { padding: 36px 20px 60px !important; }
+            nav[style*="padding: 10px 40px"] { padding: 10px 20px !important; }
+          }
+        `}</style>
+      </div>
+    </>
   );
 }

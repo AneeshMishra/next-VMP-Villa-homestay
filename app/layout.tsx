@@ -22,6 +22,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.vmpvilla.in"),
   title: {
     default: "VMP Villa Home Stay — Agra | Where Agra Feels Like Home",
     template: "%s | VMP Villa Home Stay Agra",
@@ -36,21 +37,43 @@ export const metadata: Metadata = {
     "budget stay Agra",
     "bed and breakfast Agra",
     "family homestay Agra",
+    "places to visit Agra",
+    "Agra travel guide",
+    "Taj Mahal hotel",
   ],
   openGraph: {
     type: "website",
     locale: "en_IN",
     siteName: "VMP Villa Home Stay",
+    url: "https://www.vmpvilla.in",
     title: "VMP Villa Home Stay — Agra",
     description:
       "A family-run eco-homestay 4.2 km from the Taj Mahal. Book direct and save on OTA commissions.",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=1200&q=80",
+        width: 1200,
+        height: 630,
+        alt: "VMP Villa Home Stay near the Taj Mahal, Agra",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    site: "@vmp_homestay_agra",
     title: "VMP Villa Home Stay — Agra",
     description: "Eco-conscious homestay near the Taj Mahal. Real hospitality. Direct booking.",
+    images: ["https://images.unsplash.com/photo-1564507592333-c60657eea523?w=1200&q=80"],
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
+  alternates: { canonical: "https://www.vmpvilla.in" },
+  verification: {
+    google: "add-your-google-search-console-verification-code-here",
+  },
 };
 
 export default function RootLayout({
