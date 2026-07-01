@@ -24,6 +24,7 @@ export default function Footer() {
                 { href: "/reviews", label: "Guest Reviews" },
                 { href: "/story", label: "Our Story" },
                 { href: "/offers", label: "Special Offers" },
+                { href: "/blog", label: "Travel Blog" },
                 { href: "/faq", label: "FAQ" },
               ].map((l) => (
                 <Link key={l.href} href={l.href} className="text-sm text-white/45 hover:text-white transition-colors">{l.label}</Link>
