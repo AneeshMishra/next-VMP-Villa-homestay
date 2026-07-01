@@ -12,6 +12,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: "/location", priority: 0.8, changeFrequency: "yearly" as const },
     { url: "/reviews", priority: 0.8, changeFrequency: "weekly" as const },
     { url: "/story", priority: 0.7, changeFrequency: "monthly" as const },
+    { url: "/blog", priority: 0.8, changeFrequency: "weekly" as const },
+    { url: "/blog/top-5-places-to-visit-in-agra", priority: 0.7, changeFrequency: "monthly" as const },
     { url: "/agra-guide", priority: 0.6, changeFrequency: "monthly" as const },
     { url: "/contact", priority: 0.7, changeFrequency: "monthly" as const },
     { url: "/faq", priority: 0.7, changeFrequency: "monthly" as const },
