@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
 import { ROOMS } from "@/lib/constants";
-import { buildWhatsAppUrl, bookingMessage } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
   title: "Rooms",
@@ -38,7 +37,6 @@ export default function RoomsPage() {
       <div className="bg-cream" style={{ padding: "80px 40px" }}>
         <div className="max-w-[1100px] mx-auto flex flex-col gap-20">
           {ROOMS.map((room, i) => {
-            const waUrl = buildWhatsAppUrl(bookingMessage("", "", "2 Guests", room.name));
             const isEven = i % 2 === 0;
             return (
               <ScrollReveal key={room.id}>
@@ -101,14 +99,12 @@ export default function RoomsPage() {
                         </span>
                         <span className="text-muted text-sm ml-1">{room.priceUnit}</span>
                       </div>
-                      <a
-                        href={waUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <Link
+                        href={`/book?room=${room.id}`}
                         className="inline-flex items-center gap-2 bg-saffron hover:bg-saffron-d text-white font-semibold px-8 py-4 rounded-lg transition-all duration-150 hover:-translate-y-px"
                       >
                         Book This Room →
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
