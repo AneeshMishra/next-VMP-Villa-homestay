@@ -43,13 +43,13 @@ export default function OffersPage() {
           <p className="text-muted mb-10">Available now — no promo code needed.</p>
           <div className="flex flex-col gap-6">
             {CURRENT_OFFERS.map((offer) => (
-              <div key={offer.title} className="bg-white rounded-2xl p-8 border border-marble flex items-start gap-8 transition-shadow duration-200 hover:shadow-md">
-                <div className="flex-1">
+              <div key={offer.title} className="offer-card bg-white rounded-2xl p-8 border border-marble flex items-start gap-8 transition-shadow duration-200 hover:shadow-md">
+                <div className="flex-1 min-w-0">
                   <span className="inline-block text-[10px] font-bold tracking-widest uppercase py-1 px-3 rounded-full text-white mb-4" style={{ background: offer.badgeColor }}>{offer.badge}</span>
                   <h3 className="font-display text-[22px] font-bold text-ink mb-3">{offer.title}</h3>
                   <p className="text-muted text-[15px] leading-[1.7]">{offer.desc}</p>
                 </div>
-                <div className="shrink-0 text-right flex flex-col items-end gap-4">
+                <div className="offer-card-right shrink-0 text-right flex flex-col items-end gap-4">
                   <div>
                     <div className="font-display text-[22px] font-bold text-leaf">{offer.saving}</div>
                     <div className="text-xs text-stone">vs. OTA price</div>
@@ -84,6 +84,24 @@ export default function OffersPage() {
         <p className="text-white/60 mb-8 max-w-[440px] mx-auto text-[15px]">WhatsApp Aneesh and ask to be added to the VMP Villa deals list.</p>
         <a href={WA_CHAT_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-saffron hover:bg-saffron-d text-white font-semibold px-10 py-4 rounded-lg transition-all duration-150">💬 WhatsApp for Deals</a>
       </div>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .offer-card { flex-direction: column !important; gap: 20px !important; padding: 24px !important; }
+          .offer-card-right { align-items: flex-start !important; text-align: left !important; width: 100% !important; flex-direction: row !important; justify-content: space-between !important; flex-wrap: wrap !important; gap: 12px !important; }
+          .offer-card-right > div { text-align: left !important; }
+          .offer-card-right a { flex: 1 !important; justify-content: center !important; min-width: 140px !important; }
+        }
+        @media (max-width: 480px) {
+          .offer-card-right { flex-direction: column !important; }
+          .offer-card-right a { width: 100% !important; }
+        }
+        @media (max-width: 500px) {
+          div[style*="padding: 64px 40px 48px"] { padding: 40px 20px 32px !important; }
+          div[style*="padding: 80px 40px"] { padding: 48px 20px !important; }
+          .grid-cols-2 { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </div>
   );
 }
