@@ -8,7 +8,7 @@ const BASE = "https://www.vmpvilla.in";
 export const metadata: Metadata = {
   title: "Travel Blog — Agra Travel Guides & Tips",
   description:
-    "Insider travel guides to Agra's best attractions, food, and hidden gems — written by local hosts Aneesh & Bhavna at VMP Villa Home Stay, 4.2 km from the Taj Mahal.",
+    "Insider travel guides to Agra's best attractions, food, and hidden gems — written by local hosts Aneesh & Bhavna at VMP Villa Home Stay, 6 km from the Taj Mahal East Gate.",
   keywords: [
     "Agra travel blog",
     "Agra travel guide",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     url: `${BASE}/blog`,
     title: "Travel Blog — Agra Travel Guides & Tips | VMP Villa",
     description:
-      "Insider guides to Agra's top attractions, hidden gems, and local tips from your VMP Villa hosts — 4.2 km from the Taj Mahal.",
+      "Insider guides to Agra's top attractions, hidden gems, and local tips from your VMP Villa hosts — 6 km from the Taj Mahal East Gate.",
     siteName: "VMP Villa Home Stay",
     locale: "en_IN",
     images: [
@@ -155,7 +155,7 @@ export default function BlogPage() {
             </h1>
             <p className="text-white/60 text-[15px] max-w-[540px] leading-[1.7]">
               Insider guides, hidden gems, food tips, and local secrets from Aneesh &amp; Bhavna —
-              your hosts in the heart of Agra, 4.2 km from the Taj Mahal.
+              your hosts in the heart of Agra, 6 km from the Taj Mahal East Gate.
             </p>
           </div>
         </div>

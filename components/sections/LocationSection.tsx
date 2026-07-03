@@ -21,8 +21,8 @@ export default function LocationSection() {
             <em className="not-italic text-saffron">Heart of Agra</em>
           </h2>
           <p className="text-white/55 text-[15px] leading-[1.7] mb-8">
-            Tucked in a quiet residential lane in Tajganj — walkable to the Taj&apos;s south gate,
-            yet away from the tourist noise.
+            Tucked in a quiet residential lane in Tajganj — 6 km from the Taj Mahal East Gate
+            and 8 km from Agra Fort, away from the tourist noise.
           </p>
 
           <div className="flex flex-col gap-3 mb-8">

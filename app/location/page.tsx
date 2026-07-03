@@ -5,29 +5,29 @@ import { DISTANCES, ADDRESS, GOOGLE_MAPS_URL } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Location & Map",
   description:
-    "VMP Villa is located in Tajganj, Agra — 4.2 km from the Taj Mahal and 2.8 km from Agra Fort. Get directions and transport tips.",
+    "VMP Villa is located in Tajganj, Agra — 6 km from Taj Mahal East Gate and 8 km from Agra Fort. Get directions and transport tips.",
 };
 
 const TRANSPORT = [
   {
     mode: "🚂 Train",
     tips: [
-      "Agra Cantt. (AGC) is the main railway station — 3.1 km, 10 mins",
+      "Agra Cantt. (AGC) is the main railway station — 10 km, ~30 min by auto",
       "Rajdhani, Shatabdi & Gatimaan Express from Delhi (2 hrs)",
-      "Auto-rickshaw from station: ₹100–150",
+      "Auto-rickshaw from station to VMP Villa: ₹150–200",
     ],
   },
   {
     mode: "🚌 Bus",
     tips: [
-      "ISBT Agra is 6 km away — take an auto to VMP Villa",
-      "Idgah Bus Stand is 4.5 km — regular bus from Delhi, Jaipur",
+      "ISBT Agra is 8 km away — take an auto to VMP Villa",
+      "Idgah Bus Stand is 6 km — regular bus from Delhi, Jaipur",
     ],
   },
   {
     mode: "✈️ Fly",
     tips: [
-      "Agra Airport (AGR) is 7 km away — limited flights from Delhi",
+      "Agra Airport (AGR) is 12 km away — ~35 min, limited flights from Delhi",
       "Nearest major airport: Delhi IGI (200 km, ~4 hr drive)",
       "We offer airport pickup for ₹400 (book in advance)",
     ],
@@ -59,8 +59,8 @@ export default function LocationPage() {
             <em className="not-italic text-saffron">Heart of Agra</em>
           </h1>
           <p className="text-white/60 text-[15px] max-w-[560px] leading-[1.7]">
-            Tucked in a quiet residential lane in Tajganj — walkable to the Taj&apos;s south gate,
-            yet away from the tourist noise.
+            Tucked in a quiet residential lane in Tajganj — 6 km from the Taj Mahal East Gate
+            and 8 km from Agra Fort, away from the tourist noise.
           </p>
           <div className="mt-5 text-white/40 text-sm">📍 {ADDRESS}</div>
         </div>
@@ -69,7 +69,7 @@ export default function LocationPage() {
       {/* Map + distances */}
       <div className="bg-cream" style={{ padding: "80px 40px" }}>
         <div
-          className="max-w-[1100px] mx-auto grid gap-16 items-start"
+          className="max-w-[1100px] mx-auto grid gap-10 items-start location-grid"
           style={{ gridTemplateColumns: "1fr 1.4fr" }}
         >
           {/* Distances */}
@@ -141,7 +141,7 @@ export default function LocationPage() {
           </h2>
           <p className="text-muted text-center mb-12">Transport options to reach VMP Villa in Agra.</p>
 
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 gap-6 transport-grid">
             {TRANSPORT.map((t, i) => (
               <ScrollReveal key={t.mode} delay={i * 80}>
                 <div className="bg-white rounded-2xl p-6 border border-marble">
@@ -160,6 +160,21 @@ export default function LocationPage() {
           </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 860px) {
+          .location-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .transport-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+        @media (max-width: 600px) {
+          div[style*="padding: 64px 40px 48px"] { padding: 48px 20px 36px !important; }
+          div[style*="padding: 80px 40px"] { padding: 48px 20px !important; }
+        }
+      `}</style>
     </div>
   );
 }

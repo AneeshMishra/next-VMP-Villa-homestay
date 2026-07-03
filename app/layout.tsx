@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s | VMP Villa Home Stay Agra",
   },
   description:
-    "A peaceful eco-conscious homestay in Agra, just 4.2 km from the Taj Mahal. Book directly and save. 3 room types, home-cooked meals, and heartfelt hospitality.",
+    "A peaceful eco-conscious homestay in Agra, just 6 km from the Taj Mahal East Gate. Book directly and save. 3 room types, home-cooked meals, and heartfelt hospitality.",
   keywords: [
     "VMP Villa",
     "homestay Agra",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     url: "https://www.vmpvilla.in",
     title: "VMP Villa Home Stay — Agra",
     description:
-      "A family-run eco-homestay 4.2 km from the Taj Mahal. Book direct and save on OTA commissions.",
+      "A family-run eco-homestay 6 km from the Taj Mahal East Gate. Book direct and save on OTA commissions.",
     images: [
       {
         url: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=1200&q=80",
