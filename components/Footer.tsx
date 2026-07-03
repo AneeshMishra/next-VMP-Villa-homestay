@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="grid gap-12 pb-10 mb-10" style={{ gridTemplateColumns: "1.5fr 1fr 1fr 1fr", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
           <div>
             <div className="font-display text-[22px] font-black text-white mb-3">VMP<span className="text-saffron">Villa</span></div>
-            <p className="text-sm leading-relaxed mb-5">A family-run eco-homestay in Agra where every guest is treated as family. 4.2 km from the Taj Mahal. A lifetime from the ordinary.</p>
+            <p className="text-sm leading-relaxed mb-5">A family-run eco-homestay in Agra where every guest is treated as family. 6 km from the Taj Mahal East Gate. A lifetime from the ordinary.</p>
             <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-3 py-1.5 rounded-full" style={{ background: "rgba(58,107,74,0.2)", border: "1px solid rgba(58,107,74,0.3)", color: "#6FCF97" }}>
               🌿 Eco-Certified Homestay
             </span>

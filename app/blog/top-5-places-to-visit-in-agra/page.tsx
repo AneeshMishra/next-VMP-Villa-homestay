@@ -185,7 +185,7 @@ const PLACES = [
     emoji: "🕌",
     image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=1000&q=85",
     imageAlt: "Taj Mahal at sunrise reflected in the central pool, Agra, India",
-    distance: "4.2 km from VMP Villa",
+    distance: "6 km from VMP Villa (East Gate)",
     timing: "Sunrise – 6:00 PM (closed Fridays)",
     entry: "₹50 Indians · ₹1,100 foreigners",
     tip: "Visit at sunrise — the marble glows orange-pink and crowds are thinnest. Book your sunrise entry ticket online 2–3 days in advance to avoid queues at the gate.",
@@ -464,7 +464,7 @@ export default function BlogPostPage() {
               </h2>
               <p className="text-[15px] text-ink leading-[1.85] mb-8">
                 At VMP Villa, we&apos;re happy to arrange tuk-tuks, taxis, and guided tours for all these sites at
-                local rates — just ask at check-in. We&apos;re just 4.2 km from the Taj South Gate, meaning you can be
+                local rates — just ask at check-in. We&apos;re just 6 km from the Taj Mahal East Gate, meaning you can be
                 at sunrise entry before most hotel guests have had breakfast.
               </p>
 
@@ -473,7 +473,7 @@ export default function BlogPostPage() {
                 <h3 className="font-display text-lg font-bold text-ink mb-2">Stay With Us in Agra</h3>
                 <p className="text-sm text-muted mb-5 max-w-[380px] mx-auto">
                   Book direct with VMP Villa and save 15–20% vs OTAs. Breakfast, WiFi, and local tips included.
-                  Just 4.2 km from the Taj Mahal.
+                  Just 6 km from the Taj Mahal East Gate.
                 </p>
                 <div className="flex justify-center gap-3 flex-wrap">
                   <Link

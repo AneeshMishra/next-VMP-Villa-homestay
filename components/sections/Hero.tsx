@@ -98,9 +98,9 @@ export default function Hero() {
             }}
           >
             {[
-              { val: "4.2 km", label: "Taj Mahal" },
-              { val: "2.8 km", label: "Agra Fort" },
-              { val: "3.1 km", label: "Agra Cantt." },
+              { val: "6 km", label: "Taj Mahal" },
+              { val: "8 km", label: "Agra Fort" },
+              { val: "10 km", label: "Agra Cantt." },
               { val: "₹1,500", label: "From/night" },
             ].map((item, i, arr) => (
               <div

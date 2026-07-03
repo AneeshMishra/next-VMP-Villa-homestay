@@ -70,11 +70,11 @@ export const ROOMS = [
 ] as const;
 
 export const DISTANCES = [
-  { icon: "🕌", name: "Taj Mahal (South Gate)", value: "4.2 km · 12 min" },
-  { icon: "🏰", name: "Agra Fort", value: "2.8 km · 8 min" },
-  { icon: "🚂", name: "Agra Cantt. Railway Station", value: "3.1 km · 10 min" },
-  { icon: "✈️", name: "Agra Airport (AGR)", value: "7.0 km · 20 min" },
-  { icon: "🍽️", name: "Sadar Bazaar (Food Street)", value: "1.5 km · 5 min" },
+  { icon: "🕌", name: "Taj Mahal (East Gate)", value: "6 km · 18 min" },
+  { icon: "🏰", name: "Agra Fort", value: "8 km · 25 min" },
+  { icon: "🚂", name: "Agra Cantt. Railway Station", value: "10 km · 30 min" },
+  { icon: "✈️", name: "Agra Airport (AGR)", value: "12 km · 35 min" },
+  { icon: "🍽️", name: "Sadar Bazaar (Food Street)", value: "6 km · 18 min" },
 ] as const;
 
 export const FACILITIES = [
@@ -174,7 +174,7 @@ export const FAQ_ITEMS = [
   },
   {
     q: "How far is the Taj Mahal and can you arrange a tour?",
-    a: "The Taj Mahal is approximately 4.2 km from VMP Villa — about a 12-minute auto-rickshaw or e-rickshaw ride. We can arrange an early morning sunrise tour with a trusted local guide (₹800–1,200 per group). Just ask us at check-in or via WhatsApp the night before.",
+    a: "The Taj Mahal East Gate is approximately 6 km from VMP Villa — about an 18-minute auto-rickshaw or e-rickshaw ride. We can arrange an early morning sunrise tour with a trusted local guide (₹800–1,200 per group). Just ask us at check-in or via WhatsApp the night before.",
   },
   {
     q: "Is airport/station pickup available?",
