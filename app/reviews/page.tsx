@@ -42,8 +42,8 @@ export default function ReviewsPage() {
 
       <div className="bg-cream" style={{ padding: "64px 40px" }}>
         <div className="max-w-[1100px] mx-auto">
-          <div className="grid gap-8 items-center mb-12" style={{ gridTemplateColumns: "auto 1fr" }}>
-            <div className="text-center pr-8" style={{ borderRight: "1px solid var(--marble)" }}>
+          <div className="reviews-stats-grid grid gap-8 items-center mb-12" style={{ gridTemplateColumns: "auto 1fr" }}>
+            <div className="reviews-score-col text-center pr-8" style={{ borderRight: "1px solid var(--marble)" }}>
               <div className="font-display text-[80px] font-black text-ink leading-none">9.4</div>
               <div className="text-[28px] text-saffron tracking-widest mb-2">★★★★★</div>
               <div className="text-sm text-muted">Overall Guest Score</div>
@@ -75,7 +75,7 @@ export default function ReviewsPage() {
         <div className="max-w-[1100px] mx-auto">
           <h2 className="font-display text-[28px] font-bold mb-2">Featured Reviews</h2>
           <p className="text-muted mb-10">Hand-picked from our favourite moments.</p>
-          <div className="grid gap-5" style={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
+          <div className="reviews-cards-grid grid gap-5" style={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
             {REVIEWS.map((r, i) => {
               const style = SOURCE_STYLES[r.sourceClass];
               return (
@@ -128,6 +128,29 @@ export default function ReviewsPage() {
           <Link href="/rooms" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-10 py-4 rounded-lg border border-white/20 transition-all duration-150">🛏️ See Rooms</Link>
         </div>
       </div>
+
+      <style>{`
+        /* Reviews cards: 3 cols → 2 cols → 1 col */
+        @media (max-width: 900px) {
+          .reviews-cards-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 560px) {
+          .reviews-cards-grid { grid-template-columns: 1fr !important; }
+        }
+
+        /* Stats section: side-by-side → stacked */
+        @media (max-width: 700px) {
+          .reviews-stats-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+          .reviews-score-col { border-right: none !important; padding-right: 0 !important; border-bottom: 1px solid var(--marble); padding-bottom: 28px !important; }
+        }
+
+        /* Section padding on mobile */
+        @media (max-width: 600px) {
+          div[style*="padding: 64px 40px 48px"] { padding: 40px 20px 32px !important; }
+          div[style*="padding: 64px 40px 80px"] { padding: 40px 20px 60px !important; }
+          div[style*="padding: 64px 40px"] { padding: 40px 20px !important; }
+        }
+      `}</style>
     </div>
   );
 }
