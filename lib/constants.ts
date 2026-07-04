@@ -1,10 +1,10 @@
-export const WHATSAPP_NUMBER = "919258555345";
-export const PHONE_DISPLAY = "+91 92585 55345";
-export const EMAIL = "support@vmpvilla.in";
+export const WHATSAPP_NUMBER = "919258555345"; // Replace with real number before launch
+export const PHONE_DISPLAY = "+91 9258555345";
+export const EMAIL = "info@vmpvilla.in";
 export const INSTAGRAM = "@vmp_homestay_agra";
 export const INSTAGRAM_URL = "https://instagram.com/vmp_homestay_agra";
-export const ADDRESS = "Tajganj, Agra, Uttar Pradesh 282001";
-export const GOOGLE_MAPS_URL = "https://maps.google.com/?q=VMP+Villa+Agra";
+export const ADDRESS = "A-73, VMP Villa Home Stay , KPS Town, Jaipuriya Agra, Uttar Pradesh 282001";
+export const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/WxCJHGcSjaXFeVZg7?g_st=ic";
 
 export const ROOMS = [
   {
@@ -14,7 +14,7 @@ export const ROOMS = [
     badgeColor: "#e8762b",
     description:
       "Spacious and well-appointed with a queen bed, private en-suite bathroom, and warm earthy décor inspired by Mughal heritage.",
-    price: "₹2,500",
+    price: "₹1500",
     priceUnit: "/ night",
     amenities: [
       "❄️ Air Conditioning",
@@ -34,7 +34,7 @@ export const ROOMS = [
     badgeColor: "#3a6b4a",
     description:
       "Comfortable and clean with twin or double bed configuration. Perfect for budget-conscious travellers who don't want to compromise on comfort.",
-    price: "₹1,800",
+    price: "₹1200",
     priceUnit: "/ night",
     amenities: [
       "❄️ Air Conditioning",
@@ -54,7 +54,7 @@ export const ROOMS = [
     badgeColor: null,
     description:
       "Social sleeping for solo backpackers and budget explorers. Meet fellow Taj enthusiasts, share stories on the rooftop terrace.",
-    price: "₹1,500",
+    price: "₹500",
     priceUnit: "/ bed",
     amenities: [
       "🛏️ Bunk Beds",

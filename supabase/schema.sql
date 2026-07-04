@@ -33,5 +33,5 @@ CREATE INDEX IF NOT EXISTS bookings_avail_idx ON bookings (room_id, check_in, ch
 -- Row Level Security: all writes go through the service role key (server-side only)
 ALTER TABLE bookings ENABLE ROW LEVEL SECURITY;
 
--- Allow server (service role) full access — no policy needed for service role
+-- Allow server (service role) full access -- no policy needed for service role
 -- Public read is NOT allowed by default (RLS blocks anon/authenticated reads)

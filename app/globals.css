@@ -106,7 +106,7 @@
   animation: slideUp 0.4s ease forwards;
 }
 
-/* ── BOOKING BAR "DIRECT BOOKING" badge via ::before ── */
+/* ── BOOKING BAR “DIRECT BOOKING” badge via ::before ── */
 .booking-bar-wrap {
   position: relative;
 }
