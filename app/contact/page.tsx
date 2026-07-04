@@ -12,14 +12,14 @@ export default function ContactPage() {
   return (
     <div>
       {/* Header */}
-      <div className="bg-ink text-white" style={{ padding: "64px 40px 48px" }}>
+      <div className="contact-header bg-ink text-white" style={{ padding: "64px 40px 48px" }}>
         <div className="max-w-[1100px] mx-auto">
           <div className="text-[11px] font-bold tracking-[2.5px] uppercase text-saffron mb-3">
             Contact Us
           </div>
           <h1
             className="font-display font-black text-white mb-4 leading-tight"
-            style={{ fontSize: "clamp(36px, 6vw, 60px)" }}
+            style={{ fontSize: "clamp(28px, 6vw, 60px)" }}
           >
             We&apos;re just a{" "}
             <em className="not-italic text-saffron">WhatsApp away</em>
@@ -30,6 +30,12 @@ export default function ContactPage() {
           </p>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 600px) {
+          .contact-header { padding: 40px 20px 32px !important; }
+        }
+      `}</style>
 
       <ContactSection />
       <div id="reviews">
