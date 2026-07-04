@@ -87,7 +87,7 @@ export default function ContactSection() {
           </div>
           <h2
             className="font-display font-bold text-ink mb-3.5 leading-tight"
-            style={{ fontSize: "clamp(28px, 4vw, 44px)" }}
+            style={{ fontSize: "clamp(24px, 4vw, 44px)" }}
           >
             Talk to{" "}
             <em className="not-italic text-saffron">Aneesh & Bhavna</em> directly
@@ -114,7 +114,7 @@ export default function ContactSection() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="font-semibold text-sm text-ink">{ch.name}</div>
-                  <div className="text-[13px] text-muted truncate">{ch.value}</div>
+                  <div className="text-[13px] text-muted break-words">{ch.value}</div>
                 </div>
                 <span className="text-stone text-lg">→</span>
               </a>

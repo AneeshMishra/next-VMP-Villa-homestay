@@ -1,6 +1,6 @@
-export const WHATSAPP_NUMBER = "919876543210"; // Replace with real number before launch
-export const PHONE_DISPLAY = "+91 98765 43210";
-export const EMAIL = "hello@vmpvilla.in";
+export const WHATSAPP_NUMBER = "919258555345";
+export const PHONE_DISPLAY = "+91 92585 55345";
+export const EMAIL = "support@vmpvilla.in";
 export const INSTAGRAM = "@vmp_homestay_agra";
 export const INSTAGRAM_URL = "https://instagram.com/vmp_homestay_agra";
 export const ADDRESS = "Tajganj, Agra, Uttar Pradesh 282001";
