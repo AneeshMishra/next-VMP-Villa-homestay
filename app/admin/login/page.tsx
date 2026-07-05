@@ -43,8 +43,8 @@ function LoginForm() {
 
       router.push(next);
       router.refresh();
-    } catch {
-      setError("Something went wrong. Try again.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Try again.");
       setLoading(false);
     }
   }
