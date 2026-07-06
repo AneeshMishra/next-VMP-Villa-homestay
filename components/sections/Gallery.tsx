@@ -2,8 +2,8 @@ import Image from "next/image";
 
 const GALLERY_IMAGES = [
   {
-    src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&q=80",
-    alt: "VMP Villa garden view",
+    src: "/images/vmp-villa-building.jpg",
+    alt: "VMP Villa Home Stay building exterior lit up at dusk, Agra",
     cls: "gallery-img-1",
   },
   {
