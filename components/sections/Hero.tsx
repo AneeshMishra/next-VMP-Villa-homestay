@@ -14,8 +14,8 @@ export default function Hero() {
           className="absolute inset-0"
           style={{
             background: `
-              linear-gradient(to bottom, rgba(26,23,20,0.2) 0%, rgba(26,23,20,0.1) 40%, rgba(26,23,20,0.75) 70%, rgba(26,23,20,0.95) 100%),
-              url('https://images.unsplash.com/photo-1548013146-72479768bada?w=1600&q=80') center/cover no-repeat
+              linear-gradient(to bottom, rgba(26,23,20,0.3) 0%, rgba(26,23,20,0.15) 40%, rgba(26,23,20,0.78) 70%, rgba(26,23,20,0.96) 100%),
+              url('/images/vmp-villa-building.jpg') center/cover no-repeat
             `,
           }}
         />
