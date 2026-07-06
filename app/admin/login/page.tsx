@@ -19,32 +19,49 @@ function LoginForm() {
     setError("");
     setLoading(true);
 
+    // Step 1: Supabase sign-in
+    let accessToken: string;
     try {
       const supabase = getBrowserSupabase();
       const { data, error: authError } = await supabase.auth.signInWithPassword({ email, password });
-      if (authError || !data.session) {
-        setError(authError?.message ?? "Login failed");
+      if (authError) {
+        setError(`Auth error: ${authError.message}`);
         setLoading(false);
         return;
       }
+      if (!data.session) {
+        setError("No session returned. Check your credentials.");
+        setLoading(false);
+        return;
+      }
+      accessToken = data.session.access_token;
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setError(`Supabase unreachable: ${msg}. Check NEXT_PUBLIC_SUPABASE_URL env var on Vercel and redeploy.`);
+      setLoading(false);
+      return;
+    }
 
+    // Step 2: Exchange token for admin session cookie
+    try {
       const res = await fetch("/api/admin/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ access_token: data.session.access_token }),
+        body: JSON.stringify({ access_token: accessToken }),
       });
 
       if (!res.ok) {
-        const body = await res.json();
-        setError(body.error ?? "Access denied");
+        const body = await res.json().catch(() => ({}));
+        setError(body.error ?? `Server returned ${res.status}`);
         setLoading(false);
         return;
       }
 
       router.push(next);
       router.refresh();
-    } catch {
-      setError("Something went wrong. Try again.");
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setError(`API route unreachable: ${msg}`);
       setLoading(false);
     }
   }
