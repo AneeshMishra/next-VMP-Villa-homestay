@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
+import RoomImageSlider from "@/components/RoomImageSlider";
 import { ROOMS } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -45,52 +46,39 @@ export default function RoomsPage() {
                   className="grid gap-12 items-center"
                   style={{ gridTemplateColumns: "1fr 1fr" }}
                 >
-                  {/* Image / Photo grid */}
-                  {"images" in room && Array.isArray(room.images) ? (
-                    <div className={`${isEven ? "order-1" : "order-2"} grid grid-cols-2 gap-2 rounded-2xl overflow-hidden`} style={{ aspectRatio: "4/3" }}>
-                      {room.images.map((img: { src: string; alt: string }, idx: number) => (
-                        <div key={idx} className="relative overflow-hidden">
-                          <Image
-                            src={img.src}
-                            alt={img.alt}
-                            fill
-                            className="object-cover hover:scale-105 transition-transform duration-500"
-                            sizes="(max-width: 768px) 50vw, 25vw"
-                          />
-                          {idx === 0 && room.badge && (
-                            <div
-                              className="absolute top-3 left-3 text-white text-[10px] font-bold tracking-wide uppercase py-1 px-3 rounded z-10"
-                              style={{ background: room.badgeColor ?? undefined }}
-                            >
-                              {room.badge}
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div
-                      className={`relative rounded-2xl overflow-hidden ${isEven ? "order-1" : "order-2"}`}
-                      style={{ aspectRatio: "4/3" }}
-                    >
-                      <Image
-                        src={room.image}
-                        alt={room.imageAlt}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        priority={i === 0}
+                  {/* Image / Slider */}
+                  <div className={isEven ? "order-1" : "order-2"}>
+                    {"images" in room && Array.isArray(room.images) ? (
+                      <RoomImageSlider
+                        images={room.images as { src: string; alt: string }[]}
+                        badge={room.badge}
+                        badgeColor={room.badgeColor}
+                        roomName={room.name}
                       />
-                      {room.badge && (
-                        <div
-                          className="absolute top-4 left-4 text-white text-[10px] font-bold tracking-wide uppercase py-1 px-3 rounded"
-                          style={{ background: room.badgeColor ?? undefined }}
-                        >
-                          {room.badge}
-                        </div>
-                      )}
-                    </div>
-                  )}
+                    ) : (
+                      <div
+                        className="relative rounded-2xl overflow-hidden"
+                        style={{ aspectRatio: "4/3" }}
+                      >
+                        <Image
+                          src={room.image}
+                          alt={room.imageAlt}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          priority={i === 0}
+                        />
+                        {room.badge && (
+                          <div
+                            className="absolute top-4 left-4 text-white text-[10px] font-bold tracking-wide uppercase py-1 px-3 rounded"
+                            style={{ background: room.badgeColor ?? undefined }}
+                          >
+                            {room.badge}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
 
                   {/* Content */}
                   <div className={isEven ? "order-2" : "order-1"}>
