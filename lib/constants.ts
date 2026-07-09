@@ -26,9 +26,14 @@ export const ROOMS = [
       "📶 Free WiFi",
       "🧹 Daily Housekeeping",
     ],
-    image:
-      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=80",
-    imageAlt: "2BHK Private Flat at VMP Villa — living room with dining area",
+    image: "/images/2bhk-bedroom.jpg",
+    imageAlt: "2BHK Private Flat bedroom at VMP Villa — green accent wall with LED lighting",
+    images: [
+      { src: "/images/2bhk-bedroom.jpg", alt: "Bedroom with green accent wall, LED strip lighting and cozy décor" },
+      { src: "/images/2bhk-kitchen-overview.jpg", alt: "Modular kitchen with overhead cabinets and dining table" },
+      { src: "/images/2bhk-kitchen-dining.jpg", alt: "Kitchen counter with sink and dining area view" },
+      { src: "/images/2bhk-dining-area.jpg", alt: "Dining area with colourful accent wall" },
+    ],
   },
   {
     id: "1bhk-flat",
