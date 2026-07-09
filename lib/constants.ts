@@ -8,6 +8,57 @@ export const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/WxCJHGcSjaXFeVZg7?g_st=i
 
 export const ROOMS = [
   {
+    id: "2bhk-flat",
+    name: "2BHK Private Flat",
+    badge: "Best for Families",
+    badgeColor: "#2b7bb9",
+    description:
+      "A fully self-contained 2BHK apartment — ideal for families, groups, or extended stays. Features two air-conditioned bedrooms each with an attached private bathroom and separate balcony, a spacious dining area, and a fully equipped kitchen. Complete privacy, just like home.",
+    price: "₹3000",
+    priceUnit: "/ night",
+    amenities: [
+      "🏠 2 Bedrooms",
+      "🍳 Full Kitchen",
+      "🛁 2 Attached Baths",
+      "🌿 2 Private Balconies",
+      "🍽️ Dining Area",
+      "❄️ AC in Both Rooms",
+      "📶 Free WiFi",
+      "🧹 Daily Housekeeping",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=80",
+    imageAlt: "2BHK Private Flat at VMP Villa — living room with dining area",
+  },
+  {
+    id: "1bhk-flat",
+    name: "1BHK Private Flat",
+    badge: "Great for Couples",
+    badgeColor: "#7b4ea0",
+    description:
+      "A self-contained 1BHK apartment with a beautifully furnished AC bedroom, private attached bathroom, and a dedicated balcony. Comes with a fully equipped modular kitchen — gas stove, chimney, sink, and all utensils — plus a separate dining area. Perfect for couples, solo travellers on extended stays, or anyone who wants the comfort and privacy of a home.",
+    price: "₹2000",
+    priceUnit: "/ night",
+    amenities: [
+      "🛏️ King Bedroom",
+      "🛁 Attached Bathroom",
+      "🌿 Private Balcony",
+      "🍳 Full Kitchen",
+      "🍽️ Dining Area",
+      "❄️ Air Conditioning",
+      "📶 Free WiFi",
+      "🧹 Daily Housekeeping",
+    ],
+    image: "/images/1bhk-bedroom.jpg",
+    imageAlt: "1BHK Private Flat bedroom at VMP Villa — king bed with red accent wall",
+    images: [
+      { src: "/images/1bhk-bedroom.jpg", alt: "Spacious bedroom with king bed and red accent décor" },
+      { src: "/images/1bhk-kitchen-dining.jpg", alt: "Modular kitchen with dining area" },
+      { src: "/images/1bhk-kitchen-2.jpg", alt: "Full kitchen with chimney and gas stove" },
+      { src: "/images/1bhk-kitchen-closeup.jpg", alt: "Kitchen counter with gas stove and chimney" },
+    ],
+  },
+  {
     id: "deluxe-ac",
     name: "Deluxe AC Room",
     badge: "Most Popular",
@@ -66,57 +117,6 @@ export const ROOMS = [
     image:
       "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=600&q=80",
     imageAlt: "Dormitory at VMP Villa",
-  },
-  {
-    id: "1bhk-flat",
-    name: "1BHK Private Flat",
-    badge: "Great for Couples",
-    badgeColor: "#7b4ea0",
-    description:
-      "A self-contained 1BHK apartment with a beautifully furnished AC bedroom, private attached bathroom, and a dedicated balcony. Comes with a fully equipped modular kitchen — gas stove, chimney, sink, and all utensils — plus a separate dining area. Perfect for couples, solo travellers on extended stays, or anyone who wants the comfort and privacy of a home.",
-    price: "₹2000",
-    priceUnit: "/ night",
-    amenities: [
-      "🛏️ King Bedroom",
-      "🛁 Attached Bathroom",
-      "🌿 Private Balcony",
-      "🍳 Full Kitchen",
-      "🍽️ Dining Area",
-      "❄️ Air Conditioning",
-      "📶 Free WiFi",
-      "🧹 Daily Housekeeping",
-    ],
-    image: "/images/1bhk-bedroom.jpg",
-    imageAlt: "1BHK Private Flat bedroom at VMP Villa — king bed with red accent wall",
-    images: [
-      { src: "/images/1bhk-bedroom.jpg", alt: "Spacious bedroom with king bed and red accent décor" },
-      { src: "/images/1bhk-kitchen-dining.jpg", alt: "Modular kitchen with dining area" },
-      { src: "/images/1bhk-kitchen-2.jpg", alt: "Full kitchen with chimney and gas stove" },
-      { src: "/images/1bhk-kitchen-closeup.jpg", alt: "Kitchen counter with gas stove and chimney" },
-    ],
-  },
-  {
-    id: "2bhk-flat",
-    name: "2BHK Private Flat",
-    badge: "Best for Families",
-    badgeColor: "#2b7bb9",
-    description:
-      "A fully self-contained 2BHK apartment — ideal for families, groups, or extended stays. Features two air-conditioned bedrooms each with an attached private bathroom and separate balcony, a spacious dining area, and a fully equipped kitchen. Complete privacy, just like home.",
-    price: "₹3000",
-    priceUnit: "/ night",
-    amenities: [
-      "🏠 2 Bedrooms",
-      "🍳 Full Kitchen",
-      "🛁 2 Attached Baths",
-      "🌿 2 Private Balconies",
-      "🍽️ Dining Area",
-      "❄️ AC in Both Rooms",
-      "📶 Free WiFi",
-      "🧹 Daily Housekeeping",
-    ],
-    image:
-      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=80",
-    imageAlt: "2BHK Private Flat at VMP Villa — living room with dining area",
   },
 ] as const;
 
