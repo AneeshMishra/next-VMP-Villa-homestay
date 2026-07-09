@@ -67,6 +67,29 @@ export const ROOMS = [
       "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=600&q=80",
     imageAlt: "Dormitory at VMP Villa",
   },
+  {
+    id: "2bhk-flat",
+    name: "2BHK Private Flat",
+    badge: "Best for Families",
+    badgeColor: "#2b7bb9",
+    description:
+      "A fully self-contained 2BHK apartment — ideal for families, groups, or extended stays. Features two air-conditioned bedrooms each with an attached private bathroom and separate balcony, a spacious dining area, and a fully equipped kitchen. Complete privacy, just like home.",
+    price: "₹3000",
+    priceUnit: "/ night",
+    amenities: [
+      "🏠 2 Bedrooms",
+      "🍳 Full Kitchen",
+      "🛁 2 Attached Baths",
+      "🌿 2 Private Balconies",
+      "🍽️ Dining Area",
+      "❄️ AC in Both Rooms",
+      "📶 Free WiFi",
+      "🧹 Daily Housekeeping",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=80",
+    imageAlt: "2BHK Private Flat at VMP Villa — living room with dining area",
+  },
 ] as const;
 
 export const DISTANCES = [

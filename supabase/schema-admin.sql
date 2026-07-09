@@ -59,9 +59,10 @@ CREATE TABLE IF NOT EXISTS room_config (
 -- Seed initial room data
 INSERT INTO room_config (id, name, description, price_inr, max_guests, amenities, badge, badge_color, sort_order)
 VALUES
-  ('deluxe-ac', 'Deluxe AC Room', 'Spacious room with king-sized bed, en-suite bathroom, and a private balcony with partial Taj view. Ideal for couples.', 2500, 2, ARRAY['King Bed', 'En-Suite Bath', 'Balcony', 'AC', 'Smart TV', 'Mini Fridge'], 'Most Popular', '#e8762b', 1),
-  ('standard-ac', 'Standard AC Room', 'Comfortable double room with attached bathroom and city-view window. Great value for business travellers and couples.', 1800, 2, ARRAY['Double Bed', 'Attached Bath', 'AC', 'Smart TV', 'City View'], NULL, NULL, 2),
-  ('dormitory', 'Dormitory Bed', 'Six-bed mixed dormitory with individual lockers, privacy curtains, and shared bathrooms. Perfect for solo backpackers.', 1500, 1, ARRAY['Bunk Bed', 'Privacy Curtain', 'Locker', 'Shared Bath', 'Reading Light'], 'Best Value', '#3a6b4a', 3)
+  ('deluxe-ac', 'Deluxe AC Room', 'Spacious room with queen bed, en-suite bathroom, and warm décor. Ideal for couples.', 1500, 3, ARRAY['AC', 'En-Suite Bath', 'Free WiFi', 'Garden View', 'Safe & Locker'], 'Most Popular', '#e8762b', 1),
+  ('standard-ac', 'Standard AC Room', 'Comfortable double room with attached bathroom. Great value for budget-conscious travellers.', 1200, 2, ARRAY['AC', 'Shared Bath', 'Free WiFi', 'TV', 'Daily Housekeeping'], 'Great Value', '#3a6b4a', 2),
+  ('dormitory', 'Dormitory Bed', 'Six-bed mixed dormitory with individual lockers. Perfect for solo backpackers.', 500, 1, ARRAY['Bunk Bed', 'Personal Locker', 'Free WiFi', 'Shared Bath'], NULL, NULL, 3),
+  ('2bhk-flat', '2BHK Private Flat', 'Fully self-contained 2BHK apartment with two bedrooms, kitchen, dining area, and private balconies. Ideal for families.', 3000, 6, ARRAY['2 Bedrooms', 'Full Kitchen', '2 Attached Baths', '2 Private Balconies', 'Dining Area', 'AC in Both Rooms', 'Free WiFi', 'Daily Housekeeping'], 'Best for Families', '#2b7bb9', 4)
 ON CONFLICT (id) DO NOTHING;
 
 -- Blog posts
