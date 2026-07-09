@@ -6,11 +6,10 @@ import { ROOMS } from "@/lib/constants";
 function RoomCard({ room, delay }: { room: (typeof ROOMS)[number]; delay: number }) {
   return (
     <ScrollReveal delay={delay} className="h-full">
-      <div
-        id={room.id}
-        className="room-card bg-white rounded-2xl overflow-hidden border border-black/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(0,0,0,0.1)] group h-full flex flex-col"
-      >
-        <div className="relative overflow-hidden" style={{ aspectRatio: "4/3" }}>
+      <div className="room-card bg-white rounded-2xl overflow-hidden border border-black/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(0,0,0,0.12)] group h-full flex flex-col">
+
+        {/* Image — links to detail section */}
+        <Link href={`/rooms#${room.id}`} className="relative block overflow-hidden" style={{ aspectRatio: "4/3" }}>
           <Image
             src={room.image}
             alt={room.imageAlt}
@@ -26,14 +25,31 @@ function RoomCard({ room, delay }: { room: (typeof ROOMS)[number]; delay: number
               {room.badge}
             </div>
           )}
-        </div>
+          <div className="absolute inset-0 bg-ink/0 group-hover:bg-ink/25 transition-all duration-300 flex items-center justify-center">
+            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white text-ink text-[12px] font-semibold px-4 py-2 rounded-full shadow-lg">
+              View Details →
+            </span>
+          </div>
+        </Link>
 
         <div className="p-6 flex flex-col flex-1">
-          <div className="font-display text-xl font-bold mb-2">{room.name}</div>
-          <p className="text-sm text-muted leading-relaxed mb-4 flex-1">{room.description}</p>
+          {/* Badge label above name */}
+          <div className="text-[10px] font-bold tracking-[2.5px] uppercase text-saffron mb-1.5">
+            {room.badge ?? "Room"}
+          </div>
+
+          {/* Room name — links to detail section */}
+          <Link
+            href={`/rooms#${room.id}`}
+            className="font-display text-[22px] font-bold text-ink leading-tight mb-2.5 hover:text-saffron transition-colors duration-200 block"
+          >
+            {room.name}
+          </Link>
+
+          <p className="text-[13px] text-stone leading-[1.75] mb-4 flex-1">{room.description}</p>
 
           <div className="flex flex-wrap gap-1.5 mb-5">
-            {room.amenities.map((a) => (
+            {room.amenities.slice(0, 5).map((a) => (
               <span
                 key={a}
                 className="bg-cream border border-marble rounded-full text-[11px] font-medium text-muted px-2.5 py-1"
@@ -41,6 +57,11 @@ function RoomCard({ room, delay }: { room: (typeof ROOMS)[number]; delay: number
                 {a}
               </span>
             ))}
+            {room.amenities.length > 5 && (
+              <span className="bg-cream border border-marble rounded-full text-[11px] font-medium text-stone px-2.5 py-1">
+                +{room.amenities.length - 5} more
+              </span>
+            )}
           </div>
 
           <div
@@ -48,9 +69,9 @@ function RoomCard({ room, delay }: { room: (typeof ROOMS)[number]; delay: number
             style={{ borderTop: "1px solid var(--marble)" }}
           >
             <div>
-              <div className="text-[11px] text-stone">From</div>
-              <span className="font-display text-2xl font-bold">{room.price}</span>
-              <span className="text-xs text-muted ml-0.5">{room.priceUnit}</span>
+              <div className="text-[10px] font-semibold tracking-widest uppercase text-stone mb-0.5">Starting from</div>
+              <span className="font-display text-[26px] font-bold text-saffron leading-none">{room.price}</span>
+              <span className="text-xs text-muted ml-1">{room.priceUnit}</span>
             </div>
             <Link
               href={`/book?room=${room.id}`}
@@ -76,8 +97,8 @@ export default function RoomsSection() {
           Choose Your <em className="not-italic text-saffron">Perfect Room</em>
         </h2>
         <p className="text-muted text-[15px] leading-[1.7] mb-12 max-w-[560px]">
-          Three room types for every type of traveller — couples, families, solo adventurers.
-          All include free WiFi, filtered water, and Aneesh & Bhavna&apos;s signature hospitality.
+          Five room types for every traveller — private flats, couples, families, and solo backpackers.
+          All include free WiFi, filtered water, and Aneesh &amp; Bhavna&apos;s signature hospitality.
         </p>
 
         {/* Grid on desktop, horizontal scroll carousel on mobile */}
