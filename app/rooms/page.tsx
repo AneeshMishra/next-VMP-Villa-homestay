@@ -45,28 +45,52 @@ export default function RoomsPage() {
                   className="grid gap-12 items-center"
                   style={{ gridTemplateColumns: "1fr 1fr" }}
                 >
-                  {/* Image */}
-                  <div
-                    className={`relative rounded-2xl overflow-hidden ${isEven ? "order-1" : "order-2"}`}
-                    style={{ aspectRatio: "4/3" }}
-                  >
-                    <Image
-                      src={room.image}
-                      alt={room.imageAlt}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      priority={i === 0}
-                    />
-                    {room.badge && (
-                      <div
-                        className="absolute top-4 left-4 text-white text-[10px] font-bold tracking-wide uppercase py-1 px-3 rounded"
-                        style={{ background: room.badgeColor ?? undefined }}
-                      >
-                        {room.badge}
-                      </div>
-                    )}
-                  </div>
+                  {/* Image / Photo grid */}
+                  {"images" in room && Array.isArray(room.images) ? (
+                    <div className={`${isEven ? "order-1" : "order-2"} grid grid-cols-2 gap-2 rounded-2xl overflow-hidden`} style={{ aspectRatio: "4/3" }}>
+                      {room.images.map((img: { src: string; alt: string }, idx: number) => (
+                        <div key={idx} className="relative overflow-hidden">
+                          <Image
+                            src={img.src}
+                            alt={img.alt}
+                            fill
+                            className="object-cover hover:scale-105 transition-transform duration-500"
+                            sizes="(max-width: 768px) 50vw, 25vw"
+                          />
+                          {idx === 0 && room.badge && (
+                            <div
+                              className="absolute top-3 left-3 text-white text-[10px] font-bold tracking-wide uppercase py-1 px-3 rounded z-10"
+                              style={{ background: room.badgeColor ?? undefined }}
+                            >
+                              {room.badge}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div
+                      className={`relative rounded-2xl overflow-hidden ${isEven ? "order-1" : "order-2"}`}
+                      style={{ aspectRatio: "4/3" }}
+                    >
+                      <Image
+                        src={room.image}
+                        alt={room.imageAlt}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        priority={i === 0}
+                      />
+                      {room.badge && (
+                        <div
+                          className="absolute top-4 left-4 text-white text-[10px] font-bold tracking-wide uppercase py-1 px-3 rounded"
+                          style={{ background: room.badgeColor ?? undefined }}
+                        >
+                          {room.badge}
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   {/* Content */}
                   <div className={isEven ? "order-2" : "order-1"}>
@@ -133,17 +157,20 @@ export default function RoomsPage() {
 
       <style>{`
         @media (max-width: 900px) {
-          #deluxe-ac, #standard-ac, #dormitory {
+          #deluxe-ac, #standard-ac, #dormitory, #\\31 bhk-flat, #\\32 bhk-flat {
             grid-template-columns: 1fr !important;
           }
           #deluxe-ac > div,
           #standard-ac > div,
-          #dormitory > div {
+          #dormitory > div,
+          #\\31 bhk-flat > div,
+          #\\32 bhk-flat > div {
             order: unset !important;
           }
         }
         @media (max-width: 600px) {
-          .rooms-page-header { padding: 48px 20px 40px !important; }
+          div[style*="padding: 64px 40px 48px"] { padding: 48px 20px 40px !important; }
+          div[style*="padding: 80px 40px"] { padding: 48px 20px !important; }
         }
       `}</style>
     </div>
