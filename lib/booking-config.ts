@@ -1,7 +1,7 @@
 export const ROOM_PRICES: Record<string, number> = {
-  "deluxe-ac": 2500,
-  "standard-ac": 1800,
-  dormitory: 1500,
+  "deluxe-ac": 1500,
+  "standard-ac": 1200,
+  dormitory: 500,
 };
 
 export const ROOM_NAMES: Record<string, string> = {
