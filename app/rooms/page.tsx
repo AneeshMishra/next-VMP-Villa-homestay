@@ -27,7 +27,7 @@ export default function RoomsPage() {
             <em className="not-italic text-saffron">Perfect Room</em>
           </h1>
           <p className="text-white/60 text-[15px] max-w-[560px] leading-[1.7]">
-            Three room types for every traveller. All include free WiFi, filtered water, and
+            Four room types for every traveller — from dorm beds to a private 2BHK flat. All include free WiFi, filtered water, and
             Aneesh &amp; Bhavna&apos;s signature hospitality. Book direct — no OTA commission.
           </p>
         </div>
