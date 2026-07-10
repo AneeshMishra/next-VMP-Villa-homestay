@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getRazorpay } from "@/lib/razorpay-server";
 import { getServerSupabase } from "@/lib/supabase";
-import { ROOM_PRICES, ROOM_NAMES } from "@/lib/booking-config";
+import { ROOM_PRICES, ROOM_NAMES, GST_RATE } from "@/lib/booking-config";
 
 export async function POST(req: NextRequest) {
   try {
@@ -16,12 +16,15 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid room type" }, { status: 400 });
     }
 
-    const expectedAmount = ROOM_PRICES[roomId] * nights;
+    // Server-side re-calculation (never trust client amount blindly)
+    const serverBase = ROOM_PRICES[roomId] * nights;
+    const serverGst = Math.round(serverBase * GST_RATE);
+    const expectedAmount = serverBase + serverGst;
     if (Math.abs(expectedAmount - amount) > 1) {
       return NextResponse.json({ error: "Amount mismatch" }, { status: 400 });
     }
 
-    const amountPaise = amount * 100;
+    const amountPaise = expectedAmount * 100;
 
     // Create Razorpay order
     const razorpay = getRazorpay();

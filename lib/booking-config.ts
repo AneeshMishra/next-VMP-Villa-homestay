@@ -1,3 +1,5 @@
+export const GST_RATE = 0.05; // 5% GST on accommodation
+
 export const ROOM_PRICES: Record<string, number> = {
   "deluxe-ac": 1500,
   "standard-ac": 1200,

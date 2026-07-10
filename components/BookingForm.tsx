@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Script from "next/script";
 import { ROOMS } from "@/lib/constants";
-import { ROOM_PRICES, MAX_GUESTS } from "@/lib/booking-config";
+import { ROOM_PRICES, MAX_GUESTS, GST_RATE } from "@/lib/booking-config";
 
 declare global {
   interface Window {
@@ -80,7 +80,9 @@ export default function BookingForm() {
 
   const selectedRoom = ROOM_OPTIONS.find((r) => r.id === roomId)!;
   const nights = nightsBetween(checkIn, checkOut);
-  const totalAmount = nights * selectedRoom.price;
+  const baseAmount = nights * selectedRoom.price;
+  const gstAmount = Math.round(baseAmount * GST_RATE);
+  const totalAmount = baseAmount + gstAmount;
 
   const minCheckIn = todayStr();
   const minCheckOut = checkIn ? addDays(checkIn, 1) : addDays(todayStr(), 1);
@@ -158,6 +160,8 @@ export default function BookingForm() {
           email: email.trim(),
           phone: phone.trim(),
           special: special.trim(),
+          baseAmount,
+          gstAmount,
           amount: totalAmount,
         }),
       });
@@ -438,7 +442,8 @@ export default function BookingForm() {
 
             {nights > 0 ? (
               <>
-                <div className="flex flex-col gap-3 text-sm mb-5">
+                {/* Stay details */}
+                <div className="flex flex-col gap-2.5 text-sm mb-4">
                   <div className="flex justify-between">
                     <span className="text-muted">Room</span>
                     <span className="font-medium text-ink text-right max-w-[60%]">{selectedRoom.name}</span>
@@ -452,20 +457,38 @@ export default function BookingForm() {
                     <span className="font-medium text-ink">{checkOut}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted">{nights} night{nights > 1 ? "s" : ""} × ₹{selectedRoom.price.toLocaleString("en-IN")}</span>
-                    <span className="font-medium text-ink">₹{totalAmount.toLocaleString("en-IN")}</span>
-                  </div>
-                  <div className="flex justify-between">
                     <span className="text-muted">Guests</span>
                     <span className="font-medium text-ink">{guests}</span>
                   </div>
                 </div>
-                <div className="border-t border-marble pt-4 mb-5 flex justify-between items-center">
-                  <span className="font-bold text-ink">Total</span>
-                  <span className="font-black text-saffron text-xl">
-                    ₹{totalAmount.toLocaleString("en-IN")}
-                  </span>
+
+                {/* Bill breakdown */}
+                <div className="bg-cream rounded-xl p-4 flex flex-col gap-2.5 text-sm mb-4">
+                  <div className="text-[10px] font-bold tracking-[2px] uppercase text-stone mb-1">Bill Breakdown</div>
+                  <div className="flex justify-between">
+                    <span className="text-muted">
+                      {nights} night{nights > 1 ? "s" : ""} × ₹{selectedRoom.price.toLocaleString("en-IN")}
+                    </span>
+                    <span className="font-medium text-ink">₹{baseAmount.toLocaleString("en-IN")}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted">GST (5%)</span>
+                    <span className="font-medium text-ink">₹{gstAmount.toLocaleString("en-IN")}</span>
+                  </div>
+                  <div
+                    className="flex justify-between pt-2.5 mt-0.5"
+                    style={{ borderTop: "1px dashed var(--marble)" }}
+                  >
+                    <span className="font-bold text-ink">Total Payable</span>
+                    <span className="font-black text-saffron text-[17px] leading-none">
+                      ₹{totalAmount.toLocaleString("en-IN")}
+                    </span>
+                  </div>
                 </div>
+
+                <p className="text-[11px] text-muted mb-4 leading-relaxed">
+                  * GST @ 5% applicable on accommodation as per Government of India norms. A GST invoice will be provided on request.
+                </p>
               </>
             ) : (
               <div className="text-center py-6 text-muted text-sm">
