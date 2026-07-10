@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Script from "next/script";
 import { ROOMS } from "@/lib/constants";
-import { ROOM_PRICES, MAX_GUESTS, GST_RATE } from "@/lib/booking-config";
+import { ROOM_PRICES, MAX_GUESTS, GST_RATE, ROOM_UNITS } from "@/lib/booking-config";
 
 declare global {
   interface Window {
@@ -14,7 +14,8 @@ declare global {
 }
 
 type Field = "name" | "email" | "phone";
-type AvailStatus = "idle" | "checking" | "available" | "unavailable";
+type UnitAvail = { available: boolean; availableUnits: number; totalUnits: number };
+type AllAvail = Record<string, UnitAvail>;
 
 const ROOM_OPTIONS = ROOMS.map((r) => ({
   id: r.id,
@@ -59,7 +60,8 @@ export default function BookingForm() {
   const [error, setError] = useState("");
   const [scriptReady, setScriptReady] = useState(false);
   const [touched, setTouched] = useState<Partial<Record<Field, boolean>>>({});
-  const [availStatus, setAvailStatus] = useState<AvailStatus>("idle");
+  const [allAvail, setAllAvail] = useState<AllAvail>({});
+  const [availLoading, setAvailLoading] = useState(false);
 
   // Pre-fill from URL params (passed from BookingBar)
   useEffect(() => {
@@ -87,23 +89,29 @@ export default function BookingForm() {
   const minCheckIn = todayStr();
   const minCheckOut = checkIn ? addDays(checkIn, 1) : addDays(todayStr(), 1);
 
-  // Availability check when dates/room change
+  // Batch availability check for all rooms when dates change
   useEffect(() => {
-    if (!roomId || !checkIn || !checkOut || nights === 0) {
-      setAvailStatus("idle");
+    if (!checkIn || !checkOut || nights === 0) {
+      setAllAvail({});
       return;
     }
-    setAvailStatus("checking");
+    setAvailLoading(true);
     const ctrl = new AbortController();
-    fetch(
-      `/api/availability?room=${roomId}&checkin=${checkIn}&checkout=${checkOut}`,
-      { signal: ctrl.signal }
-    )
+    fetch(`/api/availability?checkin=${checkIn}&checkout=${checkOut}`, { signal: ctrl.signal })
       .then((r) => r.json())
-      .then((data) => setAvailStatus(data.available ? "available" : "unavailable"))
-      .catch(() => setAvailStatus("idle"));
+      .then((data: AllAvail) => {
+        setAllAvail(data);
+        // Auto-switch to first available room if current is fully booked
+        if (data[roomId] && !data[roomId].available) {
+          const firstAvail = Object.entries(data).find(([, v]) => v.available)?.[0];
+          if (firstAvail) setRoomId(firstAvail);
+        }
+      })
+      .catch(() => {})
+      .finally(() => setAvailLoading(false));
     return () => ctrl.abort();
-  }, [roomId, checkIn, checkOut, nights]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checkIn, checkOut, nights]);
 
   const handleCheckInChange = useCallback(
     (v: string) => {
@@ -128,11 +136,14 @@ export default function BookingForm() {
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const phoneValid = /^[6-9]\d{9}$/.test(phone.replace(/\D/g, "").replace(/^91/, ""));
 
+  const currentRoomAvail = allAvail[roomId];
+  const roomFullyBooked = currentRoomAvail ? !currentRoomAvail.available : false;
+
   const formValid =
     checkIn &&
     checkOut &&
     nights > 0 &&
-    availStatus !== "unavailable" &&
+    !roomFullyBooked &&
     name.trim().length >= 2 &&
     emailValid &&
     phoneValid;
@@ -256,15 +267,6 @@ export default function BookingForm() {
     }
   }
 
-  const availBadge =
-    availStatus === "checking" ? (
-      <span className="text-xs text-muted animate-pulse">Checking availability…</span>
-    ) : availStatus === "available" ? (
-      <span className="text-xs font-semibold text-leaf">✓ Available for your dates</span>
-    ) : availStatus === "unavailable" ? (
-      <span className="text-xs font-semibold text-red-500">✗ Not available — please choose different dates</span>
-    ) : null;
-
   return (
     <>
       <Script
@@ -280,39 +282,70 @@ export default function BookingForm() {
           <section>
             <h2 className="font-display text-lg font-bold text-ink mb-4">1. Choose Your Room</h2>
             <div className="flex flex-col gap-3">
-              {ROOM_OPTIONS.map((room) => (
-                <label
-                  key={room.id}
-                  className={`flex items-start gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${
-                    roomId === room.id
-                      ? "border-saffron bg-white shadow-sm"
-                      : "border-marble bg-white hover:border-stone"
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="room"
-                    value={room.id}
-                    checked={roomId === room.id}
-                    onChange={() => handleRoomChange(room.id)}
-                    className="mt-1 accent-[#e8762b]"
-                  />
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between gap-2 flex-wrap">
-                      <span className="font-semibold text-ink text-[15px]">{room.name}</span>
-                      <span className="font-bold text-saffron text-[15px] shrink-0">
-                        {room.priceLabel}
-                        <span className="text-stone font-normal text-xs ml-1">{room.priceUnit}</span>
-                      </span>
+              {ROOM_OPTIONS.map((room) => {
+                const avail = allAvail[room.id];
+                const totalUnits = ROOM_UNITS[room.id] ?? 1;
+                const fullyBooked = avail ? !avail.available : false;
+                const availUnits = avail ? avail.availableUnits : totalUnits;
+                const datesSelected = checkIn && checkOut && nights > 0;
+
+                return (
+                  <label
+                    key={room.id}
+                    className={`flex items-start gap-4 p-4 rounded-xl border-2 transition-all ${
+                      fullyBooked
+                        ? "border-marble bg-marble/40 opacity-60 cursor-not-allowed"
+                        : roomId === room.id
+                        ? "border-saffron bg-white shadow-sm cursor-pointer"
+                        : "border-marble bg-white hover:border-stone cursor-pointer"
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="room"
+                      value={room.id}
+                      checked={roomId === room.id}
+                      disabled={fullyBooked}
+                      onChange={() => !fullyBooked && handleRoomChange(room.id)}
+                      className="mt-1 accent-[#e8762b]"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2 flex-wrap">
+                        <span className="font-semibold text-ink text-[15px]">{room.name}</span>
+                        <div className="flex items-center gap-2 shrink-0">
+                          {/* Availability badge — only show when dates are selected */}
+                          {datesSelected && (
+                            availLoading ? (
+                              <span className="text-[11px] text-stone animate-pulse">checking…</span>
+                            ) : fullyBooked ? (
+                              <span className="text-[11px] font-semibold text-red-500 bg-red-50 border border-red-200 px-2 py-0.5 rounded-full">
+                                Fully Booked
+                              </span>
+                            ) : availUnits === 1 ? (
+                              <span className="text-[11px] font-semibold text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
+                                Only 1 left!
+                              </span>
+                            ) : (
+                              <span className="text-[11px] font-semibold text-leaf bg-leaf-l border border-leaf/20 px-2 py-0.5 rounded-full">
+                                {availUnits} of {totalUnits} available
+                              </span>
+                            )
+                          )}
+                          <span className="font-bold text-saffron text-[15px]">
+                            {room.priceLabel}
+                            <span className="text-stone font-normal text-xs ml-1">{room.priceUnit}</span>
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap gap-x-3 gap-y-1 mt-1.5">
+                        {room.amenities.map((a) => (
+                          <span key={a} className="text-xs text-muted">{a}</span>
+                        ))}
+                      </div>
                     </div>
-                    <div className="flex flex-wrap gap-x-3 gap-y-1 mt-1.5">
-                      {room.amenities.map((a) => (
-                        <span key={a} className="text-xs text-muted">{a}</span>
-                      ))}
-                    </div>
-                  </div>
-                </label>
-              ))}
+                  </label>
+                );
+              })}
             </div>
           </section>
 
@@ -346,7 +379,17 @@ export default function BookingForm() {
               </div>
             </div>
 
-            {availBadge && <div className="mt-2">{availBadge}</div>}
+            {checkIn && checkOut && nights > 0 && currentRoomAvail && (
+              <div className="mt-2">
+                {currentRoomAvail.available ? (
+                  <span className="text-xs font-semibold text-leaf">
+                    ✓ {currentRoomAvail.availableUnits} of {currentRoomAvail.totalUnits} unit{currentRoomAvail.totalUnits > 1 ? "s" : ""} available for your dates
+                  </span>
+                ) : (
+                  <span className="text-xs font-semibold text-red-500">✗ Fully booked for these dates — please choose different dates or another room</span>
+                )}
+              </div>
+            )}
 
             <div className="mt-4">
               <label className="block text-xs font-semibold text-stone uppercase tracking-wider mb-1.5">
@@ -502,9 +545,9 @@ export default function BookingForm() {
               </div>
             )}
 
-            {availStatus === "unavailable" && (
+            {roomFullyBooked && (
               <div className="mb-4 p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm">
-                This room is not available for your selected dates. Please choose different dates.
+                This room is fully booked for your selected dates. Please choose different dates or another room type.
               </div>
             )}
 
