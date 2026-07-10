@@ -69,7 +69,7 @@ export const ROOMS = [
     badge: "Most Popular",
     badgeColor: "#e8762b",
     description:
-      "Spacious and well-appointed with a queen bed, private en-suite bathroom, and warm earthy décor inspired by Mughal heritage.",
+      "Spacious and well-appointed with a king bed, private en-suite bathroom, and warm décor inspired by Mughal heritage. Features tufted headboard, marble flooring, orange accent chairs, and artwork sourced from local Agra artisans.",
     price: "₹1500",
     priceUnit: "/ night",
     amenities: [
@@ -79,9 +79,15 @@ export const ROOMS = [
       "🌅 Garden View",
       "🔒 Safe & Locker",
     ],
-    image:
-      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80",
-    imageAlt: "Deluxe AC Room at VMP Villa",
+    image: "/images/deluxe-room-overview.jpg",
+    imageAlt: "Deluxe AC Room at VMP Villa — teal accent wall with king bed and seating area",
+    images: [
+      { src: "/images/deluxe-room-overview.jpg", alt: "Spacious Deluxe room — teal accent wall, king bed, orange armchairs and wardrobe" },
+      { src: "/images/deluxe-room-wide.jpg", alt: "Wide-angle view of Deluxe room with marble floor, orange chairs and art panels" },
+      { src: "/images/deluxe-bed-closeup.jpg", alt: "King bed with red checkered linen, velvet headboard and Rajasthani art panels" },
+      { src: "/images/deluxe-bed-front.jpg", alt: "Front view of king bed with navy accent wall and warm LED bedside lamps" },
+      { src: "/images/deluxe-teal-bed.jpg", alt: "Teal Deluxe room — tufted blue headboard with olive plaid bedding and red accent pillows" },
+    ],
   },
   {
     id: "standard-ac",
