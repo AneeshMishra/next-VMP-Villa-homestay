@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSupabase } from "@/lib/supabase";
-import { ROOM_PRICES, ROOM_NAMES } from "@/lib/booking-config";
+import { ROOM_PRICES, ROOM_NAMES, GST_RATE } from "@/lib/booking-config";
 import { sendGuestConfirmationEmail, sendHostNotificationEmail } from "@/lib/email";
 import { sendWhatsAppNotification } from "@/lib/notify-whatsapp";
 
@@ -16,7 +16,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid room type" }, { status: 400 });
     }
 
-    const amountPaise = ROOM_PRICES[roomId] * nights * 100;
+    const baseAmount = ROOM_PRICES[roomId] * nights;
+    const gstAmount = Math.round(baseAmount * GST_RATE);
+    const totalAmount = baseAmount + gstAmount;
+    const amountPaise = totalAmount * 100;
 
     const supabase = getServerSupabase();
     const { data: booking, error: dbError } = await supabase
@@ -53,7 +56,7 @@ export async function POST(req: NextRequest) {
       checkOut,
       nights,
       guests,
-      amount: ROOM_PRICES[roomId] * nights,
+      amount: totalAmount,
       specialRequests: special || null,
       razorpayPaymentId: null,
     };
@@ -78,7 +81,7 @@ export async function POST(req: NextRequest) {
           checkIn,
           checkOut,
           phone,
-          String(ROOM_PRICES[roomId] * nights),
+          String(totalAmount),
         ],
       }).catch((e) => console.error("Host WhatsApp failed:", e)),
     ]);
