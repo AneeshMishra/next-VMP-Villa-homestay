@@ -29,7 +29,7 @@ export async function PATCH(req: NextRequest) {
   const { id, ...update } = body;
   if (!id) return Response.json({ error: "Missing id" }, { status: 400 });
 
-  const allowed = ["name", "description", "price_inr", "max_guests", "amenities", "badge", "badge_color", "is_active", "sort_order"];
+  const allowed = ["name", "description", "price_inr", "max_guests", "amenities", "badge", "badge_color", "is_active", "sort_order", "total_units"];
   const patch: Record<string, unknown> = { updated_at: new Date().toISOString() };
   for (const key of allowed) {
     if (key in update) patch[key] = update[key];

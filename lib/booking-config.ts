@@ -1,5 +1,14 @@
 export const GST_RATE = 0.05; // 5% GST on accommodation
 
+// Total physical units available per room type
+export const ROOM_UNITS: Record<string, number> = {
+  "2bhk-flat": 1,
+  "1bhk-flat": 1,
+  "deluxe-ac": 4,
+  "standard-ac": 2,
+  "dormitory": 1,
+};
+
 export const ROOM_PRICES: Record<string, number> = {
   "deluxe-ac": 1500,
   "standard-ac": 1200,

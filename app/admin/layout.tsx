@@ -8,6 +8,7 @@ import type { AdminUser } from "@/lib/admin-auth";
 const NAV = [
   { href: "/admin", label: "Dashboard", icon: "📊", exact: true },
   { href: "/admin/bookings", label: "Bookings", icon: "🛏️" },
+  { href: "/admin/inventory", label: "Inventory", icon: "📦" },
   { href: "/admin/rooms", label: "Rooms", icon: "🏠" },
   { href: "/admin/blog", label: "Blog", icon: "✍️" },
   { href: "/admin/settings", label: "Settings", icon: "⚙️" },
