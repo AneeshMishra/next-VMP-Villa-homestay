@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Script from "next/script";
 import { ROOMS } from "@/lib/constants";
 import { ROOM_PRICES, MAX_GUESTS, GST_RATE, ROOM_UNITS } from "@/lib/booking-config";
+import { useCurrency } from "@/context/CurrencyContext";
 
 declare global {
   interface Window {
@@ -80,6 +81,7 @@ export default function BookingForm() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const { currency, format: formatCurrency } = useCurrency();
   const selectedRoom = ROOM_OPTIONS.find((r) => r.id === roomId)!;
   const nights = nightsBetween(checkIn, checkOut);
   const baseAmount = nights * selectedRoom.price;
@@ -523,11 +525,28 @@ export default function BookingForm() {
                     style={{ borderTop: "1px dashed var(--marble)" }}
                   >
                     <span className="font-bold text-ink">Total Payable</span>
-                    <span className="font-black text-saffron text-[17px] leading-none">
-                      ₹{totalAmount.toLocaleString("en-IN")}
-                    </span>
+                    <div className="text-right">
+                      <div className="font-black text-saffron text-[17px] leading-none">
+                        ₹{totalAmount.toLocaleString("en-IN")}
+                      </div>
+                      {currency.code !== "INR" && (
+                        <div className="text-[11px] text-stone mt-0.5">
+                          ≈ {formatCurrency(totalAmount)} {currency.code}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
+
+                {/* Currency note */}
+                {currency.code !== "INR" && (
+                  <div className="flex items-start gap-2 bg-blue-50 border border-blue-100 rounded-lg px-3 py-2.5 mb-3">
+                    <span className="text-base">{currency.flag}</span>
+                    <p className="text-[11px] text-blue-700 leading-relaxed">
+                      Prices shown in {currency.name}. Payment is charged in <strong>INR ₹{totalAmount.toLocaleString("en-IN")}</strong> — your bank applies the actual conversion rate.
+                    </p>
+                  </div>
+                )}
 
                 <p className="text-[11px] text-muted mb-4 leading-relaxed">
                   * GST @ 5% applicable on accommodation as per Government of India norms. A GST invoice will be provided on request.

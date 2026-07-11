@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import CurrencySelector from "@/components/CurrencySelector";
 
 const NAV_LINKS = [
   { href: "/rooms", label: "Rooms" },
@@ -61,6 +62,11 @@ export default function Nav() {
           ))}
         </div>
 
+        {/* Currency selector — desktop */}
+        <div className="hidden md:block mr-3">
+          <CurrencySelector variant="nav" />
+        </div>
+
         <Link href="/book" className="hidden md:block bg-saffron hover:bg-saffron-d text-white text-sm font-semibold px-5 py-2.5 rounded-md transition-all duration-150 hover:-translate-y-px shrink-0">
           Book Direct — Save More
         </Link>
@@ -83,6 +89,10 @@ export default function Nav() {
           </Link>
         ))}
         <Link href="/book" className="text-saffron text-2xl font-bold" onClick={() => setMenuOpen(false)}>Book Now →</Link>
+        {/* Currency selector — mobile */}
+        <div className="mt-2">
+          <CurrencySelector variant="inline" />
+        </div>
       </div>
     </>
   );
