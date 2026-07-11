@@ -1,7 +1,10 @@
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import BookingBar from "@/components/BookingBar";
 
 export default function Hero() {
+  const t = useTranslations("hero");
+
   return (
     <>
       <section
@@ -39,7 +42,7 @@ export default function Hero() {
         >
           <div className="text-saffron text-xl tracking-wide mb-1">★★★★★</div>
           <div className="font-display text-[36px] font-black text-white leading-none mb-1">9.4</div>
-          <div className="text-[11px] font-medium text-white/50 tracking-wide">Guest Score</div>
+          <div className="text-[11px] font-medium text-white/50 tracking-wide">{t("guestScore")}</div>
           <div
             className="text-[10px] text-saffron font-semibold mt-2 pt-2 tracking-wide"
             style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
@@ -67,25 +70,23 @@ export default function Hero() {
               className="animate-pulse-dot rounded-full bg-saffron"
               style={{ width: 6, height: 6 }}
             />
-            Agra&apos;s Favourite Homestay · Since 2015
+            {t("badge")}
           </div>
 
           <h1
             className="font-display font-black text-white mb-5 leading-[1.05]"
             style={{ fontSize: "clamp(36px, 6vw, 76px)", maxWidth: 780 }}
           >
-            Where the{" "}
-            <em className="not-italic text-saffron">Taj Mahal</em>
-            <br />
-            becomes your neighbour
+            {t("h1Line1") && <>{t("h1Line1")}{" "}</>}
+            <em className="not-italic text-saffron">{t("h1Accent")}</em>
+            {t("h1Line2") && <><br />{t("h1Line2")}</>}
           </h1>
 
           <p
             className="text-white/65 mb-9 leading-[1.7]"
             style={{ fontSize: "clamp(14px, 1.5vw, 16px)", maxWidth: 480 }}
           >
-            A family-run eco-homestay in the heart of Agra. Real home-cooked food, a host who cares,
-            and a terrace that turns golden at sunrise.
+            {t("subtitle")}
           </p>
 
           {/* Proximity strip */}
@@ -101,7 +102,7 @@ export default function Hero() {
               { val: "6 km", label: "Taj Mahal" },
               { val: "8 km", label: "Agra Fort" },
               { val: "10 km", label: "Agra Cantt." },
-              { val: "₹1,500", label: "From/night" },
+              { val: "₹1,500", label: t("fromNight") },
             ].map((item, i, arr) => (
               <div
                 key={item.label}
@@ -130,7 +131,7 @@ export default function Hero() {
                 background: "transparent",
               }}
             >
-              🛏️ See Rooms
+              {t("seeRooms")}
             </Link>
           </div>
         </div>

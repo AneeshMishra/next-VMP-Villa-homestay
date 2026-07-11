@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import Script from "next/script";
 import { ROOMS } from "@/lib/constants";
 import { ROOM_PRICES, MAX_GUESTS, GST_RATE, ROOM_UNITS } from "@/lib/booking-config";

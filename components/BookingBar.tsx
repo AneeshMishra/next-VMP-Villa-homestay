@@ -1,13 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-
-const ROOM_ID_MAP: Record<string, string> = {
-  "Deluxe AC Room": "deluxe-ac",
-  "Standard AC Room": "standard-ac",
-  "Dormitory Bed": "dormitory",
-};
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 
 function getDefaultDates() {
   const today = new Date();
@@ -20,24 +15,24 @@ function getDefaultDates() {
 }
 
 export default function BookingBar() {
+  const t = useTranslations("bookingBar");
   const router = useRouter();
   const defaults = getDefaultDates();
   const [checkin, setCheckin] = useState(defaults.checkin);
   const [checkout, setCheckout] = useState(defaults.checkout);
-  const [guests, setGuests] = useState("2 Guests");
-  const [roomType, setRoomType] = useState("Any Room");
+  const [guests, setGuests] = useState("2");
+  const [roomType, setRoomType] = useState("any");
 
   function handleCheck() {
     if (!checkin || !checkout) {
-      alert("Please select your check-in and check-out dates.");
+      alert(t("alertDates"));
       return;
     }
     const params = new URLSearchParams();
     params.set("checkin", checkin);
     params.set("checkout", checkout);
-    params.set("guests", guests.replace(/\D/g, "") || "2");
-    const roomId = ROOM_ID_MAP[roomType];
-    if (roomId) params.set("room", roomId);
+    params.set("guests", guests);
+    if (roomType !== "any") params.set("room", roomType);
     router.push(`/book?${params.toString()}`);
   }
 
@@ -61,7 +56,7 @@ export default function BookingBar() {
       >
         {/* Check-in */}
         <div className="flex-1 px-5 border-r border-marble min-w-[140px] max-md:border-r-0 max-md:border-b max-md:border-marble max-md:pb-3.5 max-md:px-0 max-md:text-center">
-          <div className={labelCls}>📅 Check-in</div>
+          <div className={labelCls}>📅 {t("checkIn")}</div>
           <input
             type="date"
             className={fieldCls}
@@ -73,7 +68,7 @@ export default function BookingBar() {
 
         {/* Check-out */}
         <div className="flex-1 px-5 border-r border-marble min-w-[140px] max-md:border-r-0 max-md:border-b max-md:border-marble max-md:pb-3.5 max-md:px-0 max-md:text-center">
-          <div className={labelCls}>📅 Check-out</div>
+          <div className={labelCls}>📅 {t("checkOut")}</div>
           <input
             type="date"
             className={fieldCls}
@@ -85,23 +80,23 @@ export default function BookingBar() {
 
         {/* Guests */}
         <div className="flex-1 px-5 border-r border-marble min-w-[120px] max-md:border-r-0 max-md:border-b max-md:border-marble max-md:pb-3.5 max-md:px-0 max-md:text-center">
-          <div className={labelCls}>👥 Guests</div>
+          <div className={labelCls}>👥 {t("guests")}</div>
           <select className={fieldCls} value={guests} onChange={(e) => setGuests(e.target.value)}>
-            <option>1 Guest</option>
-            <option>2 Guests</option>
-            <option>3 Guests</option>
-            <option>4+ Guests</option>
+            <option value="1">{t("guest1")}</option>
+            <option value="2">{t("guest2")}</option>
+            <option value="3">{t("guest3")}</option>
+            <option value="4">{t("guest4")}</option>
           </select>
         </div>
 
         {/* Room Type */}
         <div className="flex-1 px-5 min-w-[150px] max-md:px-0 max-md:pb-3.5 max-md:text-center">
-          <div className={labelCls}>🛏️ Room Type</div>
+          <div className={labelCls}>🛏️ {t("roomType")}</div>
           <select className={fieldCls} value={roomType} onChange={(e) => setRoomType(e.target.value)}>
-            <option>Any Room</option>
-            <option>Deluxe AC Room</option>
-            <option>Standard AC Room</option>
-            <option>Dormitory Bed</option>
+            <option value="any">{t("anyRoom")}</option>
+            <option value="deluxe-ac">Deluxe AC Room</option>
+            <option value="standard-ac">Standard AC Room</option>
+            <option value="dormitory">Dormitory Bed</option>
           </select>
         </div>
 
@@ -110,7 +105,7 @@ export default function BookingBar() {
           onClick={handleCheck}
           className="ml-5 shrink-0 bg-saffron hover:bg-saffron-d text-white text-[15px] font-bold px-8 py-4 rounded-[10px] cursor-pointer border-none transition-all duration-150 hover:-translate-y-px whitespace-nowrap max-md:w-full max-md:ml-0"
         >
-          Check Availability →
+          {t("checkAvailability")}
         </button>
       </div>
 
