@@ -512,13 +512,13 @@ export default function BookingForm() {
                   <div className="text-[10px] font-bold tracking-[2px] uppercase text-stone mb-1">Bill Breakdown</div>
                   <div className="flex justify-between">
                     <span className="text-muted">
-                      {nights} night{nights > 1 ? "s" : ""} × ₹{selectedRoom.price.toLocaleString("en-IN")}
+                      {nights} night{nights > 1 ? "s" : ""} × {formatCurrency(selectedRoom.price)}
                     </span>
-                    <span className="font-medium text-ink">₹{baseAmount.toLocaleString("en-IN")}</span>
+                    <span className="font-medium text-ink">{formatCurrency(baseAmount)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted">GST (5%)</span>
-                    <span className="font-medium text-ink">₹{gstAmount.toLocaleString("en-IN")}</span>
+                    <span className="font-medium text-ink">{formatCurrency(gstAmount)}</span>
                   </div>
                   <div
                     className="flex justify-between pt-2.5 mt-0.5"
@@ -527,11 +527,11 @@ export default function BookingForm() {
                     <span className="font-bold text-ink">Total Payable</span>
                     <div className="text-right">
                       <div className="font-black text-saffron text-[17px] leading-none">
-                        ₹{totalAmount.toLocaleString("en-IN")}
+                        {formatCurrency(totalAmount)}
                       </div>
                       {currency.code !== "INR" && (
                         <div className="text-[11px] text-stone mt-0.5">
-                          ≈ {formatCurrency(totalAmount)} {currency.code}
+                          ≈ INR ₹{totalAmount.toLocaleString("en-IN")}
                         </div>
                       )}
                     </div>
@@ -543,7 +543,7 @@ export default function BookingForm() {
                   <div className="flex items-start gap-2 bg-blue-50 border border-blue-100 rounded-lg px-3 py-2.5 mb-3">
                     <span className="text-base">{currency.flag}</span>
                     <p className="text-[11px] text-blue-700 leading-relaxed">
-                      Prices shown in {currency.name}. Payment is charged in <strong>INR ₹{totalAmount.toLocaleString("en-IN")}</strong> — your bank applies the actual conversion rate.
+                      Prices in {currency.name}. Razorpay charges <strong>INR ₹{totalAmount.toLocaleString("en-IN")}</strong> — your bank converts at the live rate.
                     </p>
                   </div>
                 )}
@@ -583,7 +583,7 @@ export default function BookingForm() {
               {isLoading
                 ? "Processing…"
                 : nights > 0
-                ? `Pay ₹${totalAmount.toLocaleString("en-IN")} Online →`
+                ? `Pay ${formatCurrency(totalAmount)} Online →`
                 : "Select dates to continue"}
             </button>
 
