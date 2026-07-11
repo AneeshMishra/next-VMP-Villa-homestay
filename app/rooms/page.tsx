@@ -3,7 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
 import RoomImageSlider from "@/components/RoomImageSlider";
+import CurrencyPrice from "@/components/CurrencyPrice";
 import { ROOMS } from "@/lib/constants";
+import { ROOM_PRICES } from "@/lib/booking-config";
 
 export const metadata: Metadata = {
   title: "Rooms",
@@ -106,10 +108,12 @@ export default function RoomsPage() {
                     >
                       <div>
                         <div className="text-[11px] text-stone mb-1">Starting from</div>
-                        <span className="font-display text-[40px] font-bold text-ink leading-none">
-                          {room.price}
-                        </span>
-                        <span className="text-muted text-sm ml-1">{room.priceUnit}</span>
+                        <CurrencyPrice
+                          amountInr={ROOM_PRICES[room.id as keyof typeof ROOM_PRICES] ?? 0}
+                          unit={room.priceUnit}
+                          size="lg"
+                          showInrSecondary={true}
+                        />
                       </div>
                       <Link
                         href={`/book?room=${room.id}`}

@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
+import CurrencyPrice from "@/components/CurrencyPrice";
 import { ROOMS } from "@/lib/constants";
+import { ROOM_PRICES } from "@/lib/booking-config";
 
 function RoomCard({ room, delay }: { room: (typeof ROOMS)[number]; delay: number }) {
   return (
@@ -70,8 +72,12 @@ function RoomCard({ room, delay }: { room: (typeof ROOMS)[number]; delay: number
           >
             <div>
               <div className="text-[10px] font-semibold tracking-widest uppercase text-stone mb-0.5">Starting from</div>
-              <span className="font-display text-[26px] font-bold text-saffron leading-none">{room.price}</span>
-              <span className="text-xs text-muted ml-1">{room.priceUnit}</span>
+              <CurrencyPrice
+                amountInr={ROOM_PRICES[room.id as keyof typeof ROOM_PRICES] ?? 0}
+                unit={room.priceUnit}
+                size="sm"
+                showInrSecondary={true}
+              />
             </div>
             <Link
               href={`/book?room=${room.id}`}

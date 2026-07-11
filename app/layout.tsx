@@ -5,6 +5,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import PushBanner from "@/components/PushBanner";
+import { CurrencyProvider } from "@/context/CurrencyContext";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -88,11 +89,13 @@ export default function RootLayout({
       style={{ scrollBehavior: "smooth" }}
     >
       <body className="min-h-screen flex flex-col">
-        <Nav />
-        <main className="flex-1 pt-[var(--nav-h)]">{children}</main>
-        <Footer />
-        <WhatsAppFloat />
-        <PushBanner />
+        <CurrencyProvider>
+          <Nav />
+          <main className="flex-1 pt-[var(--nav-h)]">{children}</main>
+          <Footer />
+          <WhatsAppFloat />
+          <PushBanner />
+        </CurrencyProvider>
       </body>
     </html>
   );
