@@ -1,9 +1,10 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from "react";
-import { CURRENCIES, type Currency, detectLocalCurrency, formatAmount } from "@/lib/currency";
+import { CURRENCIES, VALID_CODES, type Currency, detectLocalCurrency, formatAmount } from "@/lib/currency";
 
 const LS_CURRENCY_KEY = "vmp_currency";
+const LS_CURRENCY_MANUAL_KEY = "vmp_currency_manual"; // only set when user explicitly picks
 const LS_RATES_KEY = "vmp_exchange_rates";
 const LS_RATES_TTL = 24 * 60 * 60 * 1000; // 24 h
 
@@ -36,6 +37,8 @@ function loadCachedRates(): Record<string, number> | null {
     if (!raw) return null;
     const { rates, fetchedAt } = JSON.parse(raw);
     if (Date.now() - fetchedAt > LS_RATES_TTL) return null;
+    // Invalidate cache from old API (frankfurter) which lacked Gulf currencies
+    if (!rates.OMR || !rates.SAR) return null;
     return rates;
   } catch {
     return null;
@@ -57,8 +60,13 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
   // Restore persisted currency + rates on mount
   useEffect(() => {
     setMounted(true);
-    const saved = localStorage.getItem(LS_CURRENCY_KEY);
-    const detected = saved ?? detectLocalCurrency();
+    // Only restore saved currency if the user explicitly chose it; otherwise auto-detect.
+    // This ensures visitors from Oman/Gulf get their local currency on first visit.
+    const wasManual = localStorage.getItem(LS_CURRENCY_MANUAL_KEY) === "1";
+    const saved = wasManual ? localStorage.getItem(LS_CURRENCY_KEY) : null;
+    // Also ignore saved codes that no longer exist in our currency list
+    const validSaved = saved && VALID_CODES.has(saved) ? saved : null;
+    const detected = validSaved ?? detectLocalCurrency();
     setCurrencyCode(detected);
 
     const cached = loadCachedRates();
@@ -87,7 +95,10 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
 
   const handleSetCurrency = useCallback((code: string) => {
     setCurrencyCode(code);
-    try { localStorage.setItem(LS_CURRENCY_KEY, code); } catch {}
+    try {
+      localStorage.setItem(LS_CURRENCY_KEY, code);
+      localStorage.setItem(LS_CURRENCY_MANUAL_KEY, "1"); // user explicitly chose
+    } catch {}
     if (Object.keys(rates).length === 0) fetchRates();
   }, [rates, fetchRates]);
 

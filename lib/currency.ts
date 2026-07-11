@@ -34,7 +34,43 @@ export const CURRENCIES: Currency[] = [
   { code: "ZAR", symbol: "R",    name: "South African Rand",    flag: "🇿🇦", decimals: 2 },
 ];
 
-// Map browser region code → currency code
+const VALID_CODES = new Set(CURRENCIES.map((c) => c.code));
+
+// Timezone → currency: most reliable on mobile (works even when locale has no region)
+const TIMEZONE_TO_CURRENCY: Record<string, string> = {
+  "Asia/Muscat": "OMR",
+  "Asia/Riyadh": "SAR", "Asia/Aden": "SAR",
+  "Asia/Kuwait": "KWD",
+  "Asia/Bahrain": "BHD",
+  "Asia/Qatar": "QAR", "Asia/Doha": "QAR",
+  "Asia/Dubai": "AED",
+  "Asia/Kolkata": "INR", "Asia/Calcutta": "INR",
+  "Asia/Kuala_Lumpur": "MYR",
+  "Asia/Bangkok": "THB",
+  "Asia/Tokyo": "JPY",
+  "Asia/Hong_Kong": "HKD",
+  "Asia/Seoul": "KRW",
+  "Asia/Shanghai": "CNY", "Asia/Chongqing": "CNY", "Asia/Harbin": "CNY",
+  "Asia/Singapore": "SGD",
+  "Pacific/Auckland": "NZD", "Pacific/Chatham": "NZD",
+  "Australia/Sydney": "AUD", "Australia/Melbourne": "AUD",
+  "Australia/Brisbane": "AUD", "Australia/Perth": "AUD",
+  "America/Toronto": "CAD", "America/Vancouver": "CAD", "America/Winnipeg": "CAD",
+  "America/New_York": "USD", "America/Los_Angeles": "USD",
+  "America/Chicago": "USD", "America/Denver": "USD", "America/Phoenix": "USD",
+  "Europe/London": "GBP",
+  "Europe/Zurich": "CHF", "Europe/Bern": "CHF",
+  "Europe/Stockholm": "SEK",
+  "Europe/Oslo": "NOK",
+  "Europe/Copenhagen": "DKK",
+  "Africa/Johannesburg": "ZAR",
+  "Europe/Berlin": "EUR", "Europe/Paris": "EUR", "Europe/Madrid": "EUR",
+  "Europe/Rome": "EUR", "Europe/Amsterdam": "EUR", "Europe/Brussels": "EUR",
+  "Europe/Vienna": "EUR", "Europe/Lisbon": "EUR", "Europe/Athens": "EUR",
+  "Europe/Helsinki": "EUR", "Europe/Dublin": "EUR", "Europe/Warsaw": "EUR",
+};
+
+// Region code (from locale) → currency
 const REGION_TO_CURRENCY: Record<string, string> = {
   IN: "INR",
   US: "USD", PR: "USD", GU: "USD",
@@ -69,13 +105,28 @@ const REGION_TO_CURRENCY: Record<string, string> = {
 export function detectLocalCurrency(): string {
   if (typeof window === "undefined") return "INR";
   try {
-    const locale = navigator.language || "en-IN";
-    const region = locale.split("-")[1]?.toUpperCase() ?? "";
-    return REGION_TO_CURRENCY[region] ?? "USD";
+    // 1. Timezone — most reliable on mobile, unaffected by UI language setting
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (tz && TIMEZONE_TO_CURRENCY[tz]) return TIMEZONE_TO_CURRENCY[tz];
+
+    // 2. navigator.languages array — try each locale for a region code
+    const langs = [...(navigator.languages ?? []), navigator.language].filter(Boolean);
+    for (const lang of langs) {
+      const region = lang.split("-")[1]?.toUpperCase();
+      if (region && REGION_TO_CURRENCY[region]) return REGION_TO_CURRENCY[region];
+    }
+
+    // 3. Intl resolved locale (OS-level, often includes region)
+    const resolved = Intl.DateTimeFormat().resolvedOptions().locale;
+    const region = resolved?.split("-")[1]?.toUpperCase();
+    if (region && REGION_TO_CURRENCY[region]) return REGION_TO_CURRENCY[region];
   } catch {
-    return "USD";
+    // ignore
   }
+  return "USD";
 }
+
+export { VALID_CODES };
 
 export function formatAmount(amount: number, currency: Currency): string {
   if (currency.code === "INR") {

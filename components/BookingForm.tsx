@@ -334,7 +334,7 @@ export default function BookingForm() {
                             )
                           )}
                           <span className="font-bold text-saffron text-[15px]">
-                            {room.priceLabel}
+                            {formatCurrency(room.price)}
                             <span className="text-stone font-normal text-xs ml-1">{room.priceUnit}</span>
                           </span>
                         </div>
