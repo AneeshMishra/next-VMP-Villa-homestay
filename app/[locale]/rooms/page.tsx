@@ -16,6 +16,7 @@ export const metadata: Metadata = {
 
 export default function RoomsPage() {
   const t = useTranslations("rooms");
+  const tContent = useTranslations("roomContent");
 
   return (
     <div>
@@ -87,19 +88,19 @@ export default function RoomsPage() {
                   {/* Content */}
                   <div className={isEven ? "order-2" : "order-1"}>
                     <div className="font-display text-[32px] font-bold mb-4 leading-tight">
-                      {room.name}
+                      {tContent(`${room.id}-name`)}
                     </div>
                     <p className="text-muted text-[15px] leading-[1.8] mb-6">
-                      {room.description}
+                      {tContent(`${room.id}-desc`)}
                     </p>
 
                     <div className="flex flex-wrap gap-2 mb-8">
-                      {room.amenities.map((a) => (
+                      {room.amenities.map((_, idx) => (
                         <span
-                          key={a}
+                          key={idx}
                           className="bg-white border border-marble rounded-full text-sm font-medium text-muted px-3 py-1.5"
                         >
-                          {a}
+                          {tContent(`${room.id}-a${idx}`)}
                         </span>
                       ))}
                     </div>
