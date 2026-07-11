@@ -1,25 +1,27 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
 import CurrencySelector from "@/components/CurrencySelector";
-
-const NAV_LINKS = [
-  { href: "/rooms", label: "Rooms" },
-  { href: "/facilities", label: "Facilities" },
-  { href: "/location", label: "Location" },
-  { href: "/offers", label: "Offers" },
-  { href: "/reviews", label: "Reviews" },
-  { href: "/blog", label: "Blog" },
-  { href: "/contact", label: "Contact" },
-];
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function Nav() {
+  const t = useTranslations("nav");
   const [scrolled, setScrolled] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
+
+  const NAV_LINKS = [
+    { href: "/rooms" as const, label: t("rooms") },
+    { href: "/facilities" as const, label: t("facilities") },
+    { href: "/location" as const, label: t("location") },
+    { href: "/offers" as const, label: t("offers") },
+    { href: "/reviews" as const, label: t("reviews") },
+    { href: "/blog" as const, label: t("blog") },
+    { href: "/contact" as const, label: t("contact") },
+  ];
 
   useEffect(() => {
     if (!isHome) {
@@ -62,13 +64,14 @@ export default function Nav() {
           ))}
         </div>
 
-        {/* Currency selector — desktop */}
-        <div className="hidden md:block mr-3">
+        {/* Language + Currency selectors — desktop */}
+        <div className="hidden md:flex items-center gap-3 mr-3">
+          <LanguageSwitcher variant="nav" />
           <CurrencySelector variant="nav" />
         </div>
 
         <Link href="/book" className="hidden md:block bg-saffron hover:bg-saffron-d text-white text-sm font-semibold px-5 py-2.5 rounded-md transition-all duration-150 hover:-translate-y-px shrink-0">
-          Book Direct — Save More
+          {t("bookDirect")}
         </Link>
 
         <button className="md:hidden ml-auto p-2 flex flex-col gap-1.5 cursor-pointer" onClick={() => setMenuOpen(true)} aria-label="Open menu">
@@ -81,7 +84,7 @@ export default function Nav() {
       <div className={`fixed inset-0 bg-ink z-[500] flex flex-col items-center justify-center gap-8 text-white transition-opacity duration-300 ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
         <button className="absolute top-6 right-7 text-white/60 text-3xl cursor-pointer bg-transparent border-none" onClick={() => setMenuOpen(false)} aria-label="Close menu">✕</button>
         <Link href="/" className="text-white text-2xl font-medium hover:text-saffron transition-colors" onClick={() => setMenuOpen(false)}>
-          Home
+          {t("home")}
         </Link>
         {NAV_LINKS.map((l) => (
           <Link key={l.href} href={l.href} className="text-white text-2xl font-medium hover:text-saffron transition-colors" onClick={() => setMenuOpen(false)}>
@@ -89,8 +92,9 @@ export default function Nav() {
           </Link>
         ))}
         <Link href="/book" className="text-saffron text-2xl font-bold" onClick={() => setMenuOpen(false)}>Book Now →</Link>
-        {/* Currency selector — mobile */}
-        <div className="mt-2">
+        {/* Language + Currency — mobile */}
+        <div className="flex flex-col items-center gap-4 mt-2">
+          <LanguageSwitcher variant="inline" />
           <CurrencySelector variant="inline" />
         </div>
       </div>

@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, DM_Sans } from "next/font/google";
 import "./globals.css";
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
-import WhatsAppFloat from "@/components/WhatsAppFloat";
-import PushBanner from "@/components/PushBanner";
-import { CurrencyProvider } from "@/context/CurrencyContext";
+import { headers } from "next/headers";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -77,26 +73,25 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+const RTL_LOCALES = new Set(["ar"]);
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const locale = headersList.get("x-next-intl-locale") ?? "en";
+  const dir = RTL_LOCALES.has(locale) ? "rtl" : "ltr";
+
   return (
     <html
-      lang="en"
+      lang={locale}
+      dir={dir}
       className={`${playfair.variable} ${dmSans.variable}`}
       style={{ scrollBehavior: "smooth" }}
     >
-      <body className="min-h-screen flex flex-col">
-        <CurrencyProvider>
-          <Nav />
-          <main className="flex-1 pt-[var(--nav-h)]">{children}</main>
-          <Footer />
-          <WhatsAppFloat />
-          <PushBanner />
-        </CurrencyProvider>
-      </body>
+      <body className="min-h-screen flex flex-col">{children}</body>
     </html>
   );
 }

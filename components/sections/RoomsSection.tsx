@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import ScrollReveal from "@/components/ScrollReveal";
 import CurrencyPrice from "@/components/CurrencyPrice";
 import { ROOMS } from "@/lib/constants";
