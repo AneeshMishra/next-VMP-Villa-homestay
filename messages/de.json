@@ -149,6 +149,13 @@
     "phoneError": "Bitte geben Sie eine gültige indische Mobilnummer mit 10 Stellen ein",
     "selectDatesToSee": "Datum auswählen um den Preis zu sehen"
   },
+  "ecostory": {
+    "eyebrow": "Unsere Geschichte",
+    "heading": "Ein Zuhause gebaut auf",
+    "headingAccent": "Wurzeln & Verantwortung",
+    "p1": "Aneesh und Bhavna gründeten VMP Villa mit einer einfachen Idee — jedem Gast dieselbe Wärme zu geben, die ihre eigene Familie erhalten würde. Zehn Jahre später umfasst diese Mission auch die Fürsorge für den Planeten, den sie an ihre Kinder weitergeben werden.",
+    "p2": "Von Regenwassersammlung bis Solarbeleuchtung, Bio-Küchengärten bis plastikfreien Zimmern — jede Entscheidung in VMP Villa wird mit Absicht getroffen. Grünes Reisen sollte keinen Kompromiss beim Komfort bedeuten."
+  },
   "footer": {
     "tagline": "Ein familiengeführtes Öko-Homestay in Agra, wo jeder Gast wie ein Familienmitglied behandelt wird. 6 km vom Osttor des Taj Mahal.",
     "ecoCertified": "🌿 Öko-zertifiziertes Homestay",
