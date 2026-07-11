@@ -5,20 +5,25 @@ import { useLocale } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 
-const LANGUAGE_NAMES: Record<string, { label: string; native: string; flag: string }> = {
-  en: { label: "English", native: "English", flag: "🇬🇧" },
-  ar: { label: "Arabic", native: "العربية", flag: "🇸🇦" },
-  hi: { label: "Hindi", native: "हिन्दी", flag: "🇮🇳" },
-  fr: { label: "French", native: "Français", flag: "🇫🇷" },
-  de: { label: "German", native: "Deutsch", flag: "🇩🇪" },
-  ja: { label: "Japanese", native: "日本語", flag: "🇯🇵" },
-  zh: { label: "Chinese", native: "中文", flag: "🇨🇳" },
-  ko: { label: "Korean", native: "한국어", flag: "🇰🇷" },
-  es: { label: "Spanish", native: "Español", flag: "🇪🇸" },
-  ru: { label: "Russian", native: "Русский", flag: "🇷🇺" },
+const LANGUAGE_NAMES: Record<string, { native: string; flag: string }> = {
+  en: { native: "English",  flag: "🇬🇧" },
+  ar: { native: "العربية",  flag: "🇸🇦" },
+  hi: { native: "हिन्दी",   flag: "🇮🇳" },
+  fr: { native: "Français", flag: "🇫🇷" },
+  de: { native: "Deutsch",  flag: "🇩🇪" },
+  ja: { native: "日本語",   flag: "🇯🇵" },
+  zh: { native: "中文",     flag: "🇨🇳" },
+  ko: { native: "한국어",   flag: "🇰🇷" },
+  es: { native: "Español",  flag: "🇪🇸" },
+  ru: { native: "Русский",  flag: "🇷🇺" },
 };
 
-export default function LanguageSwitcher({ variant = "nav" }: { variant?: "nav" | "inline" }) {
+interface Props {
+  variant?: "nav" | "inline";
+  onSelect?: () => void;
+}
+
+export default function LanguageSwitcher({ variant = "nav", onSelect }: Props) {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
@@ -34,25 +39,28 @@ export default function LanguageSwitcher({ variant = "nav" }: { variant?: "nav" 
   }, []);
 
   function switchLocale(next: string) {
+    // Set cookie so the preference persists across sessions
+    document.cookie = `NEXT_LOCALE=${next}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`;
     router.push(pathname, { locale: next });
     setOpen(false);
+    onSelect?.();
   }
 
   const current = LANGUAGE_NAMES[locale] ?? LANGUAGE_NAMES.en;
 
   if (variant === "inline") {
     return (
-      <div className="flex flex-wrap justify-center gap-2 mt-2">
+      <div className="flex flex-wrap justify-center gap-2">
         {routing.locales.map((loc) => {
           const lang = LANGUAGE_NAMES[loc];
           return (
             <button
               key={loc}
               onClick={() => switchLocale(loc)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all cursor-pointer border ${
                 loc === locale
-                  ? "bg-saffron text-white"
-                  : "bg-white/10 text-white/70 hover:bg-white/20 hover:text-white"
+                  ? "bg-saffron text-white border-saffron"
+                  : "bg-white/8 text-white/70 hover:bg-white/15 hover:text-white border-white/10"
               }`}
             >
               <span>{lang.flag}</span>
