@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import ScrollReveal from "@/components/ScrollReveal";
 import RoomImageSlider from "@/components/RoomImageSlider";
 import CurrencyPrice from "@/components/CurrencyPrice";
@@ -14,24 +15,25 @@ export const metadata: Metadata = {
 };
 
 export default function RoomsPage() {
+  const t = useTranslations("rooms");
+
   return (
     <div>
       {/* Page header */}
       <div className="bg-ink text-white" style={{ padding: "64px 40px 48px" }}>
         <div className="max-w-[1100px] mx-auto">
           <div className="text-[11px] font-bold tracking-[2.5px] uppercase text-saffron mb-3">
-            Our Rooms
+            {t("pageEyebrow")}
           </div>
           <h1
             className="font-display font-black text-white mb-4 leading-tight"
             style={{ fontSize: "clamp(36px, 6vw, 60px)" }}
           >
-            Choose Your{" "}
-            <em className="not-italic text-saffron">Perfect Room</em>
+            {t("pageHeading")}{" "}
+            <em className="not-italic text-saffron">{t("pageHeadingAccent")}</em>
           </h1>
           <p className="text-white/60 text-[15px] max-w-[560px] leading-[1.7]">
-            Four room types for every traveller — from dorm beds to a private 2BHK flat. All include free WiFi, filtered water, and
-            Aneesh &amp; Bhavna&apos;s signature hospitality. Book direct — no OTA commission.
+            {t("pageSubtitle")}
           </p>
         </div>
       </div>
@@ -107,7 +109,7 @@ export default function RoomsPage() {
                       style={{ borderTop: "1px solid var(--marble)" }}
                     >
                       <div>
-                        <div className="text-[11px] text-stone mb-1">Starting from</div>
+                        <div className="text-[11px] text-stone mb-1">{t("startingFrom")}</div>
                         <CurrencyPrice
                           amountInr={ROOM_PRICES[room.id as keyof typeof ROOM_PRICES] ?? 0}
                           unit={room.priceUnit}
@@ -119,7 +121,7 @@ export default function RoomsPage() {
                         href={`/book?room=${room.id}`}
                         className="inline-flex items-center gap-2 bg-saffron hover:bg-saffron-d text-white font-semibold px-8 py-4 rounded-lg transition-all duration-150 hover:-translate-y-px"
                       >
-                        Book This Room →
+                        {t("bookThisRoom")}
                       </Link>
                     </div>
                   </div>
@@ -133,17 +135,16 @@ export default function RoomsPage() {
       {/* CTA banner */}
       <div className="bg-ink text-white text-center" style={{ padding: "60px 40px" }}>
         <h2 className="font-display text-[28px] font-bold mb-4">
-          Not sure which room is right for you?
+          {t("notSureTitle")}
         </h2>
         <p className="text-white/60 mb-8 max-w-[480px] mx-auto">
-          WhatsApp Aneesh directly and he&apos;ll recommend the best option for your group size and
-          budget.
+          {t("notSureSubtitle")}
         </p>
         <Link
           href="/contact"
           className="inline-flex items-center gap-2 bg-saffron hover:bg-saffron-d text-white font-semibold px-10 py-4 rounded-lg transition-all duration-150"
         >
-          💬 Ask Aneesh
+          {t("askAneesh")}
         </Link>
       </div>
 

@@ -1,7 +1,10 @@
+import { useTranslations } from "next-intl";
 import ScrollReveal from "@/components/ScrollReveal";
 import { ECO_STATS } from "@/lib/constants";
 
 export default function EcoStory() {
+  const t = useTranslations("ecostory");
+
   return (
     <div className="bg-leaf-l" style={{ padding: "80px 40px" }} id="story">
       <div
@@ -11,25 +14,21 @@ export default function EcoStory() {
         {/* Text */}
         <div>
           <div className="text-[11px] font-bold tracking-[2.5px] uppercase text-leaf mb-2.5">
-            Our Story
+            {t("eyebrow")}
           </div>
           <h2
             className="font-display font-bold text-ink mb-6 leading-tight"
             style={{ fontSize: "clamp(28px, 4vw, 44px)" }}
           >
-            A home built on
+            {t("heading")}
             <br />
-            <em className="not-italic text-leaf">roots & responsibility</em>
+            <em className="not-italic text-leaf">{t("headingAccent")}</em>
           </h2>
           <p className="text-muted text-[15px] leading-[1.8] mb-6">
-            Aneesh and Bhavna started VMP Villa with a simple idea — give every guest the same
-            warmth their own family would receive. Ten years on, that mission also includes taking
-            care of the planet they&apos;ll pass on to their children.
+            {t("p1")}
           </p>
           <p className="text-muted text-sm leading-[1.8]">
-            From rainwater harvesting to solar lighting, organic kitchen gardens to plastic-free
-            rooms — every choice at VMP Villa is made with intention. Green travel shouldn&apos;t
-            mean compromising on comfort.
+            {t("p2")}
           </p>
         </div>
 
