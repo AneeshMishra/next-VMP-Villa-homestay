@@ -96,7 +96,13 @@
     "send": "Send Message",
     "sending": "Sending…",
     "successTitle": "Message sent! 🎉",
-    "successSubtitle": "We'll reply within a few hours."
+    "successSubtitle": "We'll reply within a few hours.",
+    "phone": "Phone / WhatsApp",
+    "sendEnquiry": "Send Enquiry via WhatsApp →",
+    "enquiryTitle": "Quick Booking Request",
+    "talkTitle": "Talk to us directly",
+    "talkSubtitle": "We reply within 30 minutes on WhatsApp. No bots, no call centres — just Aneesh & Bhavna.",
+    "privacy": "🔒 Your info is only shared with Aneesh & Bhavna. No spam, ever."
   },
   "booking": {
     "pageTitle": "Book Your Stay",

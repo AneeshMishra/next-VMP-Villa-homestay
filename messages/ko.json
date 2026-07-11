@@ -96,7 +96,13 @@
     "send": "메시지 보내기",
     "sending": "전송 중…",
     "successTitle": "전송 완료! 🎉",
-    "successSubtitle": "몇 시간 내에 답변 드리겠습니다."
+    "successSubtitle": "몇 시간 내에 답변 드리겠습니다.",
+    "phone": "전화 / WhatsApp",
+    "sendEnquiry": "WhatsApp으로 문의 보내기 →",
+    "enquiryTitle": "빠른 예약 요청",
+    "talkTitle": "직접 문의하세요",
+    "talkSubtitle": "WhatsApp으로 30분 내에 답변드립니다. 봇 없음 — Aneesh와 Bhavna가 직접 응대합니다.",
+    "privacy": "🔒 귀하의 정보는 Aneesh와 Bhavna에게만 공유됩니다. 스팸 없음."
   },
   "booking": {
     "pageTitle": "숙박 예약",

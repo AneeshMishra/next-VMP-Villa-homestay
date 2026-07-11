@@ -1,16 +1,24 @@
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import ScrollReveal from "@/components/ScrollReveal";
 import CurrencyPrice from "@/components/CurrencyPrice";
 import { ROOMS } from "@/lib/constants";
 import { ROOM_PRICES } from "@/lib/booking-config";
 
-function RoomCard({ room, delay }: { room: (typeof ROOMS)[number]; delay: number }) {
+function RoomCard({
+  room,
+  delay,
+  t,
+}: {
+  room: (typeof ROOMS)[number];
+  delay: number;
+  t: ReturnType<typeof useTranslations<"rooms">>;
+}) {
   return (
     <ScrollReveal delay={delay} className="h-full">
       <div className="room-card bg-white rounded-2xl overflow-hidden border border-black/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(0,0,0,0.12)] group h-full flex flex-col">
 
-        {/* Image — links to detail section */}
         <Link href={`/rooms#${room.id}`} className="relative block overflow-hidden" style={{ aspectRatio: "4/3" }}>
           <Image
             src={room.image}
@@ -29,18 +37,16 @@ function RoomCard({ room, delay }: { room: (typeof ROOMS)[number]; delay: number
           )}
           <div className="absolute inset-0 bg-ink/0 group-hover:bg-ink/25 transition-all duration-300 flex items-center justify-center">
             <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white text-ink text-[12px] font-semibold px-4 py-2 rounded-full shadow-lg">
-              View Details →
+              {t("viewDetails")}
             </span>
           </div>
         </Link>
 
         <div className="p-6 flex flex-col flex-1">
-          {/* Badge label above name */}
           <div className="text-[10px] font-bold tracking-[2.5px] uppercase text-saffron mb-1.5">
             {room.badge ?? "Room"}
           </div>
 
-          {/* Room name — links to detail section */}
           <Link
             href={`/rooms#${room.id}`}
             className="font-display text-[22px] font-bold text-ink leading-tight mb-2.5 hover:text-saffron transition-colors duration-200 block"
@@ -71,7 +77,9 @@ function RoomCard({ room, delay }: { room: (typeof ROOMS)[number]; delay: number
             style={{ borderTop: "1px solid var(--marble)" }}
           >
             <div>
-              <div className="text-[10px] font-semibold tracking-widest uppercase text-stone mb-0.5">Starting from</div>
+              <div className="text-[10px] font-semibold tracking-widest uppercase text-stone mb-0.5">
+                {t("startingFrom")}
+              </div>
               <CurrencyPrice
                 amountInr={ROOM_PRICES[room.id as keyof typeof ROOM_PRICES] ?? 0}
                 unit={room.priceUnit}
@@ -83,7 +91,7 @@ function RoomCard({ room, delay }: { room: (typeof ROOMS)[number]; delay: number
               href={`/book?room=${room.id}`}
               className="bg-ink hover:bg-saffron text-white text-[13px] font-semibold px-4 py-2.5 rounded-lg transition-all duration-150 hover:-translate-y-px"
             >
-              Book Now
+              {t("bookNow")}
             </Link>
           </div>
         </div>
@@ -93,30 +101,29 @@ function RoomCard({ room, delay }: { room: (typeof ROOMS)[number]; delay: number
 }
 
 export default function RoomsSection() {
+  const t = useTranslations("rooms");
+
   return (
     <div className="bg-marble rooms-section" style={{ padding: "80px 0" }}>
       <div className="max-w-[1100px] mx-auto px-10 rooms-section-inner">
         <div className="text-[11px] font-bold tracking-[2.5px] uppercase text-saffron mb-2.5">
-          Step Inside
+          {t("eyebrow")}
         </div>
         <h2 className="font-display font-bold text-ink mb-3.5" style={{ fontSize: "clamp(28px, 4vw, 44px)" }}>
-          Choose Your <em className="not-italic text-saffron">Perfect Room</em>
+          {t("heading")} <em className="not-italic text-saffron">{t("headingAccent")}</em>
         </h2>
         <p className="text-muted text-[15px] leading-[1.7] mb-12 max-w-[560px]">
-          Five room types for every traveller — private flats, couples, families, and solo backpackers.
-          All include free WiFi, filtered water, and Aneesh &amp; Bhavna&apos;s signature hospitality.
+          {t("subtitle")}
         </p>
 
-        {/* Grid on desktop, horizontal scroll carousel on mobile */}
         <div className="rooms-scroll-wrap grid gap-6" style={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
           {ROOMS.map((room, i) => (
-            <RoomCard key={room.id} room={room} delay={i * 100} />
+            <RoomCard key={room.id} room={room} delay={i * 100} t={t} />
           ))}
         </div>
 
-        {/* Swipe hint — mobile only */}
         <p className="rooms-swipe-hint text-center text-xs text-muted mt-4 hidden">
-          ← Swipe to see more rooms →
+          {t("swipeHint")}
         </p>
 
         <div className="text-center mt-10">
@@ -124,7 +131,7 @@ export default function RoomsSection() {
             href="/rooms"
             className="inline-flex items-center gap-2 bg-ink hover:bg-saffron text-white text-sm font-semibold px-8 py-3.5 rounded-lg transition-all duration-150"
           >
-            View All Room Details →
+            {t("viewAll")}
           </Link>
         </div>
       </div>

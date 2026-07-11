@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import ScrollReveal from "@/components/ScrollReveal";
 import { REVIEWS } from "@/lib/constants";
 
@@ -9,6 +10,7 @@ const SOURCE_STYLES: Record<string, { bg: string; color: string }> = {
 };
 
 export default function ReviewsSection({ limit }: { limit?: number }) {
+  const t = useTranslations("reviews");
   const reviews = limit ? REVIEWS.slice(0, limit) : REVIEWS;
 
   return (
@@ -18,23 +20,23 @@ export default function ReviewsSection({ limit }: { limit?: number }) {
         <div className="flex items-end justify-between mb-12 flex-wrap gap-4">
           <div>
             <div className="text-[11px] font-bold tracking-[2.5px] uppercase text-saffron mb-2.5">
-              Guest Love
+              {t("eyebrow")}
             </div>
             <h2
               className="font-display font-bold text-ink mb-2 leading-tight"
               style={{ fontSize: "clamp(28px, 4vw, 44px)" }}
             >
-              What travellers{" "}
-              <em className="not-italic text-saffron">say about us</em>
+              {t("heading")}{" "}
+              <em className="not-italic text-saffron">{t("headingAccent")}</em>
             </h2>
             <p className="text-muted text-[15px]">
-              Collected from Booking.com, TripAdvisor, Google, and MakeMyTrip — unfiltered and real.
+              Booking.com · TripAdvisor · Google · MakeMyTrip
             </p>
           </div>
           <div className="text-right shrink-0">
             <div className="font-display text-[56px] font-black text-ink leading-none">9.4</div>
             <div className="text-[22px] text-saffron tracking-widest">★★★★★</div>
-            <div className="text-xs text-muted mt-1">Across 200+ reviews</div>
+            <div className="text-xs text-muted mt-1">{t("viewAll")}</div>
           </div>
         </div>
 
