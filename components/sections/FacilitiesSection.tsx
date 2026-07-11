@@ -1,7 +1,10 @@
+import { useTranslations } from "next-intl";
 import ScrollReveal from "@/components/ScrollReveal";
 import { FACILITIES } from "@/lib/constants";
 
 export default function FacilitiesSection() {
+  const t = useTranslations("facilities");
+
   return (
     <div id="facilities">
       <div className="grid" style={{ gridTemplateColumns: "1fr 1fr", minHeight: 600 }}>
@@ -22,19 +25,18 @@ export default function FacilitiesSection() {
         {/* Content side */}
         <div className="bg-ink flex flex-col justify-center" style={{ padding: "72px 60px" }}>
           <div className="text-[11px] font-bold tracking-[2.5px] uppercase text-saffron mb-2.5">
-            What&apos;s Included
+            {t("eyebrow")}
           </div>
           <h2
             className="font-display font-bold text-white mb-3.5 leading-tight"
             style={{ fontSize: "clamp(28px, 4vw, 44px)" }}
           >
-            Everything you
+            {t("heading")}
             <br />
-            <em className="not-italic text-saffron">need to feel at home</em>
+            <em className="not-italic text-saffron">{t("headingAccent")}</em>
           </h2>
           <p className="text-white/55 text-[15px] leading-[1.7] mb-9 max-w-[400px]">
-            No hidden fees, no surprises. Every stay includes the facilities below. Because a good
-            host makes you feel welcome, not nickel-and-dimed.
+            {t("subtitle")}
           </p>
 
           <div className="grid grid-cols-2 gap-4">

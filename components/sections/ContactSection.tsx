@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { buildWhatsAppUrl, enquiryMessage } from "@/lib/whatsapp";
 import {
   EMAIL,
@@ -10,38 +11,42 @@ import {
   WHATSAPP_NUMBER,
 } from "@/lib/constants";
 
-const CHANNELS = [
-  {
-    icon: "💬",
-    iconBg: "#25D366",
-    name: "WhatsApp (Fastest)",
-    value: `${PHONE_DISPLAY} · Usually replies in < 30 min`,
-    href: `https://wa.me/${WHATSAPP_NUMBER}?text=Hi%2C%20I%27d%20like%20to%20book%20a%20room%20at%20VMP%20Villa`,
-  },
-  {
-    icon: "📞",
-    iconBg: "#e8762b",
-    name: "Call Us",
-    value: `${PHONE_DISPLAY} · 7 AM – 10 PM daily`,
-    href: `tel:+${WHATSAPP_NUMBER}`,
-  },
-  {
-    icon: "✉️",
-    iconBg: "#2b7bb9",
-    name: "Email",
-    value: `${EMAIL} · We reply within 4 hours`,
-    href: `mailto:${EMAIL}`,
-  },
-  {
-    icon: "📸",
-    iconBg: "linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)",
-    name: "Instagram DM",
-    value: `${INSTAGRAM} · DM us for real-time photos`,
-    href: INSTAGRAM_URL,
-  },
-];
-
 export default function ContactSection() {
+  const t = useTranslations("contact");
+  const tBar = useTranslations("bookingBar");
+  const tBook = useTranslations("booking");
+
+  const CHANNELS = [
+    {
+      icon: "💬",
+      iconBg: "#25D366",
+      name: "WhatsApp (Fastest)",
+      value: `${PHONE_DISPLAY} · Usually replies in < 30 min`,
+      href: `https://wa.me/${WHATSAPP_NUMBER}?text=Hi%2C%20I%27d%20like%20to%20book%20a%20room%20at%20VMP%20Villa`,
+    },
+    {
+      icon: "📞",
+      iconBg: "#e8762b",
+      name: "Call Us",
+      value: `${PHONE_DISPLAY} · 7 AM – 10 PM daily`,
+      href: `tel:+${WHATSAPP_NUMBER}`,
+    },
+    {
+      icon: "✉️",
+      iconBg: "#2b7bb9",
+      name: "Email",
+      value: `${EMAIL} · We reply within 4 hours`,
+      href: `mailto:${EMAIL}`,
+    },
+    {
+      icon: "📸",
+      iconBg: "linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)",
+      name: "Instagram DM",
+      value: `${INSTAGRAM} · DM us for real-time photos`,
+      href: INSTAGRAM_URL,
+    },
+  ];
+
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -83,17 +88,16 @@ export default function ContactSection() {
         {/* Channels */}
         <div>
           <div className="text-[11px] font-bold tracking-[2.5px] uppercase text-saffron mb-2.5">
-            Get in Touch
+            {t("eyebrow")}
           </div>
           <h2
             className="font-display font-bold text-ink mb-3.5 leading-tight"
             style={{ fontSize: "clamp(24px, 4vw, 44px)" }}
           >
-            Talk to{" "}
-            <em className="not-italic text-saffron">Aneesh & Bhavna</em> directly
+            {t("talkTitle")}
           </h2>
           <p className="text-muted text-[15px] leading-[1.7] mb-8">
-            We reply within 30 minutes on WhatsApp. No bots, no call centres — just us.
+            {t("talkSubtitle")}
           </p>
 
           <div className="flex flex-col gap-4">
@@ -125,27 +129,27 @@ export default function ContactSection() {
         {/* Enquiry form */}
         <div>
           <div className="text-[11px] font-bold tracking-[2.5px] uppercase text-saffron mb-2.5">
-            Send an Enquiry
+            {t("eyebrow")}
           </div>
-          <h3 className="font-display text-[22px] font-bold mb-6">Quick Booking Request</h3>
+          <h3 className="font-display text-[22px] font-bold mb-6">{t("enquiryTitle")}</h3>
 
           <form onSubmit={submit} className="flex flex-col gap-4">
             <div className="grid grid-cols-2 gap-3">
               <div className="flex flex-col gap-1.5">
-                <label className="text-[11px] font-bold tracking-wide text-muted uppercase">Your Name</label>
+                <label className="text-[11px] font-bold tracking-wide text-muted uppercase">{t("name")}</label>
                 <input
                   type="text"
-                  placeholder="Full name"
+                  placeholder={t("namePlaceholder")}
                   className={inputCls}
                   value={form.name}
                   onChange={update("name")}
                 />
               </div>
               <div className="flex flex-col gap-1.5">
-                <label className="text-[11px] font-bold tracking-wide text-muted uppercase">Phone / WhatsApp</label>
+                <label className="text-[11px] font-bold tracking-wide text-muted uppercase">{t("phone")}</label>
                 <input
                   type="tel"
-                  placeholder="+91 XXXXX XXXXX"
+                  placeholder="+91 / +968 ..."
                   className={inputCls}
                   value={form.phone}
                   onChange={update("phone")}
@@ -155,7 +159,7 @@ export default function ContactSection() {
 
             <div className="grid grid-cols-2 gap-3">
               <div className="flex flex-col gap-1.5">
-                <label className="text-[11px] font-bold tracking-wide text-muted uppercase">Check-in Date</label>
+                <label className="text-[11px] font-bold tracking-wide text-muted uppercase">{tBar("checkIn")}</label>
                 <input
                   type="date"
                   className={inputCls}
@@ -165,7 +169,7 @@ export default function ContactSection() {
                 />
               </div>
               <div className="flex flex-col gap-1.5">
-                <label className="text-[11px] font-bold tracking-wide text-muted uppercase">Check-out Date</label>
+                <label className="text-[11px] font-bold tracking-wide text-muted uppercase">{tBar("checkOut")}</label>
                 <input
                   type="date"
                   className={inputCls}
@@ -178,45 +182,43 @@ export default function ContactSection() {
 
             <div className="grid grid-cols-2 gap-3">
               <div className="flex flex-col gap-1.5">
-                <label className="text-[11px] font-bold tracking-wide text-muted uppercase">Room Type</label>
+                <label className="text-[11px] font-bold tracking-wide text-muted uppercase">{tBar("roomType")}</label>
                 <select className={inputCls} value={form.room} onChange={update("room")}>
-                  <option>Any / Let me suggest</option>
+                  <option>{tBar("anyRoom")}</option>
                   <option>Deluxe AC Room</option>
                   <option>Standard AC Room</option>
                   <option>Dormitory Bed</option>
                 </select>
               </div>
               <div className="flex flex-col gap-1.5">
-                <label className="text-[11px] font-bold tracking-wide text-muted uppercase">No. of Guests</label>
+                <label className="text-[11px] font-bold tracking-wide text-muted uppercase">{tBar("guests")}</label>
                 <select className={inputCls} value={form.guests} onChange={update("guests")}>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4+</option>
+                  <option value="1">{tBar("guest1")}</option>
+                  <option value="2">{tBar("guest2")}</option>
+                  <option value="3">{tBar("guest3")}</option>
+                  <option value="4">{tBar("guest4")}</option>
                 </select>
               </div>
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-[11px] font-bold tracking-wide text-muted uppercase">Special Requests</label>
+              <label className="text-[11px] font-bold tracking-wide text-muted uppercase">{tBook("special")}</label>
               <textarea
                 className={`${inputCls} resize-y`}
                 style={{ minHeight: 100 }}
-                placeholder="Airport pickup, early check-in, dietary preferences, anniversary setup..."
+                placeholder={tBook("specialPlaceholder")}
                 value={form.special}
                 onChange={update("special")}
               />
             </div>
 
-            <p className="text-[11px] text-stone">
-              🔒 Your information is only shared with Aneesh & Bhavna. No spam, ever.
-            </p>
+            <p className="text-[11px] text-stone">{t("privacy")}</p>
 
             <button
               type="submit"
               className="w-full flex items-center justify-center gap-2 bg-saffron hover:bg-saffron-d text-white text-[15px] font-semibold py-4 px-8 rounded-lg transition-all duration-150 hover:-translate-y-px cursor-pointer border-none"
             >
-              Send Enquiry via WhatsApp →
+              {t("sendEnquiry")}
             </button>
           </form>
         </div>

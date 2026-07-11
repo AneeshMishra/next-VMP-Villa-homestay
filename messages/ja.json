@@ -96,7 +96,13 @@
     "send": "送信する",
     "sending": "送信中…",
     "successTitle": "送信しました！ 🎉",
-    "successSubtitle": "数時間以内にご返信いたします。"
+    "successSubtitle": "数時間以内にご返信いたします。",
+    "phone": "電話 / WhatsApp",
+    "sendEnquiry": "WhatsAppでお問い合わせを送る →",
+    "enquiryTitle": "簡単予約リクエスト",
+    "talkTitle": "直接ご相談ください",
+    "talkSubtitle": "WhatsAppで30分以内にご返答します。ボットなし — アニーシュとバーヴナが直接対応します。",
+    "privacy": "🔒 お客様の情報はアニーシュとバーヴナにのみ共有されます。スパムは一切ありません。"
   },
   "booking": {
     "pageTitle": "ご予約",

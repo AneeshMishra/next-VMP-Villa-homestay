@@ -96,7 +96,13 @@
     "send": "发送消息",
     "sending": "发送中…",
     "successTitle": "消息已发送！ 🎉",
-    "successSubtitle": "我们将在几小时内回复您。"
+    "successSubtitle": "我们将在几小时内回复您。",
+    "phone": "电话 / WhatsApp",
+    "sendEnquiry": "通过WhatsApp发送询问 →",
+    "enquiryTitle": "快速预订请求",
+    "talkTitle": "直接与我们交流",
+    "talkSubtitle": "我们在WhatsApp上30分钟内回复。没有机器人 — 只有Aneesh和Bhavna。",
+    "privacy": "🔒 您的信息仅与Aneesh和Bhavna共享。绝不发送垃圾信息。"
   },
   "booking": {
     "pageTitle": "预订您的住宿",

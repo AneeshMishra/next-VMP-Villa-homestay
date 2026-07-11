@@ -1,7 +1,10 @@
+import { useTranslations } from "next-intl";
 import ScrollReveal from "@/components/ScrollReveal";
 import { DISTANCES, GOOGLE_MAPS_URL } from "@/lib/constants";
 
 export default function LocationSection() {
+  const t = useTranslations("location");
+
   return (
     <div className="bg-ink" style={{ padding: "80px 40px" }} id="location">
       <div
@@ -11,18 +14,17 @@ export default function LocationSection() {
         {/* Text + distances */}
         <div>
           <div className="text-[11px] font-bold tracking-[2.5px] uppercase text-saffron mb-2.5">
-            Find Us
+            {t("eyebrow")}
           </div>
           <h2
             className="font-display font-bold text-white mb-3.5 leading-tight"
             style={{ fontSize: "clamp(28px, 4vw, 44px)" }}
           >
-            Right in the{" "}
-            <em className="not-italic text-saffron">Heart of Agra</em>
+            {t("heading")}{" "}
+            <em className="not-italic text-saffron">{t("headingAccent")}</em>
           </h2>
           <p className="text-white/55 text-[15px] leading-[1.7] mb-8">
-            Tucked in a quiet residential lane in Tajganj — 6 km from the Taj Mahal East Gate
-            and 8 km from Agra Fort, away from the tourist noise.
+            {t("howToReach")}
           </p>
 
           <div className="flex flex-col gap-3 mb-8">
@@ -49,7 +51,7 @@ export default function LocationSection() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-saffron hover:bg-saffron-d text-white text-[15px] font-semibold px-8 py-4 rounded-lg transition-all duration-150 hover:-translate-y-px"
           >
-            📍 Open in Google Maps
+            📍 {t("getDirections")}
           </a>
         </div>
 
@@ -77,7 +79,7 @@ export default function LocationSection() {
               rel="noopener noreferrer"
               className="relative z-10 bg-saffron hover:bg-saffron-d text-white text-[13px] font-semibold px-6 py-3 rounded-lg transition-colors"
             >
-              Get Directions →
+              {t("getDirections")} →
             </a>
           </div>
         </div>
