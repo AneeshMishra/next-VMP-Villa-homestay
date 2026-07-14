@@ -245,6 +245,15 @@
     "deluxe-ac-badge": "El más popular",
     "standard-ac-badge": "Excelente relación calidad-precio"
   },
+  "capacity": {
+    "title": "Capacidad",
+    "adults": "adultos",
+    "childrenFree": "Niños ≤{age} años — gratis",
+    "extraPerson": "+1 pers. ₹{fee}/noche",
+    "extraMattress": "con colchón extra",
+    "maxGuests": "Máx. {n} huéspedes",
+    "dormNote": "Por cama · sin extras"
+  },
   "ecostory": {
     "eyebrow": "Nuestra Historia",
     "heading": "Un hogar construido sobre",

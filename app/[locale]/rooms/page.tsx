@@ -5,7 +5,7 @@ import { Link } from "@/i18n/navigation";
 import ScrollReveal from "@/components/ScrollReveal";
 import RoomImageSlider from "@/components/RoomImageSlider";
 import CurrencyPrice from "@/components/CurrencyPrice";
-import { ROOMS } from "@/lib/constants";
+import { ROOMS, ROOM_CAPACITY } from "@/lib/constants";
 import { ROOM_PRICES } from "@/lib/booking-config";
 
 export const metadata: Metadata = {
@@ -17,6 +17,7 @@ export const metadata: Metadata = {
 export default function RoomsPage() {
   const t = useTranslations("rooms");
   const tContent = useTranslations("roomContent");
+  const tCap = useTranslations("capacity");
 
   return (
     <div>
@@ -44,6 +45,7 @@ export default function RoomsPage() {
         <div className="max-w-[1100px] mx-auto flex flex-col gap-20">
           {ROOMS.map((room, i) => {
             const isEven = i % 2 === 0;
+            const cap = ROOM_CAPACITY[room.id as keyof typeof ROOM_CAPACITY];
             return (
               <ScrollReveal key={room.id}>
                 <div
@@ -94,7 +96,7 @@ export default function RoomsPage() {
                       {tContent(`${room.id}-desc`)}
                     </p>
 
-                    <div className="flex flex-wrap gap-2 mb-8">
+                    <div className="flex flex-wrap gap-2 mb-6">
                       {room.amenities.map((_, idx) => (
                         <span
                           key={idx}
@@ -103,6 +105,43 @@ export default function RoomsPage() {
                           {tContent(`${room.id}-a${idx}`)}
                         </span>
                       ))}
+                    </div>
+
+                    {/* Capacity panel */}
+                    <div
+                      className="rounded-xl p-4 mb-6"
+                      style={{ background: "var(--leaf-l)", border: "1px solid rgba(58,107,74,0.2)" }}
+                    >
+                      <div className="text-[10px] font-bold tracking-[2px] uppercase mb-3" style={{ color: "var(--leaf)" }}>
+                        {tCap("title")}
+                      </div>
+                      <div className="flex flex-wrap gap-x-6 gap-y-2.5 text-[13px]">
+                        <div className="flex items-center gap-1.5">
+                          <span>👥</span>
+                          <span className="font-semibold text-ink">{cap.baseAdults}</span>
+                          <span className="text-muted">{tCap("adults")}</span>
+                        </div>
+                        {cap.childFreeAge > 0 && (
+                          <div className="flex items-center gap-1.5">
+                            <span>👶</span>
+                            <span className="text-ink">{tCap("childrenFree", { age: cap.childFreeAge })}</span>
+                          </div>
+                        )}
+                        {cap.extraPersonFee > 0 && (
+                          <div className="flex items-center gap-1.5">
+                            <span>🛏️</span>
+                            <span className="text-ink">{tCap("extraPerson", { fee: cap.extraPersonFee })}</span>
+                            <span className="text-muted text-[11px]">— {tCap("extraMattress")}</span>
+                          </div>
+                        )}
+                        <div className="flex items-center gap-1.5">
+                          <span>🏠</span>
+                          <span className="font-semibold text-ink">{tCap("maxGuests", { n: cap.maxTotal })}</span>
+                        </div>
+                        {cap.extraPersonFee === 0 && (
+                          <div className="w-full text-muted text-[11px]">{tCap("dormNote")}</div>
+                        )}
+                      </div>
                     </div>
 
                     <div

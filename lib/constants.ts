@@ -131,6 +131,14 @@ export const ROOMS = [
   },
 ] as const;
 
+export const ROOM_CAPACITY = {
+  "2bhk-flat":  { baseAdults: 4, childFreeAge: 8, extraPersonFee: 500, maxExtra: 2, maxTotal: 6 },
+  "1bhk-flat":  { baseAdults: 2, childFreeAge: 8, extraPersonFee: 500, maxExtra: 1, maxTotal: 3 },
+  "deluxe-ac":  { baseAdults: 2, childFreeAge: 8, extraPersonFee: 500, maxExtra: 1, maxTotal: 3 },
+  "standard-ac": { baseAdults: 2, childFreeAge: 8, extraPersonFee: 500, maxExtra: 1, maxTotal: 3 },
+  "dormitory":  { baseAdults: 1, childFreeAge: 0, extraPersonFee: 0,   maxExtra: 0, maxTotal: 1 },
+} as const;
+
 export const DISTANCES = [
   { icon: "🕌", name: "Taj Mahal (East Gate)", value: "6 km · 18 min" },
   { icon: "🏰", name: "Agra Fort", value: "8 km · 25 min" },

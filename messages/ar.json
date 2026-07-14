@@ -329,6 +329,15 @@
     "deluxe-ac-badge": "الأكثر شعبية",
     "standard-ac-badge": "قيمة ممتازة"
   },
+  "capacity": {
+    "title": "السعة",
+    "adults": "بالغين",
+    "childrenFree": "أطفال ≤{age} سنوات — مجاناً",
+    "extraPerson": "+1 شخص ₹{fee}/ليلة",
+    "extraMattress": "مع مرتبة إضافية",
+    "maxGuests": "الحد الأقصى {n} ضيوف",
+    "dormNote": "لكل سرير · بدون ضيوف إضافيين"
+  },
   "ecostory": {
     "eyebrow": "قصتنا",
     "heading": "منزل بُني على",

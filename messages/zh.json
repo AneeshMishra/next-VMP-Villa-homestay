@@ -245,6 +245,15 @@
     "deluxe-ac-badge": "最受欢迎",
     "standard-ac-badge": "超高性价比"
   },
+  "capacity": {
+    "title": "容纳人数",
+    "adults": "名成人",
+    "childrenFree": "{age}岁以下儿童 — 免费",
+    "extraPerson": "+1人 ₹{fee}/晚",
+    "extraMattress": "含额外床垫",
+    "maxGuests": "最多{n}位客人",
+    "dormNote": "每床位 · 不可加人"
+  },
   "ecostory": {
     "eyebrow": "我们的故事",
     "heading": "一个建立在",

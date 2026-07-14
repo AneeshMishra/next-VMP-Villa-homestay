@@ -329,6 +329,15 @@
     "deluxe-ac-badge": "Le plus populaire",
     "standard-ac-badge": "Excellent rapport qualité-prix"
   },
+  "capacity": {
+    "title": "Capacité",
+    "adults": "adultes",
+    "childrenFree": "Enfants ≤{age} ans — gratuit",
+    "extraPerson": "+1 pers. ₹{fee}/nuit",
+    "extraMattress": "avec matelas supplémentaire",
+    "maxGuests": "Max {n} personnes",
+    "dormNote": "Par lit · pas de supplément"
+  },
   "ecostory": {
     "eyebrow": "Notre Histoire",
     "heading": "Une maison bâtie sur",

@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import ScrollReveal from "@/components/ScrollReveal";
 import CurrencyPrice from "@/components/CurrencyPrice";
-import { ROOMS } from "@/lib/constants";
+import { ROOMS, ROOM_CAPACITY } from "@/lib/constants";
 import { ROOM_PRICES } from "@/lib/booking-config";
 
 function RoomCard({
@@ -11,13 +11,16 @@ function RoomCard({
   delay,
   t,
   tContent,
+  tCap,
 }: {
   room: (typeof ROOMS)[number];
   delay: number;
   t: ReturnType<typeof useTranslations<"rooms">>;
   tContent: ReturnType<typeof useTranslations<"roomContent">>;
+  tCap: ReturnType<typeof useTranslations<"capacity">>;
 }) {
   const translatedBadge = room.badge ? tContent(`${room.id}-badge`) : null;
+  const cap = ROOM_CAPACITY[room.id as keyof typeof ROOM_CAPACITY];
 
   return (
     <ScrollReveal delay={delay} className="h-full">
@@ -76,6 +79,23 @@ function RoomCard({
             )}
           </div>
 
+          {/* Capacity strip */}
+          <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 mb-5 text-[11px] text-muted">
+            <span>👥 <strong className="text-ink">{cap.baseAdults}</strong> {tCap("adults")}</span>
+            {cap.childFreeAge > 0 && (
+              <>
+                <span className="text-stone/40">·</span>
+                <span>👶 {tCap("childrenFree", { age: cap.childFreeAge })}</span>
+              </>
+            )}
+            <span className="text-stone/40">·</span>
+            {cap.extraPersonFee > 0 ? (
+              <span>➕ {tCap("extraPerson", { fee: cap.extraPersonFee })}</span>
+            ) : (
+              <span>{tCap("dormNote")}</span>
+            )}
+          </div>
+
           <div
             className="flex items-center justify-between pt-4"
             style={{ borderTop: "1px solid var(--marble)" }}
@@ -107,6 +127,7 @@ function RoomCard({
 export default function RoomsSection() {
   const t = useTranslations("rooms");
   const tContent = useTranslations("roomContent");
+  const tCap = useTranslations("capacity");
 
   return (
     <div className="bg-marble rooms-section" style={{ padding: "80px 0" }}>
@@ -123,7 +144,7 @@ export default function RoomsSection() {
 
         <div className="rooms-scroll-wrap grid gap-6" style={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
           {ROOMS.map((room, i) => (
-            <RoomCard key={room.id} room={room} delay={i * 100} t={t} tContent={tContent} />
+            <RoomCard key={room.id} room={room} delay={i * 100} t={t} tContent={tContent} tCap={tCap} />
           ))}
         </div>
 
