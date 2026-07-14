@@ -44,6 +44,8 @@
     "viewDetails": "查看详情 →",
     "startingFrom": "起价",
     "bookNow": "立即预订",
+    "more": "更多",
+    "room": "客房",
     "notSureTitle": "不确定选哪个房型？",
     "notSureSubtitle": "直接在WhatsApp联系Aneesh，他会根据您的人数和预算推荐最适合的方案。",
     "askAneesh": "💬 咨询Aneesh",
@@ -224,7 +226,11 @@
     "dormitory-a1": "🔒 个人储物柜",
     "dormitory-a2": "📶 免费WiFi",
     "dormitory-a3": "🚿 共用卫浴",
-    "dormitory-a4": "👥 混合宿舍"
+    "dormitory-a4": "👥 混合宿舍",
+    "2bhk-flat-badge": "最适合家庭",
+    "1bhk-flat-badge": "最适合情侣",
+    "deluxe-ac-badge": "最受欢迎",
+    "standard-ac-badge": "超高性价比"
   },
   "ecostory": {
     "eyebrow": "我们的故事",

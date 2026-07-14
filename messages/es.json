@@ -44,6 +44,8 @@
     "viewDetails": "Ver detalles →",
     "startingFrom": "Desde",
     "bookNow": "Reservar",
+    "more": "más",
+    "room": "Habitación",
     "notSureTitle": "¿No sabes qué habitación elegir?",
     "notSureSubtitle": "Contacta con Aneesh directamente por WhatsApp y te recomendará la mejor opción según tu grupo y presupuesto.",
     "askAneesh": "💬 Preguntar a Aneesh",
@@ -224,7 +226,11 @@
     "dormitory-a1": "🔒 Taquilla personal",
     "dormitory-a2": "📶 WiFi gratis",
     "dormitory-a3": "🚿 Baño compartido",
-    "dormitory-a4": "👥 Dormitorio mixto"
+    "dormitory-a4": "👥 Dormitorio mixto",
+    "2bhk-flat-badge": "Ideal para familias",
+    "1bhk-flat-badge": "Perfecto para parejas",
+    "deluxe-ac-badge": "El más popular",
+    "standard-ac-badge": "Excelente relación calidad-precio"
   },
   "ecostory": {
     "eyebrow": "Nuestra Historia",

@@ -44,6 +44,8 @@
     "viewDetails": "विवरण देखें →",
     "startingFrom": "शुरुआत",
     "bookNow": "अभी बुक करें",
+    "more": "और",
+    "room": "कमरा",
     "notSureTitle": "कौन सा कमरा सही है, तय नहीं?",
     "notSureSubtitle": "अनीश को सीधे WhatsApp करें और वे आपके ग्रुप और बजट के लिए सबसे अच्छा विकल्प बताएंगे।",
     "askAneesh": "💬 अनीश से पूछें",
@@ -308,7 +310,11 @@
     "dormitory-a1": "🔒 पर्सनल लॉकर",
     "dormitory-a2": "📶 मुफ्त वाईफाई",
     "dormitory-a3": "🚿 साझा बाथ",
-    "dormitory-a4": "👥 मिक्स्ड डॉर्म"
+    "dormitory-a4": "👥 मिक्स्ड डॉर्म",
+    "2bhk-flat-badge": "परिवारों के लिए सर्वश्रेष्ठ",
+    "1bhk-flat-badge": "जोड़ों के लिए बढ़िया",
+    "deluxe-ac-badge": "सबसे लोकप्रिय",
+    "standard-ac-badge": "बेहतरीन मूल्य"
   },
   "ecostory": {
     "eyebrow": "हमारी कहानी",
