@@ -245,6 +245,15 @@
     "deluxe-ac-badge": "Самый популярный",
     "standard-ac-badge": "Отличная ценность"
   },
+  "capacity": {
+    "title": "Вместимость",
+    "adults": "взрослых",
+    "childrenFree": "Дети до {age} лет — бесплатно",
+    "extraPerson": "+1 чел. ₹{fee}/ночь",
+    "extraMattress": "с дополнительным матрасом",
+    "maxGuests": "Макс. {n} гостей",
+    "dormNote": "На 1 кровать · без доп. гостей"
+  },
   "ecostory": {
     "eyebrow": "Наша История",
     "heading": "Дом, построенный на",

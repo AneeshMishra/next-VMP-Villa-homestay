@@ -329,6 +329,15 @@
     "deluxe-ac-badge": "सबसे लोकप्रिय",
     "standard-ac-badge": "बेहतरीन मूल्य"
   },
+  "capacity": {
+    "title": "क्षमता",
+    "adults": "वयस्क",
+    "childrenFree": "{age} वर्ष तक के बच्चे — निःशुल्क",
+    "extraPerson": "+1 व्यक्ति ₹{fee}/रात",
+    "extraMattress": "एक्स्ट्रा गद्दे के साथ",
+    "maxGuests": "अधिकतम {n} मेहमान",
+    "dormNote": "प्रति बेड · कोई अतिरिक्त मेहमान नहीं"
+  },
   "ecostory": {
     "eyebrow": "हमारी कहानी",
     "heading": "एक घर जो बना है",

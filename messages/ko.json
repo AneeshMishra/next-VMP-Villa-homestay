@@ -245,6 +245,15 @@
     "deluxe-ac-badge": "가장 인기",
     "standard-ac-badge": "가성비 최고"
   },
+  "capacity": {
+    "title": "수용 인원",
+    "adults": "성인",
+    "childrenFree": "{age}세 이하 어린이 — 무료",
+    "extraPerson": "+1인 ₹{fee}/박",
+    "extraMattress": "추가 매트리스 포함",
+    "maxGuests": "최대 {n}명",
+    "dormNote": "침대당 1인 · 추가 불가"
+  },
   "ecostory": {
     "eyebrow": "우리의 이야기",
     "heading": "뿌리와 책임 위에 세워진",

@@ -322,6 +322,15 @@
     "deluxe-ac-badge": "Most Popular",
     "standard-ac-badge": "Great Value"
   },
+  "capacity": {
+    "title": "Capacity",
+    "adults": "Adults",
+    "childrenFree": "Children ≤{age} yrs — free",
+    "extraPerson": "+1 at ₹{fee}/night",
+    "extraMattress": "with extra mattress",
+    "maxGuests": "Max {n} guests",
+    "dormNote": "Per bed · no extra guests"
+  },
   "ecostory": {
     "eyebrow": "Our Story",
     "heading": "A home built on",

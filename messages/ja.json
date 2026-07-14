@@ -245,6 +245,15 @@
     "deluxe-ac-badge": "最も人気",
     "standard-ac-badge": "コスパ最高"
   },
+  "capacity": {
+    "title": "定員",
+    "adults": "名（大人）",
+    "childrenFree": "{age}歳以下のお子様 — 無料",
+    "extraPerson": "+1名 ₹{fee}/泊",
+    "extraMattress": "エキストラマットレス付き",
+    "maxGuests": "最大{n}名",
+    "dormNote": "1ベッドあたり · 追加不可"
+  },
   "ecostory": {
     "eyebrow": "私たちのストーリー",
     "heading": "ルーツと責任に",
