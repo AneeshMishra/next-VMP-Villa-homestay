@@ -44,6 +44,8 @@
     "viewDetails": "詳細を見る →",
     "startingFrom": "料金",
     "bookNow": "予約する",
+    "more": "他",
+    "room": "客室",
     "notSureTitle": "どの客室が合っているか迷っていますか？",
     "notSureSubtitle": "WhatsAppでアニーシュに直接ご相談ください。グループ規模と予算に合った最適なプランをご提案します。",
     "askAneesh": "💬 アニーシュに相談",
@@ -224,7 +226,11 @@
     "dormitory-a1": "🔒 個人ロッカー",
     "dormitory-a2": "📶 無料WiFi",
     "dormitory-a3": "🚿 共用バスルーム",
-    "dormitory-a4": "👥 混合ドミトリー"
+    "dormitory-a4": "👥 混合ドミトリー",
+    "2bhk-flat-badge": "ファミリーに最適",
+    "1bhk-flat-badge": "カップルに最適",
+    "deluxe-ac-badge": "最も人気",
+    "standard-ac-badge": "コスパ最高"
   },
   "ecostory": {
     "eyebrow": "私たちのストーリー",

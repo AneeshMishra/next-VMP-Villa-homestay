@@ -44,6 +44,8 @@
     "viewDetails": "عرض التفاصيل →",
     "startingFrom": "ابتداءً من",
     "bookNow": "احجز الآن",
+    "more": "المزيد",
+    "room": "غرفة",
     "notSureTitle": "لست متأكداً من الغرفة المناسبة لك؟",
     "notSureSubtitle": "تواصل مع أنيش عبر واتساب وسيوصي لك بأفضل خيار لمجموعتك وميزانيتك.",
     "askAneesh": "💬 اسأل أنيش",
@@ -308,7 +310,11 @@
     "dormitory-a1": "🔒 خزانة شخصية",
     "dormitory-a2": "📶 واي فاي مجاني",
     "dormitory-a3": "🚿 حمام مشترك",
-    "dormitory-a4": "👥 مهجع مختلط"
+    "dormitory-a4": "👥 مهجع مختلط",
+    "2bhk-flat-badge": "الأفضل للعائلات",
+    "1bhk-flat-badge": "رائع للأزواج",
+    "deluxe-ac-badge": "الأكثر شعبية",
+    "standard-ac-badge": "قيمة ممتازة"
   },
   "ecostory": {
     "eyebrow": "قصتنا",

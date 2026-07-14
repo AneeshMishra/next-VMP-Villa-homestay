@@ -44,6 +44,8 @@
     "viewDetails": "View Details →",
     "startingFrom": "Starting from",
     "bookNow": "Book Now",
+    "more": "more",
+    "room": "Room",
     "notSureTitle": "Not sure which room is right for you?",
     "notSureSubtitle": "WhatsApp Aneesh directly and he'll recommend the best option for your group size and budget.",
     "askAneesh": "💬 Ask Aneesh",
@@ -308,7 +310,11 @@
     "dormitory-a1": "🔒 Personal Locker",
     "dormitory-a2": "📶 Free WiFi",
     "dormitory-a3": "🚿 Shared Bath",
-    "dormitory-a4": "👥 Mixed Dorm"
+    "dormitory-a4": "👥 Mixed Dorm",
+    "2bhk-flat-badge": "Best for Families",
+    "1bhk-flat-badge": "Great for Couples",
+    "deluxe-ac-badge": "Most Popular",
+    "standard-ac-badge": "Great Value"
   },
   "ecostory": {
     "eyebrow": "Our Story",

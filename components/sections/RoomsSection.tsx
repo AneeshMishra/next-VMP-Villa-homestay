@@ -10,11 +10,15 @@ function RoomCard({
   room,
   delay,
   t,
+  tContent,
 }: {
   room: (typeof ROOMS)[number];
   delay: number;
   t: ReturnType<typeof useTranslations<"rooms">>;
+  tContent: ReturnType<typeof useTranslations<"roomContent">>;
 }) {
+  const translatedBadge = room.badge ? tContent(`${room.id}-badge`) : null;
+
   return (
     <ScrollReveal delay={delay} className="h-full">
       <div className="room-card bg-white rounded-2xl overflow-hidden border border-black/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(0,0,0,0.12)] group h-full flex flex-col">
@@ -27,12 +31,12 @@ function RoomCard({
             className="object-cover transition-transform duration-400 group-hover:scale-105"
             sizes="(max-width: 768px) 85vw, 33vw"
           />
-          {room.badge && (
+          {translatedBadge && (
             <div
               className="absolute top-3.5 left-3.5 text-white text-[10px] font-bold tracking-wide uppercase py-1 px-2.5 rounded"
               style={{ background: room.badgeColor ?? undefined }}
             >
-              {room.badge}
+              {translatedBadge}
             </div>
           )}
           <div className="absolute inset-0 bg-ink/0 group-hover:bg-ink/25 transition-all duration-300 flex items-center justify-center">
@@ -44,30 +48,30 @@ function RoomCard({
 
         <div className="p-6 flex flex-col flex-1">
           <div className="text-[10px] font-bold tracking-[2.5px] uppercase text-saffron mb-1.5">
-            {room.badge ?? "Room"}
+            {translatedBadge ?? t("room")}
           </div>
 
           <Link
             href={`/rooms#${room.id}`}
             className="font-display text-[22px] font-bold text-ink leading-tight mb-2.5 hover:text-saffron transition-colors duration-200 block"
           >
-            {room.name}
+            {tContent(`${room.id}-name`)}
           </Link>
 
-          <p className="text-[13px] text-stone leading-[1.75] mb-4 flex-1">{room.description}</p>
+          <p className="text-[13px] text-stone leading-[1.75] mb-4 flex-1">{tContent(`${room.id}-desc`)}</p>
 
           <div className="flex flex-wrap gap-1.5 mb-5">
-            {room.amenities.slice(0, 5).map((a) => (
+            {room.amenities.slice(0, 5).map((_, idx) => (
               <span
-                key={a}
+                key={idx}
                 className="bg-cream border border-marble rounded-full text-[11px] font-medium text-muted px-2.5 py-1"
               >
-                {a}
+                {tContent(`${room.id}-a${idx}`)}
               </span>
             ))}
             {room.amenities.length > 5 && (
               <span className="bg-cream border border-marble rounded-full text-[11px] font-medium text-stone px-2.5 py-1">
-                +{room.amenities.length - 5} more
+                +{room.amenities.length - 5} {t("more")}
               </span>
             )}
           </div>
@@ -102,6 +106,7 @@ function RoomCard({
 
 export default function RoomsSection() {
   const t = useTranslations("rooms");
+  const tContent = useTranslations("roomContent");
 
   return (
     <div className="bg-marble rooms-section" style={{ padding: "80px 0" }}>
@@ -118,7 +123,7 @@ export default function RoomsSection() {
 
         <div className="rooms-scroll-wrap grid gap-6" style={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
           {ROOMS.map((room, i) => (
-            <RoomCard key={room.id} room={room} delay={i * 100} t={t} />
+            <RoomCard key={room.id} room={room} delay={i * 100} t={t} tContent={tContent} />
           ))}
         </div>
 

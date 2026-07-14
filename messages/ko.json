@@ -44,6 +44,8 @@
     "viewDetails": "상세 보기 →",
     "startingFrom": "시작 요금",
     "bookNow": "예약하기",
+    "more": "개 더",
+    "room": "객실",
     "notSureTitle": "어떤 객실이 맞는지 모르시겠나요?",
     "notSureSubtitle": "Aneesh에게 직접 WhatsApp으로 문의하시면 그룹 규모와 예산에 맞는 최적의 객실을 추천해 드립니다.",
     "askAneesh": "💬 Aneesh에게 문의",
@@ -224,7 +226,11 @@
     "dormitory-a1": "🔒 개인 사물함",
     "dormitory-a2": "📶 무료 WiFi",
     "dormitory-a3": "🚿 공용 욕실",
-    "dormitory-a4": "👥 혼성 도미토리"
+    "dormitory-a4": "👥 혼성 도미토리",
+    "2bhk-flat-badge": "가족에게 최적",
+    "1bhk-flat-badge": "커플에게 좋음",
+    "deluxe-ac-badge": "가장 인기",
+    "standard-ac-badge": "가성비 최고"
   },
   "ecostory": {
     "eyebrow": "우리의 이야기",

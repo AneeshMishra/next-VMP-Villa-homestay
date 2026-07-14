@@ -44,6 +44,8 @@
     "viewDetails": "Подробнее →",
     "startingFrom": "От",
     "bookNow": "Забронировать",
+    "more": "ещё",
+    "room": "Номер",
     "notSureTitle": "Не знаете, какой номер выбрать?",
     "notSureSubtitle": "Напишите Анишу в WhatsApp — он порекомендует лучший вариант для вашей группы и бюджета.",
     "askAneesh": "💬 Спросить Аниша",
@@ -224,7 +226,11 @@
     "dormitory-a1": "🔒 Личный шкафчик",
     "dormitory-a2": "📶 Бесплатный WiFi",
     "dormitory-a3": "🚿 Общий санузел",
-    "dormitory-a4": "👥 Смешанный дормиторий"
+    "dormitory-a4": "👥 Смешанный дормиторий",
+    "2bhk-flat-badge": "Лучший для семей",
+    "1bhk-flat-badge": "Отлично для пар",
+    "deluxe-ac-badge": "Самый популярный",
+    "standard-ac-badge": "Отличная ценность"
   },
   "ecostory": {
     "eyebrow": "Наша История",
