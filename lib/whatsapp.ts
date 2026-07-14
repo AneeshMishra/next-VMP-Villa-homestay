@@ -7,10 +7,25 @@ export function buildWhatsAppUrl(message: string): string {
 export function bookingMessage(
   checkin: string,
   checkout: string,
-  guests: string,
-  roomType: string
+  rooms: string,
+  adults: string,
+  children: string,
+  childAges?: string
 ): string {
-  return `Hi! I'd like to check availability at VMP Villa.\n\nCheck-in: ${checkin}\nCheck-out: ${checkout}\nGuests: ${guests}\nRoom type: ${roomType}\n\nPlease confirm if a room is available.`;
+  const lines = [
+    "Hi! I'd like to check availability at VMP Villa.",
+    "",
+    `Check-in: ${checkin}`,
+    `Check-out: ${checkout}`,
+    `Rooms: ${rooms}`,
+    `Adults: ${adults}`,
+    `Children: ${children}`,
+  ];
+  if (childAges && Number(children) > 0) {
+    lines.push(`Children's ages: ${childAges.split(",").map((a, i) => `Child ${i + 1}: ${a === "0" ? "Under 1 yr" : `${a} yr`}`).join(", ")}`);
+  }
+  lines.push("", "Please confirm if rooms are available.");
+  return lines.join("\n");
 }
 
 export function enquiryMessage(
