@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import Script from "next/script";
 
@@ -104,23 +105,19 @@ const blogListJsonLd = {
   ],
 };
 
-const POSTS = [
+const POST_META = [
   {
     slug: "top-5-places-to-visit-in-agra",
-    title: "Top 5 Places to Visit in Agra Beyond the Taj Mahal",
-    excerpt:
-      "Agra is far more than the Taj. From the mighty Agra Fort to the ghost city of Fatehpur Sikri, here are five unmissable experiences — with entry fees, timings, and insider tips.",
     cover: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80",
     coverAlt: "Taj Mahal at sunrise reflected in the central pool, Agra India",
-    date: "July 1, 2026",
     dateISO: "2026-07-01",
-    readTime: "6 min read",
-    category: "Travel Guide",
     categoryColor: "#e8762b",
   },
 ];
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const t = await getTranslations("blog");
+
   return (
     <>
       <Script
@@ -134,9 +131,9 @@ export default function BlogPage() {
         <nav className="bg-white border-b border-marble" style={{ padding: "10px 40px" }} aria-label="Breadcrumb">
           <div className="max-w-[1100px] mx-auto">
             <ol className="flex items-center gap-2 text-xs text-stone">
-              <li><Link href="/" className="hover:text-saffron transition-colors">Home</Link></li>
+              <li><Link href="/" className="hover:text-saffron transition-colors">{t("breadcrumbHome")}</Link></li>
               <li className="opacity-40">›</li>
-              <li className="text-muted">Blog</li>
+              <li className="text-muted">{t("eyebrow").split(" ")[2] ?? "Blog"}</li>
             </ol>
           </div>
         </nav>
@@ -145,17 +142,16 @@ export default function BlogPage() {
         <div className="bg-ink text-white" style={{ padding: "56px 40px 48px" }}>
           <div className="max-w-[1100px] mx-auto">
             <div className="text-[11px] font-bold tracking-[2.5px] uppercase text-saffron mb-3">
-              Stories &amp; Guides
+              {t("eyebrow")}
             </div>
             <h1
               className="font-display font-black text-white mb-4 leading-tight"
               style={{ fontSize: "clamp(30px, 5vw, 50px)" }}
             >
-              The VMP Villa <em className="not-italic text-saffron">Travel Blog</em>
+              {t("heading")} <em className="not-italic text-saffron">{t("headingAccent")}</em>
             </h1>
             <p className="text-white/60 text-[15px] max-w-[540px] leading-[1.7]">
-              Insider guides, hidden gems, food tips, and local secrets from Aneesh &amp; Bhavna —
-              your hosts in the heart of Agra, 6 km from the Taj Mahal East Gate.
+              {t("subtitle")}
             </p>
           </div>
         </div>
@@ -164,7 +160,7 @@ export default function BlogPage() {
         <div className="bg-cream" style={{ padding: "56px 40px 80px" }}>
           <div className="max-w-[1100px] mx-auto">
             <div className="grid gap-8" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))" }}>
-              {POSTS.map((post) => (
+              {POST_META.map((post, i) => (
                 <Link key={post.slug} href={`/blog/${post.slug}`} className="group block">
                   <article
                     className="bg-white rounded-2xl overflow-hidden border border-black/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(0,0,0,0.1)] h-full flex flex-col"
@@ -184,25 +180,25 @@ export default function BlogPage() {
                         className="absolute top-3 left-3 text-white text-[10px] font-bold tracking-wide uppercase py-1 px-2.5 rounded"
                         style={{ background: post.categoryColor }}
                       >
-                        {post.category}
+                        {t(`p${i}category`)}
                       </div>
                     </div>
                     <div className="p-6 flex flex-col flex-1">
                       <div className="text-xs text-stone mb-2">
-                        <time dateTime={post.dateISO} itemProp="datePublished">{post.date}</time>
-                        {" · "}{post.readTime}
+                        <time dateTime={post.dateISO} itemProp="datePublished">{t(`p${i}date`)}</time>
+                        {" · "}{t(`p${i}readTime`)}
                       </div>
                       <h2
                         className="font-display text-lg font-bold text-ink mb-2 group-hover:text-saffron transition-colors leading-snug"
                         itemProp="headline"
                       >
-                        {post.title}
+                        {t(`p${i}title`)}
                       </h2>
                       <p className="text-sm text-muted leading-relaxed flex-1" itemProp="description">
-                        {post.excerpt}
+                        {t(`p${i}excerpt`)}
                       </p>
                       <div className="mt-4 text-saffron text-sm font-semibold">
-                        Read more →
+                        {t("readMore")}
                       </div>
                     </div>
                     <meta itemProp="url" content={`${BASE}/blog/${post.slug}`} />
@@ -216,17 +212,16 @@ export default function BlogPage() {
             <div className="mt-16 text-center bg-white rounded-2xl border border-marble p-10">
               <div className="text-3xl mb-3">🏡</div>
               <h2 className="font-display text-xl font-bold text-ink mb-2">
-                Staying in Agra? We&apos;d love to host you.
+                {t("ctaTitle")}
               </h2>
               <p className="text-muted text-sm mb-5 max-w-[420px] mx-auto">
-                Book direct with VMP Villa and save 15–20% vs OTAs. Free WiFi, home-cooked breakfast,
-                and free insider tips on all Agra attractions included.
+                {t("ctaSub")}
               </p>
               <Link
                 href="/book"
                 className="inline-block bg-saffron hover:bg-saffron-d text-white font-semibold px-8 py-3 rounded-lg text-sm transition-colors"
               >
-                Book Your Stay →
+                {t("ctaBtn")}
               </Link>
             </div>
           </div>

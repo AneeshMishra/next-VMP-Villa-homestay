@@ -4,6 +4,7 @@ import { ECO_STATS } from "@/lib/constants";
 
 export default function EcoStory() {
   const t = useTranslations("ecostory");
+  const tStats = useTranslations("ecoStats");
 
   return (
     <div className="bg-leaf-l" style={{ padding: "80px 40px" }} id="story">
@@ -35,7 +36,7 @@ export default function EcoStory() {
         {/* Eco stats */}
         <div className="flex flex-col gap-5">
           {ECO_STATS.map((s, i) => (
-            <ScrollReveal key={s.label} delay={i * 100}>
+            <ScrollReveal key={i} delay={i * 100}>
               <div
                 className="flex items-center gap-5 bg-white rounded-xl py-5 px-6"
                 style={{ borderLeft: "4px solid var(--leaf)" }}
@@ -45,7 +46,7 @@ export default function EcoStory() {
                   <div className="font-display text-2xl font-bold text-leaf leading-none mb-0.5">
                     {s.value}
                   </div>
-                  <div className="text-xs text-muted">{s.label}</div>
+                  <div className="text-xs text-muted">{tStats(`s${i}`)}</div>
                 </div>
               </div>
             </ScrollReveal>

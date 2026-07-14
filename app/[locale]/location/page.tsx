@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import ScrollReveal from "@/components/ScrollReveal";
 import { DISTANCES, ADDRESS, GOOGLE_MAPS_URL } from "@/lib/constants";
 
@@ -8,59 +9,28 @@ export const metadata: Metadata = {
     "VMP Villa is located in Tajganj, Agra — 6 km from Taj Mahal East Gate and 8 km from Agra Fort. Get directions and transport tips.",
 };
 
-const TRANSPORT = [
-  {
-    mode: "🚂 Train",
-    tips: [
-      "Agra Cantt. (AGC) is the main railway station — 10 km, ~30 min by auto",
-      "Rajdhani, Shatabdi & Gatimaan Express from Delhi (2 hrs)",
-      "Auto-rickshaw from station to VMP Villa: ₹150–200",
-    ],
-  },
-  {
-    mode: "🚌 Bus",
-    tips: [
-      "ISBT Agra is 8 km away — take an auto to VMP Villa",
-      "Idgah Bus Stand is 6 km — regular bus from Delhi, Jaipur",
-    ],
-  },
-  {
-    mode: "✈️ Fly",
-    tips: [
-      "Agra Airport (AGR) is 12 km away — ~35 min, limited flights from Delhi",
-      "Nearest major airport: Delhi IGI (200 km, ~4 hr drive)",
-      "We offer airport pickup for ₹400 (book in advance)",
-    ],
-  },
-  {
-    mode: "🚗 Drive",
-    tips: [
-      "From Delhi via Yamuna Expressway: ~3.5 hours",
-      "From Jaipur via NH48: ~4 hours",
-      "Free parking at VMP Villa for all guests",
-    ],
-  },
-];
+const TRANSPORT_TIPS: number[][] = [[0, 1, 2], [0, 1], [0, 1, 2], [0, 1, 2]];
 
-export default function LocationPage() {
+export default async function LocationPage() {
+  const t = await getTranslations("locationPage");
+
   return (
     <div>
       {/* Header */}
       <div className="bg-ink text-white" style={{ padding: "64px 40px 48px" }}>
         <div className="max-w-[1100px] mx-auto">
           <div className="text-[11px] font-bold tracking-[2.5px] uppercase text-saffron mb-3">
-            Find Us
+            {t("eyebrow")}
           </div>
           <h1
             className="font-display font-black text-white mb-4 leading-tight"
             style={{ fontSize: "clamp(36px, 6vw, 60px)" }}
           >
-            Right in the{" "}
-            <em className="not-italic text-saffron">Heart of Agra</em>
+            {t("heading")}{" "}
+            <em className="not-italic text-saffron">{t("headingAccent")}</em>
           </h1>
           <p className="text-white/60 text-[15px] max-w-[560px] leading-[1.7]">
-            Tucked in a quiet residential lane in Tajganj — 6 km from the Taj Mahal East Gate
-            and 8 km from Agra Fort, away from the tourist noise.
+            {t("subtitle")}
           </p>
           <div className="mt-5 text-white/40 text-sm">📍 {ADDRESS}</div>
         </div>
@@ -74,18 +44,18 @@ export default function LocationPage() {
         >
           {/* Distances */}
           <div>
-            <h2 className="font-display text-[28px] font-bold mb-2">Nearby Landmarks</h2>
-            <p className="text-muted mb-8">Distances and travel times by auto-rickshaw.</p>
+            <h2 className="font-display text-[28px] font-bold mb-2">{t("nearbyTitle")}</h2>
+            <p className="text-muted mb-8">{t("nearbySub")}</p>
 
             <div className="flex flex-col gap-3 mb-8">
               {DISTANCES.map((d, i) => (
-                <ScrollReveal key={d.name} delay={i * 60}>
+                <ScrollReveal key={i} delay={i * 60}>
                   <div
                     className="flex items-center gap-3.5 py-3.5 px-4 rounded-xl bg-white border border-marble"
                     style={{ borderLeft: "4px solid var(--saffron)" }}
                   >
                     <span className="text-xl shrink-0">{d.icon}</span>
-                    <span className="text-sm font-medium text-ink flex-1">{d.name}</span>
+                    <span className="text-sm font-medium text-ink flex-1">{t(`d${i}`)}</span>
                     <span className="text-[13px] font-semibold text-saffron whitespace-nowrap">{d.value}</span>
                   </div>
                 </ScrollReveal>
@@ -98,7 +68,7 @@ export default function LocationPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-saffron hover:bg-saffron-d text-white font-semibold px-8 py-4 rounded-lg transition-all duration-150 hover:-translate-y-px"
             >
-              📍 Open in Google Maps
+              📍 {t("openMaps")}
             </a>
           </div>
 
@@ -126,7 +96,7 @@ export default function LocationPage() {
                 rel="noopener noreferrer"
                 className="relative z-10 bg-saffron hover:bg-saffron-d text-white text-sm font-semibold px-6 py-3 rounded-lg transition-colors"
               >
-                Get Directions →
+                {t("getDirections")}
               </a>
             </div>
           </div>
@@ -137,20 +107,20 @@ export default function LocationPage() {
       <div className="bg-marble" style={{ padding: "80px 40px" }}>
         <div className="max-w-[1100px] mx-auto">
           <h2 className="font-display text-[32px] font-bold mb-2 text-center">
-            How to Get Here
+            {t("transportTitle")}
           </h2>
-          <p className="text-muted text-center mb-12">Transport options to reach VMP Villa in Agra.</p>
+          <p className="text-muted text-center mb-12">{t("transportSub")}</p>
 
           <div className="grid grid-cols-2 gap-6 transport-grid">
-            {TRANSPORT.map((t, i) => (
-              <ScrollReveal key={t.mode} delay={i * 80}>
+            {TRANSPORT_TIPS.map((tips, mi) => (
+              <ScrollReveal key={mi} delay={mi * 80}>
                 <div className="bg-white rounded-2xl p-6 border border-marble">
-                  <div className="text-lg font-bold mb-4">{t.mode}</div>
+                  <div className="text-lg font-bold mb-4">{t(`t${mi}mode`)}</div>
                   <ul className="flex flex-col gap-2.5">
-                    {t.tips.map((tip) => (
-                      <li key={tip} className="flex items-start gap-2 text-sm text-muted">
+                    {tips.map((ti) => (
+                      <li key={ti} className="flex items-start gap-2 text-sm text-muted">
                         <span className="text-saffron mt-0.5 shrink-0">→</span>
-                        {tip}
+                        {t(`t${mi}t${ti}`)}
                       </li>
                     ))}
                   </ul>
