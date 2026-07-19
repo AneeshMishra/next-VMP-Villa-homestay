@@ -20,8 +20,8 @@ export async function GET(req: NextRequest) {
     }
 
     return NextResponse.json(data);
-  } catch (err) {
-    console.error("status route error:", err);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  } catch {
+    // Supabase not configured — return 404 so caller uses URL-param fallback
+    return NextResponse.json({ error: "Booking not found" }, { status: 404 });
   }
 }

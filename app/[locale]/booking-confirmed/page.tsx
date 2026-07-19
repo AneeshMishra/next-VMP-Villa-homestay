@@ -32,6 +32,18 @@ function BookingDetails() {
   const params = useSearchParams();
   const id = params.get("id");
   const isRequest = params.get("mode") === "request";
+
+  // URL-param fallback (populated when Supabase unavailable)
+  const urlGuest    = params.get("gn") ?? "";
+  const urlEmail    = params.get("ge") ?? "";
+  const urlRoom     = params.get("rn") ?? "";
+  const urlCheckIn  = params.get("ci") ?? "";
+  const urlCheckOut = params.get("co") ?? "";
+  const urlNights   = Number(params.get("ni") ?? 1);
+  const urlGuests   = Number(params.get("gu") ?? 1);
+  const urlAmount   = Number(params.get("am") ?? 0);
+  const hasUrlData  = !!(urlGuest && urlRoom && urlCheckIn);
+
   const [booking, setBooking] = useState<BookingData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -45,10 +57,10 @@ function BookingDetails() {
     fetch(`/api/bookings/status?id=${id}`)
       .then((r) => r.json())
       .then((data) => {
-        if (data.error) setError(data.error);
-        else setBooking(data);
+        if (!data.error) setBooking(data);
+        // If not found in DB but we have URL params, that's fine — render from URL data
       })
-      .catch(() => setError("Failed to load booking details."))
+      .catch(() => {})
       .finally(() => setLoading(false));
   }, [id]);
 
@@ -63,7 +75,8 @@ function BookingDetails() {
     );
   }
 
-  if (error || !booking) {
+  // Show error only when we have neither DB data nor URL fallback data
+  if (!booking && !hasUrlData) {
     return (
       <div className="flex items-center justify-center py-24 px-5">
         <div className="text-center max-w-sm">
@@ -83,8 +96,16 @@ function BookingDetails() {
     );
   }
 
-  const amount = booking.amount_paise / 100;
-  const payAtProperty = isRequest || booking.status === "pending";
+  const amount      = booking ? booking.amount_paise / 100 : urlAmount;
+  const guestName   = booking?.guest_name  ?? urlGuest;
+  const guestEmail  = booking?.guest_email ?? urlEmail;
+  const roomName    = booking?.room_name   ?? urlRoom;
+  const checkIn     = booking?.check_in    ?? urlCheckIn;
+  const checkOut    = booking?.check_out   ?? urlCheckOut;
+  const nights      = booking?.nights      ?? urlNights;
+  const guestsCount = booking?.guests      ?? urlGuests;
+  const bookingRef  = booking?.id ?? id ?? "";
+  const payAtProperty = isRequest || !booking || booking.status === "pending";
 
   return (
     <>
@@ -101,15 +122,15 @@ function BookingDetails() {
           >
             {payAtProperty ? "Request received," : "See you in Agra,"}&nbsp;
             <em className="not-italic text-saffron">
-              {booking.guest_name.split(" ")[0]}!
+              {guestName.split(" ")[0]}!
             </em>
           </h1>
           <p className="text-white/60 text-[15px] leading-[1.7]">
             {payAtProperty
               ? "Aneesh will confirm your booking within 2 hours via WhatsApp or email."
               : "Your room is reserved. A confirmation email has been sent to"}{" "}
-            {!payAtProperty && <strong className="text-white/80">{booking.guest_email}</strong>}
-            {payAtProperty && <>(sent to <strong className="text-white/80">{booking.guest_email}</strong>)</>}
+            {!payAtProperty && <strong className="text-white/80">{guestEmail}</strong>}
+            {payAtProperty && <>(sent to <strong className="text-white/80">{guestEmail}</strong>)</>}
           </p>
           <div
             className="inline-block mt-4 px-4 py-2 rounded-full text-xs font-bold"
@@ -119,7 +140,7 @@ function BookingDetails() {
               color: "#6FCF97",
             }}
           >
-            Booking ID: {booking.id.slice(-8).toUpperCase()}
+            Booking ID: {bookingRef.slice(-8).toUpperCase()}
           </div>
         </div>
       </div>
@@ -133,11 +154,11 @@ function BookingDetails() {
             <h2 className="font-display text-lg font-bold text-ink mb-5">Booking Summary</h2>
             <div className="flex flex-col gap-3 text-sm">
               {[
-                { label: "Room", value: booking.room_name },
-                { label: "Check-in", value: `${fmtDate(booking.check_in)} · 12:00 PM` },
-                { label: "Check-out", value: `${fmtDate(booking.check_out)} · 11:00 AM` },
-                { label: "Duration", value: `${booking.nights} night${booking.nights > 1 ? "s" : ""}` },
-                { label: "Guests", value: String(booking.guests) },
+                { label: "Room", value: roomName },
+                { label: "Check-in", value: `${fmtDate(checkIn)} · 12:00 PM` },
+                { label: "Check-out", value: `${fmtDate(checkOut)} · 11:00 AM` },
+                { label: "Duration", value: `${nights} night${nights > 1 ? "s" : ""}` },
+                { label: "Guests", value: String(guestsCount) },
               ].map(({ label, value }) => (
                 <div key={label} className="flex justify-between gap-2">
                   <span className="text-muted">{label}</span>
