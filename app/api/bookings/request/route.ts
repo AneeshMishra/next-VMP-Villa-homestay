@@ -7,30 +7,55 @@ import { sendWhatsAppNotification } from "@/lib/notify-whatsapp";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { roomId, checkIn, checkOut, nights, guests, name, email, phone, special } = body;
+    const {
+      roomId, roomCount = 1, selections,
+      checkIn, checkOut, nights,
+      adults, children, guests,
+      name, email, phone, special,
+    } = body;
 
-    if (!roomId || !checkIn || !checkOut || !nights || !guests || !name || !email || !phone) {
+    // Support old `guests` field and new `adults`+`children` fields
+    const totalGuests = guests ?? (((adults ?? 0) + (children ?? 0)) || 1);
+
+    if (!roomId || !checkIn || !checkOut || !nights || !name || !email || !phone) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
     if (!(roomId in ROOM_PRICES)) {
       return NextResponse.json({ error: "Invalid room type" }, { status: 400 });
     }
 
-    const baseAmount = ROOM_PRICES[roomId] * nights;
+    // Calculate amount from multi-room selections or single room × count
+    type Selection = { roomId: string; qty: number };
+    const baseAmount =
+      selections && Array.isArray(selections) && selections.length > 0
+        ? (selections as Selection[]).reduce(
+            (sum, sel) => sum + (ROOM_PRICES[sel.roomId as keyof typeof ROOM_PRICES] ?? 0) * (sel.qty || 1) * nights,
+            0
+          )
+        : (ROOM_PRICES[roomId as keyof typeof ROOM_PRICES] ?? 0) * (roomCount || 1) * nights;
+
     const gstAmount = Math.round(baseAmount * GST_RATE);
     const totalAmount = baseAmount + gstAmount;
     const amountPaise = totalAmount * 100;
+
+    // Build a readable room summary for the DB / emails
+    const roomSummary =
+      selections && Array.isArray(selections) && selections.length > 1
+        ? (selections as Selection[])
+            .map((s) => `${s.qty > 1 ? `${s.qty}× ` : ""}${ROOM_NAMES[s.roomId as keyof typeof ROOM_NAMES] ?? s.roomId}`)
+            .join(", ")
+        : `${roomCount > 1 ? `${roomCount}× ` : ""}${ROOM_NAMES[roomId as keyof typeof ROOM_NAMES] ?? roomId}`;
 
     const supabase = getServerSupabase();
     const { data: booking, error: dbError } = await supabase
       .from("bookings")
       .insert({
         room_id: roomId,
-        room_name: ROOM_NAMES[roomId],
+        room_name: roomSummary,
         check_in: checkIn,
         check_out: checkOut,
         nights,
-        guests,
+        guests: totalGuests,
         guest_name: name,
         guest_email: email,
         guest_phone: phone,
@@ -51,11 +76,11 @@ export async function POST(req: NextRequest) {
       guestName: name,
       guestEmail: email,
       guestPhone: phone,
-      roomName: ROOM_NAMES[roomId],
+      roomName: roomSummary,
       checkIn,
       checkOut,
       nights,
-      guests,
+      guests: totalGuests,
       amount: totalAmount,
       specialRequests: special || null,
       razorpayPaymentId: null,
@@ -77,7 +102,7 @@ export async function POST(req: NextRequest) {
         userName: "Aneesh",
         templateParams: [
           name,
-          ROOM_NAMES[roomId],
+          roomSummary,
           checkIn,
           checkOut,
           phone,
