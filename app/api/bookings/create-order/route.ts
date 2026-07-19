@@ -56,36 +56,41 @@ export async function POST(req: NextRequest) {
       receipt: `vmp_${Date.now()}`,
     });
 
-    // Save draft booking to Supabase
-    const supabase = getServerSupabase();
-    const { data: booking, error: dbError } = await supabase
-      .from("bookings")
-      .insert({
-        room_id: roomId,
-        room_name: roomSummary,
-        check_in: checkIn,
-        check_out: checkOut,
-        nights,
-        guests: totalGuests,
-        guest_name: name,
-        guest_email: email,
-        guest_phone: phone,
-        special_requests: special || null,
-        amount_paise: amountPaise,
-        razorpay_order_id: order.id,
-        status: "pending",
-      })
-      .select("id")
-      .single();
-
-    if (dbError || !booking) {
-      console.error("Supabase insert error:", dbError);
-      return NextResponse.json({ error: "Failed to save booking" }, { status: 500 });
+    // Save draft booking to Supabase (non-fatal if unavailable)
+    let bookingId: string = `vmp_${order.id}`;
+    try {
+      const supabase = getServerSupabase();
+      const { data: booking, error: dbError } = await supabase
+        .from("bookings")
+        .insert({
+          room_id: roomId,
+          room_name: roomSummary,
+          check_in: checkIn,
+          check_out: checkOut,
+          nights,
+          guests: totalGuests,
+          guest_name: name,
+          guest_email: email,
+          guest_phone: phone,
+          special_requests: special || null,
+          amount_paise: amountPaise,
+          razorpay_order_id: order.id,
+          status: "pending",
+        })
+        .select("id")
+        .single();
+      if (dbError || !booking) {
+        console.warn("Supabase insert error (non-fatal):", dbError);
+      } else {
+        bookingId = booking.id;
+      }
+    } catch (supaErr) {
+      console.warn("Supabase unavailable (non-fatal):", supaErr);
     }
 
     return NextResponse.json({
       orderId: order.id,
-      bookingId: booking.id,
+      bookingId,
       keyId: process.env.RAZORPAY_KEY_ID,
     });
   } catch (err) {

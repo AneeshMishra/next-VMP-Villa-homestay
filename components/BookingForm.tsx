@@ -233,7 +233,19 @@ export default function BookingForm() {
             const confirmRes = await fetch("/api/bookings/confirm", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ bookingId, ...response }),
+              body: JSON.stringify({
+                bookingId,
+                ...response,
+                guestName: name.trim(),
+                guestEmail: email.trim(),
+                guestPhone: phone.trim(),
+                roomName: desc,
+                checkIn,
+                checkOut,
+                nights,
+                guests: adults + children,
+                amount: totalAmount,
+              }),
             });
             if (confirmRes.ok) {
               router.push(`/booking-confirmed?id=${bookingId}`);
