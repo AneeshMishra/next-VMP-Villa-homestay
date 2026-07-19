@@ -46,33 +46,38 @@ export async function POST(req: NextRequest) {
             .join(", ")
         : `${roomCount > 1 ? `${roomCount}× ` : ""}${ROOM_NAMES[roomId as keyof typeof ROOM_NAMES] ?? roomId}`;
 
-    const supabase = getServerSupabase();
-    const { data: booking, error: dbError } = await supabase
-      .from("bookings")
-      .insert({
-        room_id: roomId,
-        room_name: roomSummary,
-        check_in: checkIn,
-        check_out: checkOut,
-        nights,
-        guests: totalGuests,
-        guest_name: name,
-        guest_email: email,
-        guest_phone: phone,
-        special_requests: special || null,
-        amount_paise: amountPaise,
-        status: "pending",
-      })
-      .select("id")
-      .single();
-
-    if (dbError || !booking) {
-      console.error("Supabase insert error:", dbError);
-      return NextResponse.json({ error: "Failed to save booking" }, { status: 500 });
+    let bookingId: string = `vmp_${Date.now()}`;
+    try {
+      const supabase = getServerSupabase();
+      const { data: booking, error: dbError } = await supabase
+        .from("bookings")
+        .insert({
+          room_id: roomId,
+          room_name: roomSummary,
+          check_in: checkIn,
+          check_out: checkOut,
+          nights,
+          guests: totalGuests,
+          guest_name: name,
+          guest_email: email,
+          guest_phone: phone,
+          special_requests: special || null,
+          amount_paise: amountPaise,
+          status: "pending",
+        })
+        .select("id")
+        .single();
+      if (dbError || !booking) {
+        console.warn("Supabase insert error (non-fatal):", dbError);
+      } else {
+        bookingId = booking.id;
+      }
+    } catch (supaErr) {
+      console.warn("Supabase unavailable (non-fatal):", supaErr);
     }
 
     const emailData = {
-      bookingId: booking.id,
+      bookingId,
       guestName: name,
       guestEmail: email,
       guestPhone: phone,
@@ -111,7 +116,7 @@ export async function POST(req: NextRequest) {
       }).catch((e) => console.error("Host WhatsApp failed:", e)),
     ]);
 
-    return NextResponse.json({ success: true, bookingId: booking.id, payAtProperty: true });
+    return NextResponse.json({ success: true, bookingId, payAtProperty: true });
   } catch (err) {
     console.error("request booking error:", err);
     return NextResponse.json(
