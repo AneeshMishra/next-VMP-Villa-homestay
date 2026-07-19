@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { createClient } from "@supabase/supabase-js";
+import { verifyAdminToken } from "@/lib/admin-token";
 
 export type AdminRole = "super_admin" | "admin" | "maintainer" | "staff";
 
@@ -21,34 +21,19 @@ export function hasRole(user: AdminUser, min: AdminRole) {
   return ROLE_RANK[user.role] >= ROLE_RANK[min];
 }
 
-function getAdminSupabase() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-  return createClient(url, key, { auth: { persistSession: false } });
-}
-
-export async function getAdminUser(token?: string): Promise<AdminUser | null> {
+export async function getAdminUser(): Promise<AdminUser | null> {
   try {
-    const t = token ?? (await cookies()).get("admin-token")?.value;
-    if (!t) return null;
+    const token = (await cookies()).get("admin-token")?.value;
+    if (!token) return null;
 
-    const supabase = getAdminSupabase();
-    const { data: { user }, error } = await supabase.auth.getUser(t);
-    if (error || !user) return null;
-
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("full_name, role, is_active")
-      .eq("id", user.id)
-      .single();
-
-    if (!profile || !profile.is_active) return null;
+    const payload = verifyAdminToken(token);
+    if (!payload) return null;
 
     return {
-      id: user.id,
-      email: user.email!,
-      full_name: profile.full_name,
-      role: profile.role as AdminRole,
+      id: (payload.email as string) ?? "admin",
+      email: payload.email as string,
+      full_name: (payload.name as string) ?? "Admin",
+      role: (payload.role as AdminRole) ?? "super_admin",
     };
   } catch {
     return null;
