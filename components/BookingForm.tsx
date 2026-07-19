@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/i18n/navigation";
 import Script from "next/script";
 import { ROOMS, ROOM_CAPACITY } from "@/lib/constants";
-import { ROOM_PRICES, GST_RATE, ROOM_UNITS } from "@/lib/booking-config";
+import { ROOM_PRICES, GST_RATE, ROOM_UNITS, ROOM_NAMES } from "@/lib/booking-config";
 import { useCurrency } from "@/context/CurrencyContext";
 
 declare global {
@@ -289,7 +289,19 @@ export default function BookingForm() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Failed to submit booking request");
-      router.push(`/booking-confirmed?id=${data.bookingId}&mode=request`);
+      const selList2 = buildSelections();
+      const primId2 = primaryRoomId();
+      const roomLabel = selList2.length > 1
+        ? selList2.map((s) => `${s.qty > 1 ? `${s.qty}× ` : ""}${ROOM_NAMES[s.roomId] ?? s.roomId}`).join(", ")
+        : `${(selections[primId2] ?? 1) > 1 ? `${selections[primId2]}× ` : ""}${ROOM_NAMES[primId2] ?? primId2}`;
+      const qs = new URLSearchParams({
+        id: data.bookingId, mode: "request",
+        gn: name.trim(), ge: email.trim(),
+        rn: roomLabel, ci: checkIn, co: checkOut,
+        ni: String(nights), gu: String(adults + children),
+        am: String(totalAmount),
+      }).toString();
+      router.push(`/booking-confirmed?${qs}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
       setIsLoading(false);

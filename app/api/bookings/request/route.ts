@@ -98,6 +98,21 @@ export async function POST(req: NextRequest) {
       sendHostNotificationEmail(emailData).catch((e) =>
         console.error("Host email failed:", e)
       ),
+      // WhatsApp to guest
+      sendWhatsAppNotification({
+        phone,
+        campaignName: "booking_confirmation_guest",
+        userName: name,
+        templateParams: [
+          name,
+          roomSummary,
+          checkIn,
+          checkOut,
+          String(nights),
+          String(totalAmount),
+        ],
+      }).catch((e) => console.error("Guest WhatsApp failed:", e)),
+      // WhatsApp to host
       sendWhatsAppNotification({
         phone:
           process.env.HOST_WHATSAPP ??
